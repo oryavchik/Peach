@@ -1,7 +1,6 @@
 import uuid
 
 from httpx import AsyncClient
-
 from tests.tokens import make_token
 
 

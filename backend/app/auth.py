@@ -80,9 +80,7 @@ async def current_user(
     if not isinstance(sub, str) or not sub:
         raise _unauthorized()
 
-    result = await session.execute(
-        select(User).where(User.cognito_sub == sub)
-    )
+    result = await session.execute(select(User).where(User.cognito_sub == sub))
     user = result.scalar_one_or_none()
 
     email = claims.get("email")

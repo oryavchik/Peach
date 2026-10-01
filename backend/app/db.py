@@ -1,6 +1,6 @@
+import os
 from collections.abc import AsyncIterator
 from typing import Annotated
-import os
 
 import boto3
 from fastapi import Depends

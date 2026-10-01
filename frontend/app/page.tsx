@@ -126,9 +126,7 @@ export default function LoginPage() {
             variant="ghost"
             className="w-full"
             onClick={() =>
-              setMode((current) =>
-                current === "login" ? "signup" : "login",
-              )
+              setMode((current) => (current === "login" ? "signup" : "login"))
             }
           >
             {mode === "login"

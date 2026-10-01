@@ -16,9 +16,7 @@ class User(Base):
         primary_key=True,
         server_default=func.gen_random_uuid(),
     )
-    cognito_sub: Mapped[str] = mapped_column(
-        String(64), unique=True, nullable=False, index=True
-    )
+    cognito_sub: Mapped[str] = mapped_column(String(64), unique=True, nullable=False, index=True)
     email: Mapped[str] = mapped_column(String(320), nullable=False)
     name: Mapped[str] = mapped_column(String(255), nullable=False)
     created_at: Mapped[datetime] = mapped_column(

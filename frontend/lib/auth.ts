@@ -43,24 +43,21 @@ export async function signIn(
   email: string,
   password: string,
 ): Promise<Session> {
-  const response = await fetch(
-    `https://cognito-idp.${REGION}.amazonaws.com/`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-amz-json-1.1",
-        "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth",
-      },
-      body: JSON.stringify({
-        AuthFlow: "USER_PASSWORD_AUTH",
-        ClientId: CLIENT_ID,
-        AuthParameters: {
-          USERNAME: email,
-          PASSWORD: password,
-        },
-      }),
+  const response = await fetch(`https://cognito-idp.${REGION}.amazonaws.com/`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-amz-json-1.1",
+      "X-Amz-Target": "AWSCognitoIdentityProviderService.InitiateAuth",
     },
-  );
+    body: JSON.stringify({
+      AuthFlow: "USER_PASSWORD_AUTH",
+      ClientId: CLIENT_ID,
+      AuthParameters: {
+        USERNAME: email,
+        PASSWORD: password,
+      },
+    }),
+  });
 
   const body = await response.json();
 
@@ -99,25 +96,22 @@ export async function signUp(
   password: string,
   name: string,
 ): Promise<void> {
-  const response = await fetch(
-    `https://cognito-idp.${REGION}.amazonaws.com/`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-amz-json-1.1",
-        "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp",
-      },
-      body: JSON.stringify({
-        ClientId: CLIENT_ID,
-        Username: email,
-        Password: password,
-        UserAttributes: [
-          { Name: "email", Value: email },
-          { Name: "name", Value: name },
-        ],
-      }),
+  const response = await fetch(`https://cognito-idp.${REGION}.amazonaws.com/`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-amz-json-1.1",
+      "X-Amz-Target": "AWSCognitoIdentityProviderService.SignUp",
     },
-  );
+    body: JSON.stringify({
+      ClientId: CLIENT_ID,
+      Username: email,
+      Password: password,
+      UserAttributes: [
+        { Name: "email", Value: email },
+        { Name: "name", Value: name },
+      ],
+    }),
+  });
 
   const body = await response.json();
 
@@ -130,21 +124,18 @@ export async function confirmSignUp(
   email: string,
   code: string,
 ): Promise<void> {
-  const response = await fetch(
-    `https://cognito-idp.${REGION}.amazonaws.com/`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-amz-json-1.1",
-        "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp",
-      },
-      body: JSON.stringify({
-        ClientId: CLIENT_ID,
-        Username: email,
-        ConfirmationCode: code,
-      }),
+  const response = await fetch(`https://cognito-idp.${REGION}.amazonaws.com/`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-amz-json-1.1",
+      "X-Amz-Target": "AWSCognitoIdentityProviderService.ConfirmSignUp",
     },
-  );
+    body: JSON.stringify({
+      ClientId: CLIENT_ID,
+      Username: email,
+      ConfirmationCode: code,
+    }),
+  });
 
   const body = await response.json();
 
