@@ -41,11 +41,7 @@ jobs:
 
       - name: Get backend URL
         run: |
-          BACKEND_URL=$(aws cloudformation describe-stacks \
-            --stack-name "${PROJECT_NAME:-peach}-backend" \
-            --query "Stacks[0].Outputs[?OutputKey=='ApiUrl'].OutputValue" \
-            --output text)
-          echo "BACKEND_URL=$BACKEND_URL" >> "$GITHUB_ENV"
+          echo "BACKEND_URL=https://yyu4mxy3qfri2r4khkdpigthdu0pevrv.lambda-url.us-east-1.on.aws" >> "$GITHUB_ENV"
         env:
           PROJECT_NAME: ${{ vars.PROJECT_NAME }}
 
