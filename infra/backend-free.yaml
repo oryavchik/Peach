@@ -1,0 +1,149 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Peach backend using existing Aurora Express
+
+Parameters:
+  ProjectName:
+    Type: String
+    Default: peach
+
+  ImageUri:
+    Type: String
+
+  Architecture:
+    Type: String
+    Default: arm64
+    AllowedValues:
+      - arm64
+      - x86_64
+
+  CognitoUserPoolId:
+    Type: String
+
+  CognitoClientId:
+    Type: String
+
+  CognitoJwks:
+    Type: String
+
+  DbEndpoint:
+    Type: String
+
+  DbResourceId:
+    Type: String
+
+  DbUsername:
+    Type: String
+    Default: postgres
+
+  DbName:
+    Type: String
+    Default: postgres
+
+  CorsOrigins:
+    Type: String
+    Default: "*"
+
+Resources:
+
+  ExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - sts:AssumeRole
+
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+
+      Policies:
+        - PolicyName: AuroraExpressConnect
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - rds-db:connect
+                Resource: !Sub
+                  - "arn:aws:rds-db:${AWS::Region}:${AWS::AccountId}:dbuser:${ResourceId}/${Username}"
+                  - ResourceId: !Ref DbResourceId
+                    Username: !Ref DbUsername
+
+      Tags:
+        - Key: PROJECT_NAME
+          Value: !Ref ProjectName
+
+  Function:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: !Sub "${ProjectName}-backend"
+      Description: Peach FastAPI backend
+      PackageType: Image
+
+      Code:
+        ImageUri: !Ref ImageUri
+
+      Architectures:
+        - !Ref Architecture
+
+      MemorySize: 512
+      Timeout: 60
+
+      Role: !GetAtt ExecutionRole.Arn
+
+      Environment:
+        Variables:
+          APP_ENV: production
+          LOG_LEVEL: info
+          CORS_ORIGINS: !Ref CorsOrigins
+
+          COGNITO_REGION: !Ref AWS::Region
+          COGNITO_USER_POOL_ID: !Ref CognitoUserPoolId
+          COGNITO_CLIENT_ID: !Ref CognitoClientId
+          COGNITO_JWKS: !Ref CognitoJwks
+
+          DB_POOLING: "false"
+          DB_IAM_AUTH: "true"
+          DB_REGION: !Ref AWS::Region
+          DB_HOST: !Ref DbEndpoint
+          DB_PORT: "5432"
+          DB_USER: !Ref DbUsername
+          DB_NAME: !Ref DbName
+
+      Tags:
+        - Key: PROJECT_NAME
+          Value: !Ref ProjectName
+
+  FunctionUrl:
+    Type: AWS::Lambda::Url
+    Properties:
+      TargetFunctionArn: !Ref Function
+      AuthType: NONE
+
+  FunctionUrlPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref Function
+      Action: lambda:InvokeFunctionUrl
+      Principal: "*"
+      FunctionUrlAuthType: NONE
+
+  FunctionUrlInvokePermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref Function
+      Action: lambda:InvokeFunction
+      Principal: "*"
+      InvokedViaFunctionUrl: true
+
+Outputs:
+  ApiUrl:
+    Value: !GetAtt FunctionUrl.FunctionUrl
+
+  FunctionName:
+    Value: !Ref Function
