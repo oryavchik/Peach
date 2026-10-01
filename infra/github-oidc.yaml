@@ -79,7 +79,7 @@ Resources:
                 token.actions.githubusercontent.com:aud: sts.amazonaws.com
               StringLike:
                 # And without this, any repository on GitHub would do.
-                token.actions.githubusercontent.com:sub: !Sub "repo:${GitHubRepo}:${SubjectClaim}"
+                token.actions.githubusercontent.com:sub: "repo:oryavchik@245420091/Peach@1400082890:ref:refs/heads/main"
       Policies:
         # Deliberately not AdministratorAccess. Scoped to the services the
         # deploy actually drives, and to this project's names where the API
