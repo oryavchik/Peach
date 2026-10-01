@@ -1,0 +1,61 @@
+name: Deploy frontend
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-frontend
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: CloudFront
+    needs: []
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Assume the deploy role
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION || 'us-east-1' }}
+          role-session-name: gha-deploy-frontend-${{ github.run_id }}
+
+      - uses: pnpm/action-setup@v4
+        with:
+          package_json_file: frontend/package.json
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: frontend/pnpm-lock.yaml
+
+      - name: Get backend URL
+        run: |
+          BACKEND_URL=$(aws cloudformation describe-stacks \
+            --stack-name "${PROJECT_NAME:-peach}-backend" \
+            --query "Stacks[0].Outputs[?OutputKey=='ApiUrl'].OutputValue" \
+            --output text)
+          echo "BACKEND_URL=$BACKEND_URL" >> "$GITHUB_ENV"
+        env:
+          PROJECT_NAME: ${{ vars.PROJECT_NAME }}
+
+      - name: Deploy frontend
+        run: make deploy-frontend
+        env:
+          AWS_REGION: ${{ vars.AWS_REGION || 'us-east-1' }}
+          PROJECT_NAME: ${{ vars.PROJECT_NAME }}
+          BACKEND_URL: ${{ env.BACKEND_URL }}
+          COGNITO_REGION: ${{ vars.COGNITO_REGION }}
+          COGNITO_CLIENT_ID: ${{ vars.COGNITO_CLIENT_ID }}
+          COGNITO_DOMAIN: ${{ vars.COGNITO_DOMAIN }}
+          COGNITO_GOOGLE_ENABLED: ${{ vars.COGNITO_GOOGLE_ENABLED || 'false' }}
