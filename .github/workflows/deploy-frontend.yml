@@ -49,7 +49,7 @@ jobs:
         run: make deploy-frontend
         env:
           AWS_REGION: ${{ vars.AWS_REGION || 'us-east-1' }}
-          PROJECT_NAME: ${{ vars.PROJECT_NAME }}
+          PROJECT_NAME: peach
           BACKEND_URL: ${{ env.BACKEND_URL }}
           COGNITO_REGION: ${{ vars.COGNITO_REGION }}
           COGNITO_CLIENT_ID: ${{ vars.COGNITO_CLIENT_ID }}
