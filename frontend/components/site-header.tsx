@@ -2,7 +2,7 @@
 
 import { LogOut } from "lucide-react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { signOut, useSession } from "@/lib/auth";
@@ -15,7 +15,6 @@ const links = [
 
 export function SiteHeader() {
   const pathname = usePathname();
-  const router = useRouter();
   const session = useSession();
 
   return (
@@ -63,14 +62,13 @@ export function SiteHeader() {
               {session.name.charAt(0).toUpperCase()}
             </span>
             <span className="hidden text-sm text-muted-foreground sm:inline">
-              {session.email}
+              {session.name || session.email}
             </span>
             <Button
               variant="ghost"
               size="sm"
               onClick={() => {
-                signOut();
-                router.replace("/");
+                void signOut();
               }}
             >
               <LogOut data-icon="inline-start" className="size-4" />
