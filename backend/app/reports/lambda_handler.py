@@ -26,7 +26,7 @@ def handler(event, context):
     if "Records" in event:
         record = event["Records"][0]
         message = json.loads(record["body"])
-        source = message.get("source", "sqs")
+        source = "schedule" if message.get("source") == "schedule" else "sqs"
         week = message.get("week")
 
     week = week or previous_week()
