@@ -143,6 +143,58 @@ Resources:
         RoleArn: !GetAtt SchedulerRole.Arn
         Input: '{"source":"schedule"}'
 
+
+  ReportMailerRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Policies:
+        - PolicyName: MailerAccess
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action: s3:GetObject
+                Resource: !Sub "${ReportsBucket.Arn}/reports/*"
+              - Effect: Allow
+                Action:
+                  - ses:SendEmail
+                  - ses:SendRawEmail
+                Resource: "*"
+
+  ReportMailer:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: peach-report-mailer
+      PackageType: Image
+      Code:
+        ImageUri: 506126098984.dkr.ecr.us-east-1.amazonaws.com/peach-backend@sha256:59273568b42b0a6c95e58fb58cfe6ff43174250c4ec463edd395e66be9cb5fca
+      ImageConfig:
+        Command:
+          - app.reports.mailer.handler
+      Architectures:
+        - arm64
+      Role: !GetAtt ReportMailerRole.Arn
+      Timeout: 30
+      MemorySize: 256
+
+  ReportMailerPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref ReportMailer
+      Principal: s3.amazonaws.com
+      SourceAccount: !Ref AWS::AccountId
+      SourceArn: !GetAtt ReportsBucket.Arn
+
 Outputs:
   ReportsBuilderName:
     Value: !Ref ReportBuilder
