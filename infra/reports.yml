@@ -41,7 +41,111 @@ Resources:
       RouteTableIds:
         - rtb-05f63be5ef0440b79
 
+
+  ReportBuilderRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole
+      Policies:
+        - PolicyName: ReportsAccess
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:PutObject
+                Resource: !Sub "${ReportsBucket.Arn}/reports/*"
+              - Effect: Allow
+                Action:
+                  - sqs:ReceiveMessage
+                  - sqs:DeleteMessage
+                  - sqs:GetQueueAttributes
+                Resource: !GetAtt ReportsQueue.Arn
+
+  ReportBuilder:
+    Type: AWS::Lambda::Function
+    DependsOn: S3GatewayEndpoint
+    Properties:
+      FunctionName: peach-report-builder
+      PackageType: Image
+      Code:
+        ImageUri: 506126098984.dkr.ecr.us-east-1.amazonaws.com/peach-backend@sha256:b9034006eaa53bffecb273ec0ee21338910ea9cd6bf5f217e20af3c5fb471284
+      ImageConfig:
+        Command:
+          - app.reports.lambda_handler.handler
+      Architectures:
+        - arm64
+      Role: !GetAtt ReportBuilderRole.Arn
+      Timeout: 30
+      MemorySize: 512
+      VpcConfig:
+        SecurityGroupIds:
+          - sg-0594b79a6a59c8e79
+        SubnetIds:
+          - subnet-0a79e656ccbd43018
+          - subnet-09d34893c725a9f3d
+          - subnet-0926d5aeef6819cbe
+          - subnet-0b7a453d7e0f30ebe
+          - subnet-0e408246861281045
+      Environment:
+        Variables:
+          APP_ENV: production
+          DB_POOLING: "false"
+          DATABASE_URL: !Sub "{{resolve:secretsmanager:peach/backend/database-url:SecretString}}"
+          REPORTS_BUCKET: !Ref ReportsBucket
+
+  ReportsEventSource:
+    Type: AWS::Lambda::EventSourceMapping
+    Properties:
+      EventSourceArn: !GetAtt ReportsQueue.Arn
+      FunctionName: !Ref ReportBuilder
+      BatchSize: 1
+      Enabled: true
+
+  SchedulerRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: scheduler.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: SendReportsMessage
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action: sqs:SendMessage
+                Resource: !GetAtt ReportsQueue.Arn
+
+  WeeklySchedule:
+    Type: AWS::Scheduler::Schedule
+    Properties:
+      Name: peach-weekly-reports
+      ScheduleExpression: "cron(0 7 ? * MON *)"
+      ScheduleExpressionTimezone: Europe/Kyiv
+      FlexibleTimeWindow:
+        Mode: "OFF"
+      State: ENABLED
+      Target:
+        Arn: !GetAtt ReportsQueue.Arn
+        RoleArn: !GetAtt SchedulerRole.Arn
+        Input: '{"source":"schedule"}'
+
 Outputs:
+  ReportsBuilderName:
+    Value: !Ref ReportBuilder
   ReportsBucketName:
     Value: !Ref ReportsBucket
   ReportsQueueUrl:
