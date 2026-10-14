@@ -3,8 +3,6 @@ name: Deploy backend
 # Write "deploy" in a commit message on main and this ships the backend.
 # Nothing else on main triggers it, so ordinary commits stay cheap.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 # One deploy at a time, and never cancel one halfway: an interrupted
