@@ -84,3 +84,10 @@ destroy-frontend: ## Delete the frontend stack (bucket + distribution)
 
 github-role: ## Create the IAM role GitHub Actions assumes to deploy (OIDC, no keys)
 	./scripts/github-role.sh
+
+.PHONY: report-now
+report-now:
+	aws sqs send-message \
+		--queue-url https://sqs.us-east-1.amazonaws.com/506126098984/peach-reports-queue \
+		--message-body '{"week":"$(WEEK)","source":"manual"}' \
+		--region us-east-1
