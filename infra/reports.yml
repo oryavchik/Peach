@@ -1,0 +1,50 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Peach weekly reports infrastructure
+
+Resources:
+  ReportsBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub "peach-reports-${AWS::AccountId}-${AWS::Region}"
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      LifecycleConfiguration:
+        Rules:
+          - Id: DeleteOldReports
+            Status: Enabled
+            Prefix: reports/
+            ExpirationInDays: 90
+
+  ReportsDLQ:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: peach-reports-dlq
+
+  ReportsQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: peach-reports-queue
+      VisibilityTimeout: 180
+      RedrivePolicy:
+        deadLetterTargetArn: !GetAtt ReportsDLQ.Arn
+        maxReceiveCount: 3
+
+  S3GatewayEndpoint:
+    Type: AWS::EC2::VPCEndpoint
+    Properties:
+      VpcEndpointType: Gateway
+      VpcId: vpc-021d221c07e003f97
+      ServiceName: !Sub "com.amazonaws.${AWS::Region}.s3"
+      RouteTableIds:
+        - rtb-05f63be5ef0440b79
+
+Outputs:
+  ReportsBucketName:
+    Value: !Ref ReportsBucket
+  ReportsQueueUrl:
+    Value: !Ref ReportsQueue
+  ReportsDLQUrl:
+    Value: !Ref ReportsDLQ
