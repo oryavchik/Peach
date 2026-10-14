@@ -89,7 +89,7 @@ Resources:
       FunctionName: peach-report-builder
       PackageType: Image
       Code:
-        ImageUri: 506126098984.dkr.ecr.us-east-1.amazonaws.com/peach-backend@sha256:b9034006eaa53bffecb273ec0ee21338910ea9cd6bf5f217e20af3c5fb471284
+        ImageUri: 506126098984.dkr.ecr.us-east-1.amazonaws.com/peach-backend@sha256:ced1faeff529b6038b9afcbf709a4dcdea6bc469e8db02595693e8ad967fcb33
       ImageConfig:
         Command:
           - app.reports.lambda_handler.handler
@@ -188,7 +188,7 @@ Resources:
       FunctionName: peach-report-mailer
       PackageType: Image
       Code:
-        ImageUri: 506126098984.dkr.ecr.us-east-1.amazonaws.com/peach-backend@sha256:59273568b42b0a6c95e58fb58cfe6ff43174250c4ec463edd395e66be9cb5fca
+        ImageUri: 506126098984.dkr.ecr.us-east-1.amazonaws.com/peach-backend@sha256:ced1faeff529b6038b9afcbf709a4dcdea6bc469e8db02595693e8ad967fcb33
       ImageConfig:
         Command:
           - app.reports.mailer.handler
