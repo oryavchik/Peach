@@ -4,6 +4,7 @@ Description: Peach weekly reports infrastructure
 Resources:
   ReportsBucket:
     Type: AWS::S3::Bucket
+    DependsOn: ReportMailerPermission
     Properties:
       BucketName: !Sub "peach-reports-${AWS::AccountId}-${AWS::Region}"
       PublicAccessBlockConfiguration:
@@ -11,6 +12,17 @@ Resources:
         BlockPublicPolicy: true
         IgnorePublicAcls: true
         RestrictPublicBuckets: true
+      NotificationConfiguration:
+        LambdaConfigurations:
+          - Event: s3:ObjectCreated:*
+            Function: !GetAtt ReportMailer.Arn
+            Filter:
+              S3Key:
+                Rules:
+                  - Name: prefix
+                    Value: reports/
+                  - Name: suffix
+                    Value: .csv
       LifecycleConfiguration:
         Rules:
           - Id: DeleteOldReports
@@ -62,7 +74,7 @@ Resources:
               - Effect: Allow
                 Action:
                   - s3:PutObject
-                Resource: !Sub "${ReportsBucket.Arn}/reports/*"
+                Resource: !Sub "arn:${AWS::Partition}:s3:::peach-reports-${AWS::AccountId}-${AWS::Region}/reports/*"
               - Effect: Allow
                 Action:
                   - sqs:ReceiveMessage
@@ -163,7 +175,7 @@ Resources:
             Statement:
               - Effect: Allow
                 Action: s3:GetObject
-                Resource: !Sub "${ReportsBucket.Arn}/reports/*"
+                Resource: !Sub "arn:${AWS::Partition}:s3:::peach-reports-${AWS::AccountId}-${AWS::Region}/reports/*"
               - Effect: Allow
                 Action:
                   - ses:SendEmail
@@ -193,7 +205,7 @@ Resources:
       FunctionName: !Ref ReportMailer
       Principal: s3.amazonaws.com
       SourceAccount: !Ref AWS::AccountId
-      SourceArn: !GetAtt ReportsBucket.Arn
+      SourceArn: !Sub "arn:${AWS::Partition}:s3:::peach-reports-${AWS::AccountId}-${AWS::Region}"
 
 Outputs:
   ReportsBuilderName:
