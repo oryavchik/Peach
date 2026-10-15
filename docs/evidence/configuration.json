@@ -1,0 +1,51 @@
+{
+  "checked_at": "2026-10-15T12:52:58.550129+00:00",
+  "builder": {
+    "timeout": 60,
+    "vpc": "vpc-021d221c07e003f97",
+    "failure_injection_enabled": false
+  },
+  "mailer": {
+    "vpc": "",
+    "sender": "0689415525maria@gmail.com",
+    "recipients": "0689415525maria@gmail.com"
+  },
+  "api_and_builder_same_database": true,
+  "queue": {
+    "visibility_timeout": "360",
+    "redrive_policy": {
+      "deadLetterTargetArn": "arn:aws:sqs:us-east-1:506126098984:peach-reports-dlq",
+      "maxReceiveCount": 3
+    },
+    "ApproximateNumberOfMessages": "0",
+    "ApproximateNumberOfMessagesNotVisible": "0"
+  },
+  "dlq": {
+    "ApproximateNumberOfMessages": "0",
+    "ApproximateNumberOfMessagesNotVisible": "0"
+  },
+  "schedule": {
+    "State": "ENABLED",
+    "ScheduleExpression": "cron(0 7 ? * MON *)",
+    "ScheduleExpressionTimezone": "Europe/Kyiv"
+  },
+  "s3_public_access_block": {
+    "BlockPublicAcls": true,
+    "IgnorePublicAcls": true,
+    "BlockPublicPolicy": true,
+    "RestrictPublicBuckets": true
+  },
+  "s3_lifecycle": [
+    {
+      "Expiration": {
+        "Days": 90
+      },
+      "ID": "DeleteOldReports",
+      "Filter": {
+        "Prefix": "reports/"
+      },
+      "Status": "Enabled"
+    }
+  ],
+  "event_source": 1
+}

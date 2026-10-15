@@ -1,3 +1,4 @@
+from functools import lru_cache
 from typing import Annotated, Any
 
 import jwt
@@ -21,6 +22,11 @@ def _unauthorized(detail: str = "Invalid authentication credentials") -> HTTPExc
     )
 
 
+@lru_cache
+def _jwks_client(issuer: str) -> jwt.PyJWKClient:
+    return jwt.PyJWKClient(f"{issuer}/.well-known/jwks.json", timeout=5)
+
+
 def _decode_token(token: str) -> dict[str, Any]:
     settings = get_settings()
 
@@ -31,16 +37,21 @@ def _decode_token(token: str) -> dict[str, Any]:
         )
 
     try:
-        jwks_client = jwt.PyJWKSet.from_json(settings.cognito_jwks)
+        jwks_client = (
+            jwt.PyJWKSet.from_json(settings.cognito_jwks) if settings.cognito_jwks else None
+        )
         signing_key = None
 
         header = jwt.get_unverified_header(token)
         kid = header.get("kid")
 
-        for key in jwks_client.keys:
+        for key in jwks_client.keys if jwks_client else []:
             if key.key_id == kid:
                 signing_key = key.key
                 break
+
+        if jwks_client is None:
+            signing_key = _jwks_client(settings.cognito_issuer).get_signing_key_from_jwt(token).key
 
         if signing_key is None:
             raise _unauthorized()

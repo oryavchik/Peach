@@ -1,0 +1,6 @@
+/Applications/Docker.app/Contents/Resources/cli-plugins/docker-compose exec backend ruff check .
+All checks passed!
+/Applications/Docker.app/Contents/Resources/cli-plugins/docker-compose exec frontend pnpm lint
+
+> frontend@0.1.0 lint /app
+> eslint

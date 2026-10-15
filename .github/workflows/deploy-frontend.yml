@@ -52,6 +52,7 @@ jobs:
           PROJECT_NAME: peach
           BACKEND_URL: ${{ env.BACKEND_URL }}
           COGNITO_REGION: ${{ vars.COGNITO_REGION }}
+          COGNITO_USER_POOL_ID: ${{ vars.COGNITO_USER_POOL_ID }}
           COGNITO_CLIENT_ID: ${{ vars.COGNITO_CLIENT_ID }}
           COGNITO_DOMAIN: ${{ vars.COGNITO_DOMAIN }}
           COGNITO_GOOGLE_ENABLED: ${{ vars.COGNITO_GOOGLE_ENABLED || 'false' }}

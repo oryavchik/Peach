@@ -4,3 +4,6 @@ pnpm-lock.yaml
 next-env.d.ts
 tsconfig.tsbuildinfo
 public/
+
+.pnpm-store/
+out/

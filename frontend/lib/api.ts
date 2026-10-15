@@ -8,7 +8,9 @@ export function apiBaseUrl(): string {
   if (typeof window === "undefined") {
     return process.env.INTERNAL_API_URL ?? "http://backend:8000";
   }
-  return process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
+  return (
+    process.env.NEXT_PUBLIC_API_URL?.trim() || "http://localhost:8000"
+  ).replace(/\/+$/, "");
 }
 
 export class ApiError extends Error {
@@ -104,7 +106,43 @@ export type ItemInput = z.infer<typeof itemInputSchema>;
 
 /* --- endpoints --- */
 
+export const meetingSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  starts_at: z.string(),
+  duration_minutes: z.number().int(),
+  participant_count: z.number().int(),
+  created_at: z.string(),
+});
+export const meetingListSchema = z.object({
+  items: z.array(meetingSchema),
+  total: z.number().int(),
+});
+export const meetingStatsSchema = z.object({
+  week_start: z.string(),
+  week_end: z.string(),
+  meeting_count: z.number(),
+  total_hours: z.number(),
+  previous_meeting_count: z.number(),
+  previous_total_hours: z.number(),
+});
+export type Meeting = z.infer<typeof meetingSchema>;
+export type MeetingInput = Pick<
+  Meeting,
+  "title" | "starts_at" | "duration_minutes" | "participant_count"
+>;
+
 export const api = {
+  listMeetings: (offset = 0) =>
+    request(`/api/v1/meetings?limit=20&offset=${offset}`, meetingListSchema),
+  meetingStats: () => request("/api/v1/meetings/stats", meetingStatsSchema),
+  createMeeting: (payload: MeetingInput) =>
+    request("/api/v1/meetings", meetingSchema, {
+      method: "POST",
+      body: JSON.stringify(payload),
+    }),
+  deleteMeeting: (id: string) =>
+    request(`/api/v1/meetings/${id}`, z.undefined(), { method: "DELETE" }),
   readiness: () => request("/api/v1/health/ready", healthSchema),
 
   listItems: (params: { limit?: number; offset?: number } = {}) => {

@@ -45,12 +45,11 @@ aws sts get-caller-identity >/dev/null 2>&1 \
   || die "no usable AWS credentials - set AWS_PROFILE or the AWS_* keys in .env"
 
 # package.json pins pnpm, which may or may not be on PATH.
-if command -v pnpm >/dev/null 2>&1; then
+PINNED_PNPM="$(node -p "require('${APP}/package.json').packageManager.split('@')[1]")"
+if command -v pnpm >/dev/null 2>&1 && [[ "$(pnpm --version)" == "${PINNED_PNPM}" ]]; then
   PM=(pnpm)
-elif command -v corepack >/dev/null 2>&1; then
-  PM=(corepack pnpm)
 else
-  PM=(npx --yes pnpm@10)
+  PM=(npx --yes "pnpm@${PINNED_PNPM}")
 fi
 
 # --- which API does this build talk to? -------------------------------------
@@ -66,6 +65,16 @@ log "building against ${API_URL}"
 # The Cognito ids are compiled in too; without them nobody could sign in.
 [[ -n "${COGNITO_CLIENT_ID:-}" && -n "${COGNITO_DOMAIN:-}" ]] \
   || die "COGNITO_CLIENT_ID / COGNITO_DOMAIN are not set in .env - run make deploy-cognito first"
+
+# Older CI variables did not include the pool id. Reuse the deployed API's
+# public pool setting instead of silently signing into a hardcoded pool.
+if [[ -z "${COGNITO_USER_POOL_ID:-}" ]]; then
+  COGNITO_USER_POOL_ID="$(aws lambda get-function-configuration \
+    --function-name "${PROJECT_NAME}-backend" \
+    --query Environment.Variables.COGNITO_USER_POOL_ID --output text)"
+fi
+[[ -n "${COGNITO_USER_POOL_ID}" && "${COGNITO_USER_POOL_ID}" != "None" ]] \
+  || die "COGNITO_USER_POOL_ID is missing from .env and the deployed API"
 
 # The function URL is always HTTPS; plain HTTP here means a hand-edited .env.
 [[ "${API_URL}" == https://* ]] \
@@ -113,6 +122,7 @@ rm -rf "${APP}/out"
 (cd "${APP}" && NEXT_OUTPUT=export \
   NEXT_PUBLIC_API_URL="${API_URL}" \
   NEXT_PUBLIC_COGNITO_REGION="${COGNITO_REGION:-${AWS_REGION}}" \
+  NEXT_PUBLIC_COGNITO_USER_POOL_ID="${COGNITO_USER_POOL_ID}" \
   NEXT_PUBLIC_COGNITO_CLIENT_ID="${COGNITO_CLIENT_ID}" \
   NEXT_PUBLIC_COGNITO_DOMAIN="${COGNITO_DOMAIN}" \
   NEXT_PUBLIC_COGNITO_GOOGLE_ENABLED="${COGNITO_GOOGLE_ENABLED:-false}" \

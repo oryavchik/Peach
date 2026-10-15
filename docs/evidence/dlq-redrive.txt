@@ -1,0 +1,38 @@
+2026-10-15T12:33:57.959949+00:00 Controlled failure enabled for 2026-W42; temporary visibility=60
+2026-10-15T12:33:58.592855+00:00 Test command enqueued: 0040b535-5250-4fd0-8371-5b546fc9d1cd
+2026-10-15T12:33:59.301683+00:00 DLQ visible messages=0
+2026-10-15T12:34:15.052515+00:00 DLQ visible messages=0
+2026-10-15T12:34:30.867245+00:00 DLQ visible messages=0
+2026-10-15T12:34:46.608180+00:00 DLQ visible messages=0
+2026-10-15T12:35:02.343144+00:00 DLQ visible messages=0
+2026-10-15T12:35:18.130491+00:00 DLQ visible messages=0
+2026-10-15T12:35:34.524439+00:00 DLQ visible messages=0
+2026-10-15T12:35:50.261285+00:00 DLQ visible messages=0
+2026-10-15T12:36:06.013055+00:00 DLQ visible messages=0
+2026-10-15T12:36:21.730062+00:00 DLQ visible messages=0
+2026-10-15T12:36:37.468301+00:00 DLQ visible messages=0
+2026-10-15T12:36:53.212332+00:00 DLQ visible messages=0
+2026-10-15T12:37:08.939140+00:00 DLQ visible messages=0
+2026-10-15T12:37:24.643434+00:00 DLQ visible messages=0
+2026-10-15T12:37:40.353830+00:00 DLQ visible messages=0
+2026-10-15T12:37:56.095995+00:00 DLQ visible messages=0
+2026-10-15T12:38:11.896652+00:00 DLQ visible messages=0
+2026-10-15T12:38:27.599682+00:00 DLQ visible messages=0
+2026-10-15T12:38:43.344203+00:00 DLQ visible messages=0
+2026-10-15T12:38:59.080607+00:00 DLQ visible messages=0
+2026-10-15T12:39:14.831038+00:00 DLQ visible messages=0
+2026-10-15T12:39:30.639068+00:00 DLQ visible messages=0
+2026-10-15T12:39:46.357233+00:00 DLQ visible messages=0
+2026-10-15T12:40:02.143125+00:00 DLQ visible messages=0
+2026-10-15T12:40:17.885984+00:00 DLQ visible messages=0
+2026-10-15T12:40:33.636815+00:00 DLQ visible messages=0
+2026-10-15T12:40:49.357206+00:00 DLQ visible messages=0
+2026-10-15T12:41:05.108518+00:00 DLQ visible messages=0
+2026-10-15T12:41:20.804433+00:00 DLQ visible messages=0
+2026-10-15T12:41:36.542033+00:00 DLQ visible messages=0
+2026-10-15T12:41:52.260194+00:00 DLQ visible messages=0
+2026-10-15T12:42:15.487739+00:00 Restored visibility=360; failure injection disabled
+2026-10-15T12:43:29.759190+00:00 Initial 8-minute observer timed out before final DLQ poll; automatic cleanup restored settings. Follow-up confirms 1 message in DLQ after three failures.
+2026-10-15T12:43:30.527052+00:00 Redrive of the original test message started with failure injection disabled
+2026-10-15T12:43:31.177063+00:00 Move task reported COMPLETED with an initially stale moved counter=0; checking subsequent counters and handler logs
+2026-10-15T12:43:36+00:00 PASS: subsequent SQS counters confirm COMPLETED, moved=1; recovered builder uploaded W42; SES accepted message 010001a13f96e6c8-5f2e2288-3b4f-4884-b102-6882062b7377-000000

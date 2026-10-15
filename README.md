@@ -582,3 +582,50 @@ Compose, Dockerfiles, tooling, tests scaffolding — stays as is.
 
 The deliberate gaps, left for later: authentication and authorization, multi-tenancy, background
 workers, and a CI path for the frontend deploy.
+
+### Meetings dashboard
+
+Open `/meetings` after signing in. The dashboard creates, lists (20 per page),
+and deletes meetings belonging to the signed-in organizer. Enter the date and
+start/end times in your browser's local timezone; the API stores a timezone-aware
+start and a duration in the existing `meetings` table. End time must be after
+start time on the same day; participants must be at least one.
+
+Weekly cards use Monday 00:00 UTC through the following Monday, excluding the
+upper boundary, matching the existing CSV generator. Cards show your meetings;
+the existing report retains its application-wide scope. Meetings uses the existing
+table without an additional schema migration. Report deployment is described below.
+
+Local setup and verification:
+
+1. Start Docker Desktop. In the root `.env`, use a **local** `DATABASE_URL`
+   (for Compose: `postgresql+asyncpg://peach:peach@db:5432/peach`),
+   `NEXT_PUBLIC_API_URL=http://localhost:8000`, and
+   `CORS_ORIGINS=http://localhost:3000`. Retain your existing Cognito settings.
+   The frontend user pool setting must match the backend pool. Cognito must
+   already allow `http://localhost:3000/auth/callback/` and the local logout URL.
+2. Run `make up`, then `make migrate` (applies the existing `0004` meetings table).
+3. Visit `http://localhost:3000`, sign in, and open **Meetings**. Create a meeting
+   dated this week, refresh to verify persistence, check the weekly cards, and
+   delete it. Try another account to verify organizer isolation.
+4. Run `make test` and `make lint`. Backend tests create/drop tables only in the
+   dedicated test database; never set `TEST_DATABASE_URL` to a real application
+   database. The meeting integration test runs the CSV generator directly with
+   the test database session, without invoking SQS, S3, SES, or EventBridge.
+
+For a frontend running outside Docker: `cd frontend && pnpm dev`. Set its public
+API/Cognito environment variables in `frontend/.env.local` before starting.
+Public variables are baked into production builds; rebuild after changing them.
+Backend authentication uses supplied `COGNITO_JWKS` when present (as on Lambda),
+otherwise it caches public keys downloaded from the configured Cognito issuer.
+
+### Weekly reports lab submission
+
+See [docs/LAB_SUBMISSION.md](docs/LAB_SUBMISSION.md) for the report architecture,
+AWS evidence, DLQ/redrive verification, duplicate-email behavior, and written
+answers. `make deploy-reports` updates only the reports stack; supply
+`REPORT_IMAGE_URI`, `REPORT_SENDER`, and `REPORT_RECIPIENTS` in the environment
+or local `.env`. `scripts/deploy-reports.sh --prepare` creates a reviewable
+CloudFormation change set without executing it. Keep the report image pinned
+to an immutable digest. An owned SES domain is optional in the template; this
+lab instance uses the owner's verified Gmail address by explicit choice.

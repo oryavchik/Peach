@@ -46,4 +46,3 @@ class Meeting(Base):
         nullable=False,
         server_default=func.now(),
     )
-    

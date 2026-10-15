@@ -21,7 +21,8 @@ services:
   frontend:
     build:
       target: dev
-    command: pnpm dev
+    # Refresh dependencies in the persistent volume after package changes.
+    command: sh -c "CI=true pnpm install --frozen-lockfile && pnpm dev"
     environment:
       NODE_ENV: development
     volumes:

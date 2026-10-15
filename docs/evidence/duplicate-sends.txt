@@ -1,0 +1,25 @@
+2026-10-15T12:52:11.341360+00:00 Attempt 1: make report-now WEEK=2026-W42
+aws sqs send-message \
+		--queue-url https://sqs.us-east-1.amazonaws.com/506126098984/peach-reports-queue \
+		--message-body '{"week":"2026-W42","source":"manual"}' \
+		--region us-east-1
+{
+    "MD5OfMessageBody": "d1ad452f2f03e2669528935600ab65ea",
+    "MessageId": "be5c4dd0-5733-42d3-92af-c7c4e89fcce6"
+}
+
+2026-10-15T12:52:12.665981+00:00 Attempt 2: make report-now WEEK=2026-W42
+aws sqs send-message \
+		--queue-url https://sqs.us-east-1.amazonaws.com/506126098984/peach-reports-queue \
+		--message-body '{"week":"2026-W42","source":"manual"}' \
+		--region us-east-1
+{
+    "MD5OfMessageBody": "d1ad452f2f03e2669528935600ab65ea",
+    "MessageId": "cd27bd3b-1d04-4345-bf9e-c375031e1e2b"
+}
+
+
+Observed SES acceptances after the two commands:
+[INFO]	2026-10-15T12:52:18.968Z	83f82f46-f2c4-4672-8d78-aecb75af4036	email=accepted key=reports/2026-W42.csv ses_message_id=010001a13f9edf40-5518a2a5-f3b3-47f6-a367-d172271e6a9f-000000
+[INFO]	2026-10-15T12:52:19.294Z	57e5997c-bc79-4a95-8ac8-0c0b535aced0	email=accepted key=reports/2026-W42.csv ses_message_id=010001a13f9ee07f-635ec642-983d-46ec-8c27-96bb7489a3e2-000000
+New SES submissions: 2. S3 current keys for W42: 1.

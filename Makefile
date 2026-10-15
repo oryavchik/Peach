@@ -1,4 +1,10 @@
-COMPOSE := docker compose
+# Docker Desktop on macOS may be installed without CLI symlinks in PATH.
+ifneq ($(wildcard /Applications/Docker.app/Contents/Resources/bin/docker),)
+export PATH := $(PATH):/Applications/Docker.app/Contents/Resources/bin
+COMPOSE ?= /Applications/Docker.app/Contents/Resources/cli-plugins/docker-compose
+else
+COMPOSE ?= docker compose
+endif
 
 .PHONY: help up down build logs ps migrate revision test test-backend test-frontend lint fmt clean shell-backend shell-db deploy-cognito destroy-cognito deploy-backend destroy-backend logs-backend migrate-backend cert domain deploy-frontend destroy-frontend github-role
 
@@ -91,3 +97,7 @@ report-now:
 		--queue-url https://sqs.us-east-1.amazonaws.com/506126098984/peach-reports-queue \
 		--message-body '{"week":"$(WEEK)","source":"manual"}' \
 		--region us-east-1
+
+.PHONY: deploy-reports
+deploy-reports: ## Update the existing reports stack using REPORT_IMAGE_URI and REPORT_* email settings
+	./scripts/deploy-reports.sh
