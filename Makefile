@@ -101,3 +101,17 @@ report-now:
 .PHONY: deploy-reports
 deploy-reports: ## Update the existing reports stack using REPORT_IMAGE_URI and REPORT_* email settings
 	./scripts/deploy-reports.sh
+
+UV ?= $(if $(wildcard $(HOME)/.local/bin/uv),$(HOME)/.local/bin/uv,uv)
+.PHONY: llm-hello parse
+llm-hello: ## One short Bedrock Messages request; requires AWS login
+	cd backend && $(UV) run python -m app.ai.cli hello
+
+export TEXT
+export TODAY
+parse: ## Parse TEXT="..." using Bedrock without writing a meeting
+	cd backend && $(UV) run python -m app.ai.cli parse
+
+.PHONY: deploy-ai
+deploy-ai: ## Deploy the isolated parser (disabled by default) and $5 monthly budget
+	./scripts/deploy-ai.sh

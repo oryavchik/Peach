@@ -1,0 +1,26 @@
+Verified 2026-10-15 after deployment:
+
+API image: peach-backend@sha256:23b12d6cd62c79e3dddd29775d6ff05ddcfeed18375f1e2ed8c4a79bfaa32e9c
+API migration invoke: HTTP 200, {"status":"ok","migrated_to":"head"}
+AI CloudFormation stack: peach-ai, created successfully.
+Parser: peach-agenda-parser, Active, 30 seconds, 512 MB, no VPC.
+PARSER_ENABLED: false
+InferenceOnly role statement: Effect=Deny, Action=bedrock-mantle:CreateInference, Resource=*
+Monthly budget: peach-ai-lab-monthly-5usd, 5.0 USD.
+
+GET https://d2u4q6uy2ofop2.cloudfront.net/meetings/agenda -> 200
+GET API /health -> 200 {"status":"ok"}
+GET API /api/v1/meetings without token -> 401 {"detail":"Missing bearer token"}
+POST parser URL without token -> 401 {"error":"Sign in before parsing an agenda"}
+CloudFront invalidation IC354XTM2QTKPBEWVI86G3VV19 -> Completed
+
+Backend: 62 tests passed (including existing reports/auth tests).
+Frontend: 24 tests passed (including manual fallback, original suggestion preservation,
+per-field badge clearing, cancellation, and disabled AI).
+Ruff, ESLint, TypeScript and production static export passed.
+
+Limits of verification:
+No live successful Claude inference: owner declined the model agreement.
+No real five-case model evaluation or successful agenda_parsed CloudWatch line.
+No connected browser: signed-in deployed UI was not visually exercised or recorded.
+Unit test SDK responses are mocks and are not live model evidence.

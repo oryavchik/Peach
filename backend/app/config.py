@@ -18,6 +18,11 @@ class Settings(BaseSettings):
     # Off on Lambda: a warm but idle execution environment would otherwise hold
     # pooled connections open, and Aurora Serverless only pauses at zero.
     db_pooling: bool = True
+    parser_enabled: bool = False
+    parser_model: str = "anthropic.claude-opus-5-5"
+    # Regional endpoint estimates include the lab's 10% premium, USD / million tokens.
+    parser_input_price: float = Field(default=4.4, ge=0)
+    parser_output_price: float = Field(default=22.0, ge=0)
     reports_bucket: str = ""
     report_request_recipients: str = ""
     # NoDecode keeps pydantic-settings from JSON-parsing the env value, so the

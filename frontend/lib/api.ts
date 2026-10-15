@@ -178,3 +178,99 @@ export const api = {
   deleteItem: (id: string) =>
     request(`/api/v1/items/${id}`, z.undefined(), { method: "DELETE" }),
 };
+
+export const agendaSchema = z.object({
+  title: z.string().nullable(),
+  starts_at: z.string().nullable(),
+  duration_minutes: z.number().int().nullable(),
+  items: z.array(
+    z.object({
+      topic: z.string(),
+      owner: z.string().nullable(),
+      minutes: z.number().int().nullable(),
+    }),
+  ),
+  action_items: z.array(
+    z.object({
+      task: z.string(),
+      owner: z.string().nullable(),
+      due: z.string().nullable(),
+    }),
+  ),
+  language: z.string(),
+});
+export const suggestionSchema = z.object({
+  agenda: agendaSchema,
+  model: z.string(),
+  prompt_version: z.string(),
+  input_tokens: z.number().default(0),
+  output_tokens: z.number().default(0),
+  latency_ms: z.number().default(0),
+  cost_usd: z.number().default(0),
+});
+export type Agenda = z.infer<typeof agendaSchema>;
+export type AISuggestion = z.infer<typeof suggestionSchema>;
+const savedAgendaSchema = z.object({
+  meeting: meetingSchema,
+  agenda: agendaSchema.nullable(),
+  ai_suggestion: suggestionSchema.nullable(),
+});
+export const agendaApi = {
+  get: (id: string) =>
+    request(
+      `/api/v1/meetings/${encodeURIComponent(id)}/agenda`,
+      savedAgendaSchema,
+    ),
+  save: (id: string, agenda: Agenda, ai_suggestion: AISuggestion | null) =>
+    request(
+      `/api/v1/meetings/${encodeURIComponent(id)}/agenda`,
+      savedAgendaSchema,
+      { method: "POST", body: JSON.stringify({ agenda, ai_suggestion }) },
+    ),
+  parse: async (text: string, signal: AbortSignal): Promise<AISuggestion> => {
+    const url = process.env.NEXT_PUBLIC_AGENDA_PARSER_URL?.trim();
+    if (!url)
+      throw new ApiError(
+        503,
+        "AI parsing is not configured. You can enter the agenda by hand.",
+      );
+    const token = await getIdToken();
+    if (!token) throw new ApiError(401, "Sign in before parsing an agenda.");
+    const now = new Date();
+    const today = [
+      now.getFullYear(),
+      String(now.getMonth() + 1).padStart(2, "0"),
+      String(now.getDate()).padStart(2, "0"),
+    ].join("-");
+    let response: Response;
+    try {
+      response = await fetch(url, {
+        method: "POST",
+        signal,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          text,
+          today,
+          tz: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        }),
+      });
+    } catch (error) {
+      if (signal.aborted) throw error;
+      throw new ApiError(
+        0,
+        "Network failed. Try again or enter the agenda by hand.",
+      );
+    }
+    if (response.status === 401) signOut();
+    const body = await response.json().catch(() => ({}));
+    if (!response.ok)
+      throw new ApiError(
+        response.status,
+        body.error ?? "Parsing failed. Enter the agenda by hand.",
+      );
+    return suggestionSchema.parse(body);
+  },
+};

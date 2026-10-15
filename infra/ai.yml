@@ -1,0 +1,134 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Peach agenda suggestions, isolated from the database and reports
+Parameters:
+  ProjectName:
+    Type: String
+    Default: peach
+  ImageUri:
+    Type: String
+    Description: Immutable backend Lambda image URI
+  SiteOrigin:
+    Type: String
+    Default: https://d2u4q6uy2ofop2.cloudfront.net
+  CognitoPoolId:
+    Type: String
+  CognitoClientId:
+    Type: String
+  ParserEnabled:
+    Type: String
+    Default: "false"
+    AllowedValues: ["false", "true"]
+  ParserModel:
+    Type: String
+    Default: anthropic.claude-opus-5-5
+  InputPrice:
+    Type: Number
+    Default: 4.4
+    Description: Estimated USD per million input tokens, regional endpoint
+  OutputPrice:
+    Type: Number
+    Default: 22
+  BudgetEmail:
+    Type: String
+Conditions:
+  EnableInference: !Equals [!Ref ParserEnabled, "true"]
+Resources:
+  ParserRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal: {Service: lambda.amazonaws.com}
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Policies:
+        - PolicyName: InferenceOnly
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: !If [EnableInference, Allow, Deny]
+                Action: bedrock-mantle:CreateInference
+                Resource: '*'
+      Tags:
+        - {Key: PROJECT_NAME, Value: !Ref ProjectName}
+  ParserLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub /aws/lambda/${ProjectName}-agenda-parser
+      RetentionInDays: 14
+      Tags:
+        - {Key: PROJECT_NAME, Value: !Ref ProjectName}
+  Parser:
+    Type: AWS::Lambda::Function
+    DependsOn: ParserLogGroup
+    Properties:
+      FunctionName: !Sub ${ProjectName}-agenda-parser
+      PackageType: Image
+      Architectures: [arm64]
+      Code: {ImageUri: !Ref ImageUri}
+      ImageConfig: {Command: [app.ai.agenda_lambda.handler]}
+      Role: !GetAtt ParserRole.Arn
+      Timeout: 30
+      MemorySize: 512
+      Environment:
+        Variables:
+          APP_ENV: production
+          COGNITO_REGION: !Ref AWS::Region
+          COGNITO_USER_POOL_ID: !Ref CognitoPoolId
+          COGNITO_CLIENT_ID: !Ref CognitoClientId
+          PARSER_ENABLED: !Ref ParserEnabled
+          PARSER_MODEL: !Ref ParserModel
+          PARSER_INPUT_PRICE: !Ref InputPrice
+          PARSER_OUTPUT_PRICE: !Ref OutputPrice
+      Tags:
+        - {Key: PROJECT_NAME, Value: !Ref ProjectName}
+  ParserUrl:
+    Type: AWS::Lambda::Url
+    Properties:
+      TargetFunctionArn: !Ref Parser
+      AuthType: NONE
+      Cors:
+        AllowOrigins: [!Ref SiteOrigin]
+        AllowMethods: [POST]
+        AllowHeaders: [authorization, content-type]
+        MaxAge: 300
+  ParserUrlPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref Parser
+      Action: lambda:InvokeFunctionUrl
+      Principal: '*'
+      FunctionUrlAuthType: NONE
+  ParserInvokePermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref Parser
+      Action: lambda:InvokeFunction
+      Principal: '*'
+      InvokedViaFunctionUrl: true
+  MonthlyBudget:
+    Type: AWS::Budgets::Budget
+    Properties:
+      Budget:
+        BudgetName: !Sub ${ProjectName}-ai-lab-monthly-5usd
+        BudgetLimit: {Amount: 5, Unit: USD}
+        BudgetType: COST
+        TimeUnit: MONTHLY
+      NotificationsWithSubscribers:
+        - Notification:
+            NotificationType: ACTUAL
+            ComparisonOperator: GREATER_THAN
+            Threshold: 100
+            ThresholdType: PERCENTAGE
+          Subscribers:
+            - {SubscriptionType: EMAIL, Address: !Ref BudgetEmail}
+      ResourceTags:
+        - {Key: PROJECT_NAME, Value: !Ref ProjectName}
+Outputs:
+  ParserUrl:
+    Value: !GetAtt ParserUrl.FunctionUrl
+  ParserFunction:
+    Value: !Ref Parser

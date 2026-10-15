@@ -13,6 +13,7 @@ from app.auth import CurrentUser, _decode_token, bearer
 from app.config import get_settings
 from app.db import SessionDep
 from app.models import Meeting
+from app.schemas.agenda import AgendaSave
 from app.schemas.meeting import MeetingCreate, MeetingList, MeetingRead, MeetingStats
 from app.schemas.report import ReportRequest
 
@@ -147,3 +148,43 @@ async def request_weekly_report(
             status_code=503, detail="Could not queue report; please try again"
         ) from error
     return {"request_id": str(request.request_id), "week": request.week, "status": "queued"}
+
+
+@router.get("/{meeting_id}/agenda")
+async def get_agenda(meeting_id: uuid.UUID, session: SessionDep, user: CurrentUser):
+    meeting = await session.scalar(
+        select(Meeting).where(Meeting.id == meeting_id, Meeting.organizer_id == user.id)
+    )
+    if meeting is None:
+        raise HTTPException(status_code=404, detail="Meeting not found")
+    return {
+        "meeting": MeetingRead.model_validate(meeting),
+        "agenda": meeting.agenda,
+        "ai_suggestion": meeting.ai_suggestion,
+    }
+
+
+@router.post("/{meeting_id}/agenda")
+async def save_agenda(
+    meeting_id: uuid.UUID, payload: AgendaSave, session: SessionDep, user: CurrentUser
+):
+    meeting = await session.scalar(
+        select(Meeting).where(Meeting.id == meeting_id, Meeting.organizer_id == user.id)
+    )
+    if meeting is None:
+        raise HTTPException(status_code=404, detail="Meeting not found")
+    meeting.agenda = payload.agenda.model_dump(mode="json")
+    meeting.ai_suggestion = (
+        payload.ai_suggestion.model_dump(mode="json") if payload.ai_suggestion else None
+    )
+    # Only the user's checked values change meeting metadata and report statistics.
+    for field in ("title", "starts_at", "duration_minutes"):
+        value = getattr(payload.agenda, field)
+        if value is not None:
+            setattr(meeting, field, value)
+    await session.flush()
+    return {
+        "meeting": MeetingRead.model_validate(meeting),
+        "agenda": meeting.agenda,
+        "ai_suggestion": meeting.ai_suggestion,
+    }

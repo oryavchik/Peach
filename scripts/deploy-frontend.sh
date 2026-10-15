@@ -120,6 +120,8 @@ log "installing dependencies"
 log "building the static export"
 rm -rf "${APP}/out"
 (cd "${APP}" && NEXT_OUTPUT=export \
+  NEXT_PUBLIC_AGENDA_PARSER_URL="${AGENDA_PARSER_URL:-}" \
+  NEXT_PUBLIC_AGENDA_PARSER_ENABLED="${PARSER_ENABLED:-false}" \
   NEXT_PUBLIC_API_URL="${API_URL}" \
   NEXT_PUBLIC_COGNITO_REGION="${COGNITO_REGION:-${AWS_REGION}}" \
   NEXT_PUBLIC_COGNITO_USER_POOL_ID="${COGNITO_USER_POOL_ID}" \

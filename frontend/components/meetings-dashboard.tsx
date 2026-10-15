@@ -1,6 +1,7 @@
 "use client";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import Link from "next/link";
 import { CalendarDays, Clock, Users } from "lucide-react";
 import { useState, type FormEvent } from "react";
 
@@ -289,6 +290,12 @@ export function MeetingsDashboard() {
                     </td>
                     <td className="px-6 py-4">{meeting.participant_count}</td>
                     <td className="px-6 py-4">
+                      <Link
+                        className="mr-3 inline-block underline"
+                        href={`/meetings/agenda?meeting=${meeting.id}`}
+                      >
+                        Agenda
+                      </Link>
                       <Button
                         variant="outline"
                         size="sm"
