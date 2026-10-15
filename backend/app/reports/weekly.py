@@ -4,6 +4,7 @@ import asyncio
 import csv
 import io
 import re
+import uuid
 from datetime import UTC, date, datetime, timedelta
 
 from sqlalchemy import func, select
@@ -21,9 +22,11 @@ def week_bounds(week: str) -> tuple[datetime, datetime]:
     return start, start + timedelta(days=7)
 
 
-async def _generate_report(week: str) -> bytes:
+async def _generate_report(week: str, organizer_id: uuid.UUID | None = None) -> bytes:
     start, end = week_bounds(week)
     previous_start = start - timedelta(days=7)
+
+    scope = [] if organizer_id is None else [Meeting.organizer_id == organizer_id]
 
     async with SessionFactory() as session:
         result = await session.execute(
@@ -40,14 +43,14 @@ async def _generate_report(week: str) -> bytes:
                 ),
             )
             .join(Meeting, Meeting.organizer_id == User.id)
-            .where(Meeting.starts_at >= previous_start, Meeting.starts_at < end)
+            .where(Meeting.starts_at >= previous_start, Meeting.starts_at < end, *scope)
             .group_by(User.id, User.name)
             .order_by(User.name, User.id)
         )
         organizers = result.all()
         result = await session.scalars(
             select(Meeting)
-            .where(Meeting.starts_at >= start, Meeting.starts_at < end)
+            .where(Meeting.starts_at >= start, Meeting.starts_at < end, *scope)
             .order_by(Meeting.duration_minutes.desc(), Meeting.id)
             .limit(5)
         )
@@ -113,6 +116,6 @@ async def _generate_report(week: str) -> bytes:
     return output.getvalue().encode("utf-8-sig")
 
 
-def build_weekly_report(week: str) -> bytes:
+def build_weekly_report(week: str, organizer_id: uuid.UUID | None = None) -> bytes:
     """Query meetings for the specified week and return a UTF-8 CSV."""
-    return asyncio.run(_generate_report(week))
+    return asyncio.run(_generate_report(week, organizer_id))

@@ -20,6 +20,7 @@ def make_token(sub: str = "alice-sub", email: str = "alice@example.com") -> str:
     now = datetime.now(UTC)
     return jwt.encode(
         {
+            "email_verified": True,
             "sub": sub,
             "email": email,
             "name": email,

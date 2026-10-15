@@ -18,6 +18,8 @@ class Settings(BaseSettings):
     # Off on Lambda: a warm but idle execution environment would otherwise hold
     # pooled connections open, and Aurora Serverless only pauses at zero.
     db_pooling: bool = True
+    reports_bucket: str = ""
+    report_request_recipients: str = ""
     # NoDecode keeps pydantic-settings from JSON-parsing the env value, so the
     # validator below can accept the comma-separated form Compose passes.
     cors_origins: Annotated[list[str], NoDecode] = Field(

@@ -18,6 +18,8 @@ STACK="${REPORTS_STACK_NAME:-${PROJECT_NAME}-reports}"
 : "${REPORT_IMAGE_URI:?Set REPORT_IMAGE_URI to the built backend ECR image URI}"
 : "${REPORT_SENDER:?Set REPORT_SENDER to your SES-verified sender}"
 : "${REPORT_RECIPIENTS:?Set REPORT_RECIPIENTS to comma-separated verified addresses}"
+API_ROLE_ARN="$(aws lambda get-function-configuration --function-name "${PROJECT_NAME}-backend" --query Role --output text)"
+API_ROLE_NAME="${API_ROLE_ARN##*/}"
 CHANGE_SET="reports-$(date -u +%Y%m%d%H%M%S)"
 aws cloudformation validate-template --template-body "file://${ROOT}/infra/reports.yml" >/dev/null
 aws cloudformation create-change-set \
@@ -26,6 +28,7 @@ aws cloudformation create-change-set \
   --tags "Key=PROJECT_NAME,Value=${PROJECT_NAME}" \
   --parameters \
     "ParameterKey=ProjectName,ParameterValue=${PROJECT_NAME}" \
+    "ParameterKey=ApiExecutionRoleName,ParameterValue=${API_ROLE_NAME}" \
     "ParameterKey=ReportImageUri,ParameterValue=${REPORT_IMAGE_URI}" \
     "ParameterKey=ReportSender,ParameterValue=${REPORT_SENDER}" \
     "ParameterKey=ReportRecipients,ParameterValue=\"${REPORT_RECIPIENTS}\"" \

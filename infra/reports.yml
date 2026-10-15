@@ -5,6 +5,9 @@ Parameters:
   ProjectName:
     Type: String
     Default: peach
+  ApiExecutionRoleName:
+    Type: String
+    Description: Existing API Lambda execution role allowed to create request files
   ReportImageUri:
     Type: String
     Description: Immutable URI of the backend image containing both report handlers
@@ -31,7 +34,7 @@ Resources:
 
   ReportsBucket:
     Type: AWS::S3::Bucket
-    DependsOn: ReportMailerPermission
+    DependsOn: [ReportMailerPermission, ReportDispatcherPermission]
     Properties:
       BucketName: !Sub "peach-reports-${AWS::AccountId}-${AWS::Region}"
       PublicAccessBlockConfiguration:
@@ -50,12 +53,86 @@ Resources:
                     Value: reports/
                   - Name: suffix
                     Value: .csv
+          - Event: s3:ObjectCreated:*
+            Function: !GetAtt ReportDispatcher.Arn
+            Filter:
+              S3Key:
+                Rules:
+                  - Name: prefix
+                    Value: requests/
+                  - Name: suffix
+                    Value: .json
       LifecycleConfiguration:
         Rules:
           - Id: DeleteOldReports
             Status: Enabled
             Prefix: reports/
             ExpirationInDays: 90
+          - Id: DeleteRequests
+            Status: Enabled
+            Prefix: requests/
+            ExpirationInDays: 7
+
+  ApiReportRequestPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: PeachReportRequests
+      Roles: [!Ref ApiExecutionRoleName]
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Action: s3:PutObject
+            Resource: !Sub "arn:${AWS::Partition}:s3:::peach-reports-${AWS::AccountId}-${AWS::Region}/requests/*"
+
+  ReportDispatcherRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal: {Service: lambda.amazonaws.com}
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Policies:
+        - PolicyName: RequestDispatch
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action: s3:GetObject
+                Resource: !Sub "arn:${AWS::Partition}:s3:::peach-reports-${AWS::AccountId}-${AWS::Region}/requests/*"
+              - Effect: Allow
+                Action: sqs:SendMessage
+                Resource: !GetAtt ReportsQueue.Arn
+
+  ReportDispatcher:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: peach-report-dispatcher
+      PackageType: Image
+      Code: {ImageUri: !Ref ReportImageUri}
+      ImageConfig:
+        Command: [app.reports.dispatcher.handler]
+      Architectures: [arm64]
+      Role: !GetAtt ReportDispatcherRole.Arn
+      Timeout: 30
+      MemorySize: 256
+      Environment:
+        Variables:
+          REPORTS_BUCKET: !Sub "peach-reports-${AWS::AccountId}-${AWS::Region}"
+          REPORT_QUEUE_URL: !Ref ReportsQueue
+
+  ReportDispatcherPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref ReportDispatcher
+      Principal: s3.amazonaws.com
+      SourceAccount: !Ref AWS::AccountId
+      SourceArn: !Sub "arn:${AWS::Partition}:s3:::peach-reports-${AWS::AccountId}-${AWS::Region}"
 
   ReportsDLQ:
     Type: AWS::SQS::Queue

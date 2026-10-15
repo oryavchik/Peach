@@ -1,5 +1,6 @@
 import csv
 import io
+import uuid
 from datetime import UTC, datetime, timedelta
 
 import pytest
@@ -141,3 +142,10 @@ async def test_report_includes_previous_only_organizers_and_top_five(client, ses
     assert bob_row[2:] == ["0", "0.0", "1", "2.0", "-1", "-2.0"]
     top = rows[rows.index(["Title", "Start", "Duration (minutes)", "Participants"]) + 1 :]
     assert [row[0] for row in top] == [f"Meeting {minutes}" for minutes in [60, 50, 40, 30, 20]]
+
+    personal = await weekly._generate_report(f"{year}-W{week:02d}", uuid.UUID(bob_row[0]))
+    personal_rows = list(csv.reader(io.StringIO(personal.decode("utf-8-sig"))))
+    assert ["Total meetings", "0"] in personal_rows
+    assert ["Previous week hours", "2.0"] in personal_rows
+    assert not any("alice@example.com" in row for row in personal_rows)
+    assert not any(row and row[0].startswith("Meeting ") for row in personal_rows)

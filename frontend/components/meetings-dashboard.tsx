@@ -28,6 +28,7 @@ export function MeetingsDashboard() {
       queryClient.invalidateQueries({ queryKey: ["meeting-stats"] }),
     ]);
   }
+  const report = useMutation({ mutationFn: api.requestMeetingReport });
   const create = useMutation({
     mutationFn: api.createMeeting,
     onSuccess: refresh,
@@ -82,7 +83,25 @@ export function MeetingsDashboard() {
         icon="📅"
         title="Meetings"
         description="Make room for better conversations. Plan your meetings and keep track of your week."
+        action={
+          <Button disabled={report.isPending} onClick={() => report.mutate()}>
+            {report.isPending
+              ? "Requesting report…"
+              : "Send me this week's report"}
+          </Button>
+        }
       />
+      {report.isSuccess && (
+        <p role="status" className="text-sm text-muted-foreground">
+          Report requested for {report.data.week}. Your personal CSV will be
+          emailed to your verified account address.
+        </p>
+      )}
+      {report.error && (
+        <p role="alert" className="text-sm text-destructive">
+          {report.error.message}
+        </p>
+      )}
       {error && (
         <div
           role="alert"

@@ -68,7 +68,7 @@ async function request<T>(
   return schema.parse(await response.json());
 }
 
-/* --- schemas mirroring the API contract in README section 5 --- */
+/* --- schemas mirroring the API contract --- */
 
 export const itemStatuses = ["todo", "in_progress", "done"] as const;
 export const itemStatusSchema = z.enum(itemStatuses);
@@ -133,6 +133,16 @@ export type MeetingInput = Pick<
 >;
 
 export const api = {
+  requestMeetingReport: () =>
+    request(
+      "/api/v1/meetings/report",
+      z.object({
+        request_id: z.string(),
+        week: z.string(),
+        status: z.literal("queued"),
+      }),
+      { method: "POST" },
+    ),
   listMeetings: (offset = 0) =>
     request(`/api/v1/meetings?limit=20&offset=${offset}`, meetingListSchema),
   meetingStats: () => request("/api/v1/meetings/stats", meetingStatsSchema),

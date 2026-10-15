@@ -27,17 +27,24 @@ def handler(event, context):
         if not key.startswith("reports/") or not key.endswith(".csv"):
             continue
 
-        csv_data = s3.get_object(Bucket=bucket, Key=key)["Body"].read()
+        obj = s3.get_object(Bucket=bucket, Key=key)
+        destination = recipients
+        if key.startswith("reports/users/"):
+            recipient = obj.get("Metadata", {}).get("recipient")
+            if not recipient or "\r" in recipient or "\n" in recipient:
+                raise ValueError("Personal report requires recipient metadata")
+            destination = [recipient]
+        csv_data = obj["Body"].read()
         filename = key.rsplit("/", 1)[-1]
         message = EmailMessage()
         message["Subject"] = f"Peach weekly report: {filename}"
         message["From"] = sender
-        message["To"] = ", ".join(recipients)
+        message["To"] = ", ".join(destination)
         message.set_content("Your weekly Peach report is attached.")
         message.add_attachment(csv_data, maintype="text", subtype="csv", filename=filename)
         result = ses.send_email(
             FromEmailAddress=sender,
-            Destination={"ToAddresses": recipients},
+            Destination={"ToAddresses": destination},
             Content={"Raw": {"Data": message.as_bytes()}},
         )
         # SES acceptance is observable; inbox delivery still requires delivery events

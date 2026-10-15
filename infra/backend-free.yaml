@@ -98,6 +98,7 @@ Resources:
 
       Environment:
         Variables:
+          REPORTS_BUCKET: !Sub "${ProjectName}-reports-${AWS::AccountId}-${AWS::Region}"
           APP_ENV: production
           LOG_LEVEL: info
           CORS_ORIGINS: !Ref CorsOrigins

@@ -9,6 +9,7 @@ from zoneinfo import ZoneInfo
 import boto3
 
 from app.reports.weekly import build_weekly_report
+from app.schemas.report import ReportRequest
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -27,13 +28,21 @@ def _build(message: dict, trigger: str) -> dict[str, str]:
     # Disabled by default. Used only for the lab's controlled failure/redrive test.
     if os.environ.get("REPORT_FAIL_WEEK") == week:
         raise RuntimeError(f"Controlled DLQ test failure for {week}")
-    csv_data = build_weekly_report(week)
+    metadata = {}
+    if "request_id" in message:
+        request = ReportRequest.model_validate(message)
+        csv_data = build_weekly_report(week, organizer_id=request.organizer_id)
+        key = f"reports/users/{request.organizer_id}/{request.request_id}/{week}.csv"
+        metadata = {"recipient": request.recipient}
+    else:
+        csv_data = build_weekly_report(week)
+        key = f"reports/{week}.csv"
     bucket = os.environ["REPORTS_BUCKET"]
-    key = f"reports/{week}.csv"
     boto3.client("s3").put_object(
         Bucket=bucket,
         Key=key,
         Body=csv_data,
+        Metadata=metadata,
         ContentType="text/csv; charset=utf-8",
     )
     logger.info("report_uploaded=%s", key)

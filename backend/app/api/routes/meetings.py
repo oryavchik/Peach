@@ -2,13 +2,19 @@ import uuid
 from datetime import UTC, datetime, timedelta
 from typing import Annotated
 
-from fastapi import APIRouter, HTTPException, Query, Response
+import boto3
+from botocore.exceptions import BotoCoreError, ClientError
+from fastapi import APIRouter, Depends, HTTPException, Query, Response
+from fastapi.security import HTTPAuthorizationCredentials
 from sqlalchemy import func, select
+from starlette.concurrency import run_in_threadpool
 
-from app.auth import CurrentUser
+from app.auth import CurrentUser, _decode_token, bearer
+from app.config import get_settings
 from app.db import SessionDep
 from app.models import Meeting
 from app.schemas.meeting import MeetingCreate, MeetingList, MeetingRead, MeetingStats
+from app.schemas.report import ReportRequest
 
 router = APIRouter(prefix="/meetings", tags=["meetings"])
 
@@ -93,3 +99,51 @@ async def delete_meeting(
     await session.delete(meeting)
     await session.flush()
     return Response(status_code=204)
+
+
+@router.post("/report", status_code=202)
+async def request_weekly_report(
+    session: SessionDep,
+    user: CurrentUser,
+    credentials: Annotated[HTTPAuthorizationCredentials | None, Depends(bearer)],
+) -> dict[str, str]:
+    bucket = get_settings().reports_bucket
+    if not bucket:
+        raise HTTPException(status_code=503, detail="Report requests are not configured")
+    if (
+        credentials is None
+        or _decode_token(credentials.credentials).get("email_verified") is not True
+    ):
+        raise HTTPException(status_code=403, detail="Verify your email before requesting a report")
+    allowed = {
+        email.strip().lower()
+        for email in get_settings().report_request_recipients.split(",")
+        if email.strip()
+    }
+    if allowed and user.email.lower() not in allowed:
+        raise HTTPException(
+            status_code=403, detail="Email reports are not enabled for your address"
+        )
+    year, week, _ = datetime.now(UTC).isocalendar()
+    request = ReportRequest(
+        request_id=uuid.uuid4(),
+        organizer_id=user.id,
+        recipient=user.email,
+        week=f"{year}-W{week:02d}",
+    )
+    # Persist a first-login user before the asynchronous builder queries its meetings.
+    await session.commit()
+    try:
+        await run_in_threadpool(
+            lambda: boto3.client("s3").put_object(
+                Bucket=bucket,
+                Key=request.key,
+                Body=request.model_dump_json().encode(),
+                ContentType="application/json",
+            )
+        )
+    except (BotoCoreError, ClientError) as error:
+        raise HTTPException(
+            status_code=503, detail="Could not queue report; please try again"
+        ) from error
+    return {"request_id": str(request.request_id), "week": request.week, "status": "queued"}

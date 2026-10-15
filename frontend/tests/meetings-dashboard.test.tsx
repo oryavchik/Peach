@@ -111,3 +111,20 @@ describe("MeetingsDashboard", () => {
     expect(await screen.findByText(/No meetings yet/)).toBeInTheDocument();
   });
 });
+
+it("requests a personal weekly report and shows acceptance", async () => {
+  mockData([]);
+  const send = vi.spyOn(api, "requestMeetingReport").mockResolvedValue({
+    request_id: "request-1",
+    week: "2026-W42",
+    status: "queued",
+  });
+  renderWithQuery(<MeetingsDashboard />);
+  await userEvent.click(
+    screen.getByRole("button", { name: "Send me this week's report" }),
+  );
+  await waitFor(() => expect(send).toHaveBeenCalled());
+  expect(
+    await screen.findByText(/Your personal CSV will be emailed/),
+  ).toBeInTheDocument();
+});

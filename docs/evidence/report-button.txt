@@ -1,0 +1,5 @@
+Personal report button: local authenticated API and UI tests passed; live S3-request flow tested with an empty random organizer scope to the approved Gmail recipient.
+[INFO]	2026-10-15T13:20:32.444Z	1367b33a-a079-443a-8538-c253b2c88d23	trigger=s3-request request_id=99940513-bcea-4daa-a8af-20722607c77a week=2026-W42
+[INFO]	2026-10-15T13:20:34.693Z	82a65537-712f-5b64-ba35-367da47bf244	report_uploaded=reports/users/b8006934-bbd6-4bfd-b8c9-6cdc46dedadb/99940513-bcea-4daa-a8af-20722607c77a/2026-W42.csv
+[INFO]	2026-10-15T13:20:37.849Z	ff2649dd-415a-4e01-ae2e-1670d2b9810a	trigger=s3 bucket=peach-reports-506126098984-us-east-1 key=reports/users/b8006934-bbd6-4bfd-b8c9-6cdc46dedadb/99940513-bcea-4daa-a8af-20722607c77a/2026-W42.csv
+[INFO]	2026-10-15T13:20:38.440Z	ff2649dd-415a-4e01-ae2e-1670d2b9810a	email=accepted key=reports/users/b8006934-bbd6-4bfd-b8c9-6cdc46dedadb/99940513-bcea-4daa-a8af-20722607c77a/2026-W42.csv ses_message_id=010001a13fb8cdd1-d3684ccd-c42f-4821-9665-9a10d113070b-000000

@@ -279,6 +279,7 @@ Resources:
       Environment:
         Variables:
           APP_ENV: !Ref AppEnv
+          REPORTS_BUCKET: !Sub "${ProjectName}-reports-${AWS::AccountId}-${AWS::Region}"
           LOG_LEVEL: !Ref LogLevel
           CORS_ORIGINS: !Ref CorsOrigins
           COGNITO_REGION: !Ref AWS::Region
