@@ -1,0 +1,15 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "peach-agenda-free",
+  "main": "worker.js",
+  "compatibility_date": "2026-10-28",
+  "workers_dev": true,
+  "account_id": "ca1ed3fd7760b7ae472ea04848e316c7",
+  "assets": { "directory": "./public", "binding": "ASSETS", "run_worker_first": true },
+  "observability": { "enabled": true, "head_sampling_rate": 1 },
+  "d1_databases": [{
+    "binding": "DB",
+    "database_name": "peach-agenda-free",
+    "database_id": "75d6648f-5b1a-4200-a4f4-aa9f8d3a2bc1"
+  }]
+}

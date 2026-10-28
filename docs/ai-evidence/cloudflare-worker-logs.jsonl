@@ -1,0 +1,5 @@
+{"event":"agenda_parsed","user":"owner","model":"cohere/north-mini-code:free","prompt_version":"agenda-v2","input_tokens":982,"output_tokens":134,"latency_ms":1614,"cost_usd":0,"status":200}
+{"event":"agenda_parsed","user":"owner","model":"cohere/north-mini-code:free","prompt_version":"agenda-v2","input_tokens":964,"output_tokens":91,"latency_ms":2666,"cost_usd":0,"status":200}
+{"event":"agenda_parsed","user":"owner","model":"cohere/north-mini-code:free","prompt_version":"agenda-v2","input_tokens":924,"output_tokens":72,"latency_ms":1046,"cost_usd":0,"status":200}
+{"event":"agenda_parsed","user":"owner","model":"cohere/north-mini-code:free","prompt_version":"agenda-v2","input_tokens":906,"output_tokens":13,"latency_ms":1319,"cost_usd":0,"status":422}
+{"event":"agenda_parsed","user":"owner","model":"cohere/north-mini-code:free","prompt_version":"agenda-v2","input_tokens":940,"output_tokens":83,"latency_ms":1140,"cost_usd":0,"status":200}

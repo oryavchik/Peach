@@ -1,5 +1,29 @@
 # Peach — container diagram (C4 level 2)
 
+The original AWS architecture is shown below. A separately deployed free-cloud
+lab demonstration now exists at
+https://peach-agenda-free.peach-free-cloud-demo.workers.dev/ . Its containers are:
+
+```mermaid
+flowchart LR
+  person[Person: demo owner]
+  ui[Container: Cloudflare static browser UI]
+  cf[Container: Worker API\nSigned session, parse and validated Save]
+  router[External system: OpenRouter\ncohere/north-mini-code:free]
+  d1[(Container: D1\nMeetings, final agenda, original suggestion)]
+  person --> ui
+  ui -->|Parse text, today, tz + session| cf
+  cf -->|record_agenda tool| router
+  router -->|Suggestion only| cf
+  cf -->|Validated pre-filled fields| ui
+  ui -->|Save corrected form + original suggestion| cf
+  cf -->|Prepared owner-scoped SQL on Save only| d1
+```
+
+This single-owner demonstration does not call AWS or migrate existing records.
+It is an explicit alternative to the AWS lab architecture, not a replacement
+of the original application.
+
 ```mermaid
 flowchart LR
     user[Person: Peach user]

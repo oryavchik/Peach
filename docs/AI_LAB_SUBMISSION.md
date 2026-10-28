@@ -1,5 +1,13 @@
 # Agenda parsing lab — implementation and remaining evidence
 
+Cloud-hosted free demo is now deployed without AWS dependencies:
+https://peach-agenda-free.peach-free-cloud-demo.workers.dev/ .
+See [CLOUDFLARE_DEMO.md](CLOUDFLARE_DEMO.md) for login/recording instructions
+and [deployed evaluation](ai-evidence/CLOUDFLARE_EVALUATION.md) for five actual
+API results, persistent correction checks and real Cloudflare Worker logs.
+It is a standalone single-owner demo, not a migration of the whole Peach app.
+Browser recording and lecturer approval of the non-AWS alternative remain pending.
+
 Free-cloud alternative added and exercised at the owner's request: see
 [FREE_AI.md](FREE_AI.md) and the measured
 [FREE_EVALUATION.md](ai-evidence/FREE_EVALUATION.md). The final five API tests

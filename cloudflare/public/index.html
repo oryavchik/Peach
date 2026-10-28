@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Peach — Paste an agenda</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+<header><a href="/" class="brand">peach<span>●</span></a><span class="tag">Meeting agendas</span><button id="logout" hidden>Вийти</button></header>
+<main>
+  <section id="login" hidden class="card login">
+    <p class="eyebrow">WELCOME TO PEACH</p><h1>Більше змісту.<br>Менше рутини.</h1>
+    <p>Перетвори текст листа чи повідомлення на план зустрічі.</p>
+    <form id="login-form"><label>Пароль демонстрації<input id="password" type="password" autocomplete="current-password" required></label><button class="primary">Увійти</button></form>
+  </section>
+  <section id="workspace" hidden>
+    <div class="intro"><div><p class="eyebrow">MAKE ROOM FOR BETTER CONVERSATIONS</p><h1>Твоя наступна<br>вдала зустріч.</h1><p>Встав текст. Перевір пропозицію. Збережи свій план.</p></div><div class="orb">✳</div></div>
+    <div class="layout">
+      <aside class="card"><h2>Зустрічі</h2><form id="new-meeting"><label>Назва нової зустрічі<input id="meeting-title" maxlength="200" placeholder="Наприклад, Pricing review" required></label><button class="primary">Створити зустріч</button></form><div id="meetings"></div></aside>
+      <section class="card editor">
+        <div id="choose"><h2>Почни із зустрічі</h2><p>Створи зустріч або вибери збережену зліва.</p></div>
+        <div id="editing" hidden>
+          <p class="eyebrow">PASTE → CHECK → SAVE</p><h2 id="selected-title"></h2>
+          <label>Paste an agenda<textarea id="pasted" rows="5" maxlength="10000" placeholder="Встав текст листа, повідомлення або нотаток…"></textarea></label>
+          <div class="actions"><button id="parse" class="primary">Parse</button><button id="cancel" hidden>Cancel</button><span id="progress" role="status"></span></div>
+          <p class="hint">AI пропонує, ти вирішуєш. Перевір дати, відповідальних і тривалість.</p>
+          <form id="agenda-form">
+            <div class="fields"><label>Назва<input data-field="title"></label><label>Початок з часовим поясом<input data-field="starts_at" placeholder="2026-11-02T10:00:00+02:00"></label><label>Тривалість, хв<input data-field="duration_minutes" type="number" min="1" max="600"></label><label>Мова<input data-field="language" placeholder="uk"></label></div>
+            <div class="section-title"><h3>Agenda items</h3><button id="add-item" type="button">+ Пункт</button></div><div id="items"></div>
+            <div class="section-title"><h3>Action items</h3><button id="add-action" type="button">+ Задача</button></div><div id="action-items"></div>
+            <div class="actions save"><button id="save" class="primary">Save agenda</button><span id="saved" role="status"></span></div>
+          </form>
+          <details id="provenance" hidden><summary>Початкова AI-пропозиція</summary><pre id="original"></pre></details>
+        </div>
+      </section>
+    </div>
+  </section>
+  <div id="error" class="error" role="alert" hidden></div>
+</main>
+<footer>Peach · Free cloud edition · Спочатку перевір, потім збережи.</footer>
+</body></html>

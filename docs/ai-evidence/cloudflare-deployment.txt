@@ -1,0 +1,32 @@
+Verified 2026-10-28 (Europe/Kyiv).
+
+Public URL: https://peach-agenda-free.peach-free-cloud-demo.workers.dev/
+Worker: peach-agenda-free
+Version: 45dc921d-29e6-4bc6-a7b9-48b474bcb4a3
+D1: peach-agenda-free, region EEUR
+Worker startup: 57 ms
+
+Node tests: 4 passed (calendar context, agenda validation, unsigned request,
+cross-origin mutation rejection).
+HTTPS root: HTTP 200; security headers checked.
+Unauthorized /api/me: 401.
+Demo password login: 200.
+Five deployed API test cases: 200, 200, 200, 422, 200.
+Inference: only cohere/north-mini-code:free; cost_usd=0.
+Correction: first item's 15 minutes changed to 20; Save returned 200.
+Read-back: corrected 20 persisted, original suggestion still 15.
+Real Worker logs: cloudflare-worker-logs.jsonl.
+Full JSON: cloudflare-results.json.
+Assessment: CLOUDFLARE_EVALUATION.md.
+
+No model weights, AWS deployment or paid model fallback.
+No paid Cloudflare subscription was activated by these commands.
+Billing API plan inspection returned 403 with the current OAuth token;
+account subscriptions could not be independently listed through that API.
+Existing AWS resources are not stopped by this deployment and may retain
+their pre-existing charges independently of this Cloudflare demo.
+
+Limits: single owner, separate demo database, no AWS data migration.
+No connected automated browser; visual/authenticated UI workflow and video
+are not claimed as verified. End-to-end verification above used the public API.
+Cloudflare logs are not CloudWatch. Lecturer approval of the alternative remains.

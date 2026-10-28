@@ -1,0 +1,162 @@
+{
+  "$defs": {
+    "ActionItem": {
+      "additionalProperties": false,
+      "properties": {
+        "task": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Task",
+          "type": "string"
+        },
+        "owner": {
+          "anyOf": [
+            {
+              "maxLength": 200,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Owner"
+        },
+        "due": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Due"
+        }
+      },
+      "required": [
+        "task"
+      ],
+      "title": "ActionItem",
+      "type": "object"
+    },
+    "AgendaItem": {
+      "additionalProperties": false,
+      "properties": {
+        "topic": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Topic",
+          "type": "string"
+        },
+        "owner": {
+          "anyOf": [
+            {
+              "maxLength": 200,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Owner"
+        },
+        "minutes": {
+          "anyOf": [
+            {
+              "maximum": 480,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Minutes"
+        }
+      },
+      "required": [
+        "topic"
+      ],
+      "title": "AgendaItem",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "title": {
+      "anyOf": [
+        {
+          "maxLength": 200,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Title"
+    },
+    "starts_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Starts At"
+    },
+    "duration_minutes": {
+      "anyOf": [
+        {
+          "maximum": 600,
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Duration Minutes"
+    },
+    "items": {
+      "items": {
+        "$ref": "#/$defs/AgendaItem"
+      },
+      "maxItems": 50,
+      "title": "Items",
+      "type": "array"
+    },
+    "action_items": {
+      "items": {
+        "$ref": "#/$defs/ActionItem"
+      },
+      "maxItems": 50,
+      "title": "Action Items",
+      "type": "array"
+    },
+    "language": {
+      "pattern": "^[a-z]{2,3}(-[A-Za-z]{2,8})?$",
+      "title": "Language",
+      "type": "string"
+    }
+  },
+  "required": [
+    "items",
+    "language"
+  ],
+  "title": "ParsedAgenda",
+  "type": "object"
+}

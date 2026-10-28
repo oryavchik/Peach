@@ -1,5 +1,26 @@
 # 0006 — Parse agendas on a separate, database-free Lambda
 
+## Free cloud demonstration addendum (2026-10-28)
+
+The owner additionally prohibited new AWS costs and requested a public,
+non-local demonstration. A separate `cloudflare/` application now hosts the
+agenda workflow on Workers static assets, a Worker API and D1. It does not call
+or migrate the existing AWS services. The live URL and measured evidence are
+in `docs/CLOUDFLARE_DEMO.md` and `docs/ai-evidence/CLOUDFLARE_EVALUATION.md`.
+
+This demo uses a single-owner password, a signed HttpOnly Secure SameSite cookie,
+an origin check, prepared owner-scoped SQL and the same agenda JSON schema/tool
+contract. Original suggestions remain separate from user corrections. The
+parser never executes a model-requested database write. Only the free Cohere
+model is allowed, with a daily quota and manual fallback. Secrets are stored
+as Worker Secrets. Runtime logs contain metadata, not pasted text or credentials.
+
+This deliberately differs from the original Cognito/Aurora/Lambda/Bedrock
+architecture; it demonstrates the lab workflow rather than migrating the
+whole application or meeting every AWS-specific requirement. Existing AWS
+resources remain running independently. Lecturer approval of this alternative
+and a browser recording are still required.
+
 ## Context
 
 Peach users receive agendas as multilingual emails and chat messages. The API and Aurora run inside a VPC without NAT. Model inference costs money and pasted text may contain malicious instructions. Existing meeting management, authentication and weekly reports must keep working.

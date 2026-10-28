@@ -28,8 +28,10 @@ case "${1:-}" in
     ;;
   frontend)
     export NEXT_PUBLIC_AGENDA_PARSER_ENABLED=true
-    export NEXT_PUBLIC_AGENDA_PARSER_URL=http://127.0.0.1:8001/
-    export NEXT_PUBLIC_API_URL="${BACKEND_URL:?Missing BACKEND_URL in .env}"
+    export NEXT_PUBLIC_AGENDA_PARSER_URL=/agenda-parser
+    export LOCAL_API_PROXY_URL="${BACKEND_URL:?Missing BACKEND_URL in .env}"
+    export NEXT_PUBLIC_API_URL=/
+    export INTERNAL_API_URL="$LOCAL_API_PROXY_URL"
     export NEXT_PUBLIC_COGNITO_REGION="${COGNITO_REGION:-us-east-1}"
     export NEXT_PUBLIC_COGNITO_USER_POOL_ID="${COGNITO_USER_POOL_ID:?}"
     export NEXT_PUBLIC_COGNITO_CLIENT_ID="${COGNITO_CLIENT_ID:?}"

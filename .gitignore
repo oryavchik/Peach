@@ -30,3 +30,5 @@ out/
 # --- docker ---
 pgdata/
 .local/
+.wrangler/
+.dev.vars
