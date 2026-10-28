@@ -20,6 +20,24 @@ export type Session = {
 };
 
 let manager: UserManager | null = null;
+export const isFreeCloud = process.env.NEXT_PUBLIC_AUTH_MODE === "cloudflare";
+let freeSessionRequest: Promise<Session | null> | null = null;
+
+async function getFreeSession(): Promise<Session | null> {
+  freeSessionRequest ??= fetch("/api/me", { cache: "no-store" })
+    .then(async (response) => {
+      if (!response.ok) return null;
+      await response.json();
+      return {
+        idToken: "cookie-session",
+        accessToken: "",
+        email: "",
+        name: "Peach owner",
+      };
+    })
+    .catch(() => null);
+  return freeSessionRequest;
+}
 
 function getUserManager(): UserManager {
   if (typeof window === "undefined") {
@@ -66,21 +84,33 @@ function toSession(user: User | null): Session | null {
 }
 
 export async function signIn(): Promise<void> {
+  if (isFreeCloud) {
+    window.location.replace("/login/");
+    return;
+  }
   await getUserManager().signinRedirect();
 }
 
 export async function handleSignInCallback(): Promise<Session | null> {
+  if (isFreeCloud) return getFreeSession();
   const user = await getUserManager().signinRedirectCallback();
   window.dispatchEvent(new Event("peach-auth-change"));
   return toSession(user);
 }
 
 export async function getIdToken(): Promise<string | null> {
+  if (isFreeCloud) return (await getFreeSession())?.idToken ?? null;
   const user = await getUserManager().getUser();
   return user?.id_token ?? null;
 }
 
 export async function signOut(): Promise<void> {
+  if (isFreeCloud) {
+    await fetch("/api/logout", { method: "POST" });
+    freeSessionRequest = null;
+    window.location.replace("/login/");
+    return;
+  }
   const auth = getUserManager();
 
   await auth.removeUser();
@@ -98,6 +128,10 @@ export function useSession(): Session | null {
 
   useEffect(() => {
     const update = async () => {
+      if (isFreeCloud) {
+        setSession(await getFreeSession());
+        return;
+      }
       const user = await getUserManager().getUser();
       setSession(toSession(user));
     };

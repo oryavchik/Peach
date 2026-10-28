@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { api, type MeetingInput } from "@/lib/api";
+import { isFreeCloud } from "@/lib/auth";
 
 export function MeetingsDashboard() {
   const queryClient = useQueryClient();
@@ -30,6 +31,21 @@ export function MeetingsDashboard() {
     ]);
   }
   const report = useMutation({ mutationFn: api.requestMeetingReport });
+  const download = useMutation({
+    mutationFn: async () => {
+      const response = await fetch("/api/v1/meetings/report.csv", {
+        cache: "no-store",
+      });
+      if (!response.ok)
+        throw new Error("Could not download the report. Try again.");
+      const url = URL.createObjectURL(await response.blob());
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "peach-weekly-report.csv";
+      link.click();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    },
+  });
   const create = useMutation({
     mutationFn: api.createMeeting,
     onSuccess: refresh,
@@ -85,13 +101,30 @@ export function MeetingsDashboard() {
         title="Meetings"
         description="Make room for better conversations. Plan your meetings and keep track of your week."
         action={
-          <Button disabled={report.isPending} onClick={() => report.mutate()}>
-            {report.isPending
-              ? "Requesting report…"
-              : "Send me this week's report"}
+          <Button
+            disabled={report.isPending || download.isPending}
+            onClick={() => (isFreeCloud ? download.mutate() : report.mutate())}
+          >
+            {isFreeCloud
+              ? download.isPending
+                ? "Downloading report…"
+                : "Download this week's report"
+              : report.isPending
+                ? "Requesting report…"
+                : "Send me this week's report"}
           </Button>
         }
       />
+      {download.isSuccess && (
+        <p role="status" className="text-sm text-muted-foreground">
+          Weekly report downloaded.
+        </p>
+      )}
+      {download.error && (
+        <p role="alert" className="text-sm text-destructive">
+          {download.error.message}
+        </p>
+      )}
       {report.isSuccess && (
         <p role="status" className="text-sm text-muted-foreground">
           Report requested for {report.data.week}. Your personal CSV will be

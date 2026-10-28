@@ -1,5 +1,12 @@
 # Agenda parsing lab — implementation and remaining evidence
 
+The Cloudflare deployment now serves the original `frontend/` Next.js export,
+including Home, Board, Meetings and Agenda. Board CRUD/status, meetings, stats,
+CSV download and parse/correction/Save were checked on the live API; exported
+page bytes match the original build. See `ai-evidence/cloudflare-original-ui-check.json`.
+Free-cloud differences remain: single-owner password sessions, D1 and CSV download
+in place of Cognito, Aurora and AWS email. AWS data was not migrated.
+
 Cloud-hosted free demo is now deployed without AWS dependencies:
 https://peach-agenda-free.peach-free-cloud-demo.workers.dev/ .
 See [CLOUDFLARE_DEMO.md](CLOUDFLARE_DEMO.md) for login/recording instructions

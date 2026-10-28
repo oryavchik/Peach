@@ -2,6 +2,16 @@
 
 ## Free cloud demonstration addendum (2026-10-28)
 
+The owner subsequently requested the original interface. The deployed assets
+are now the original Next.js `frontend/` export, not a separate HTML demo.
+A compatibility API in `cloudflare/v1.js` supports the original task board,
+meetings, weekly stats and agenda contracts using D1. A versioned additive
+migration preserves existing Cloudflare records. Session auth is selected only
+for the Cloudflare build; the Cognito/AWS build retains its existing behavior.
+The weekly report downloads as CSV on the free host rather than claiming an
+email was queued. Authentication/profile parity and AWS data migration are
+outside this single-owner free variant; the original frontend layout is retained.
+
 The owner additionally prohibited new AWS costs and requested a public,
 non-local demonstration. A separate `cloudflare/` application now hosts the
 agenda workflow on Workers static assets, a Worker API and D1. It does not call

@@ -4,6 +4,7 @@ import { ApiError, api } from "@/lib/api";
 import { getIdToken, signOut } from "@/lib/auth";
 
 vi.mock("@/lib/auth", () => ({
+  isFreeCloud: false,
   getIdToken: vi.fn(async () => "id-token"),
   signOut: vi.fn(),
 }));

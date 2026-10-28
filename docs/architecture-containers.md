@@ -7,10 +7,10 @@ https://peach-agenda-free.peach-free-cloud-demo.workers.dev/ . Its containers ar
 ```mermaid
 flowchart LR
   person[Person: demo owner]
-  ui[Container: Cloudflare static browser UI]
+  ui[Container: Original Next.js browser UI\nCloudflare static assets]
   cf[Container: Worker API\nSigned session, parse and validated Save]
   router[External system: OpenRouter\ncohere/north-mini-code:free]
-  d1[(Container: D1\nMeetings, final agenda, original suggestion)]
+  d1[(Container: D1\nTasks, meetings, final agenda, original suggestion)]
   person --> ui
   ui -->|Parse text, today, tz + session| cf
   cf -->|record_agenda tool| router

@@ -1,0 +1,17 @@
+{
+  "url": "https://peach-agenda-free.peach-free-cloud-demo.workers.dev",
+  "source": "deployed-original-api-not-browser",
+  "aws_used": false,
+  "original_export_pages_match": true,
+  "board_create_move_delete": true,
+  "parse_status": 200,
+  "correction_persisted": true,
+  "original_suggestion_preserved": true,
+  "model": "cohere/north-mini-code:free",
+  "cost_usd": 0,
+  "meeting_id": "c9a53097-7c54-432a-9c31-62f37ce6f2e4",
+  "weekly_stats": true,
+  "csv_download": true,
+  "final_version": "0162b5f2-3a4f-4722-966d-d6d501a3c005",
+  "final_export_and_rsc_match": true
+}

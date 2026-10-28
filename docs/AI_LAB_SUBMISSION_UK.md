@@ -1,5 +1,12 @@
 # Лабораторна: Paste an agenda
 
+Cloudflare-сайт тепер використовує початковий frontend Peach з Home, Board,
+Meetings та Agenda. Перевірено відповідність опублікованих HTML оригінальній
+Next.js-збірці, задачі CRUD/status, зустрічі, parse, Save, вихідну пропозицію,
+статистику і CSV: `ai-evidence/cloudflare-original-ui-check.json`.
+Безкоштовні відмінності: пароль одного власника замість Cognito, D1 замість
+Aurora, завантаження CSV замість AWS-email; AWS-дані не копіювалися.
+
 **Опублікована безкоштовна демоверсія:**
 https://peach-agenda-free.peach-free-cloud-demo.workers.dev/
 

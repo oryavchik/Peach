@@ -127,3 +127,7 @@ free-ai-hello: ## Test free API access
 	bash scripts/free-ai.sh hello
 free-ai-evaluate: ## Collect the five real free-provider API outputs
 	bash scripts/free-ai.sh evaluate
+
+.PHONY: build-cloudflare
+build-cloudflare: ## Export the original Peach interface for Cloudflare Free
+	bash scripts/build-cloudflare.sh

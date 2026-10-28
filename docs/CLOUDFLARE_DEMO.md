@@ -1,9 +1,17 @@
 # Хмарна демонстрація без AWS-запитів
 
+Оновлення: тепер за цією адресою розміщено **оригінальний Next.js frontend**
+із `frontend/`: Home, Board, Meetings та попередній редактор Agenda.
+Окремі HTML/CSS/JS демосторінки видалено. Основні API адаптовано до D1:
+задачі CRUD/status, зустрічі CRUD, статистика, agenda й AI-пропозиції.
+Безкоштовний вхід лишається за паролем одного власника; звіт завантажується
+як CSV замість email через AWS. Історичні AWS-дані не переносилися.
+Перевірка: `docs/ai-evidence/cloudflare-original-ui-check.json`.
+
 Адреса: https://peach-agenda-free.peach-free-cloud-demo.workers.dev/
 
-Це окрема демонстрація частини Paste an agenda на Cloudflare Workers і D1,
-а не перенесення всього Peach. Дані AWS не копіювалися. Браузер, parser і Save
+Це безкоштовний варіант Peach на Cloudflare Workers і D1
+з оригінальним інтерфейсом. Дані AWS не копіювалися. Браузер, parser і Save
 у цій версії не звертаються до AWS. Наявні AWS-ресурси не змінені та не видалені;
 їхні попередні витрати можуть продовжуватися незалежно від цієї демонстрації.
 
@@ -14,7 +22,7 @@
 Їх немає у статичних файлах, репозиторії та цій інструкції.
 
 1. Відкрити сайт і ввійти за паролем демонстрації.
-2. Створити зустріч або вибрати створену раніше.
+2. Відкрити Meetings, створити зустріч або знайти наявну; натиснути Agenda.
 3. Почати запис (на Mac: Cmd+Shift+5).
 4. Вставити навчальний текст, натиснути Parse, дочекатися suggested-полів.
 5. Змінити одне поле, наприклад 15 → 20 хв, і натиснути Save agenda.
@@ -24,7 +32,7 @@
 
 ```mermaid
 flowchart LR
-  browser[Browser: Cloudflare static assets]
+  browser[Browser: original Next.js static export]
   parser[Worker: /api/parse]
   model[OpenRouter: cohere/north-mini-code:free]
   api[Worker: validated Save endpoint]
@@ -58,14 +66,17 @@ API підписок недоступний поточному OAuth-token (403)
 
 ## Джерела та відтворення
 
-Код: `cloudflare/worker.js`, `cloudflare/public/`, `cloudflare/wrangler.jsonc`.
-Міграція нової бази: `cloudflare/schema.sql`. Secrets не додавати у конфіг.
+Код інтерфейсу: `frontend/`. API: `cloudflare/worker.js` і `cloudflare/v1.js`.
+Конфіг: `cloudflare/wrangler.jsonc`. Міграції: `cloudflare/migrations/`.
+Secrets не додавати у конфіг. Пароль та Worker Secrets залишилися ті самі.
 
 ```bash
-cd cloudflare
+cd frontend
+pnpm install --frozen-lockfile
+cd ../cloudflare
 npm ci
 npm test
-npx wrangler deploy
+npm run deploy
 ```
 
 При повторному деплої перевірити Free-план у своєму Cloudflare dashboard.

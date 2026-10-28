@@ -1,10 +1,11 @@
 import { z } from "zod";
 
-import { getIdToken, signOut } from "@/lib/auth";
+import { getIdToken, isFreeCloud, signOut } from "@/lib/auth";
 
 /** Browser code must reach the API through the published port; server components
  *  resolve the Compose service name instead. */
 export function apiBaseUrl(): string {
+  if (isFreeCloud) return "";
   if (typeof window === "undefined") {
     return process.env.INTERNAL_API_URL ?? "http://backend:8000";
   }
@@ -54,7 +55,13 @@ async function request<T>(
   if (!response.ok) {
     const detail = await response
       .json()
-      .then((body) => (typeof body?.detail === "string" ? body.detail : null))
+      .then((body) =>
+        typeof body?.detail === "string"
+          ? body.detail
+          : typeof body?.error === "string"
+            ? body.error
+            : null,
+      )
       .catch(() => null);
     throw new ApiError(
       response.status,
