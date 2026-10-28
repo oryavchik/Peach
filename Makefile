@@ -115,3 +115,15 @@ parse: ## Parse TEXT="..." using Bedrock without writing a meeting
 .PHONY: deploy-ai
 deploy-ai: ## Deploy the isolated parser (disabled by default) and $5 monthly budget
 	./scripts/deploy-ai.sh
+
+.PHONY: free-ai-server free-ai-frontend free-ai-parse free-ai-hello free-ai-evaluate
+free-ai-server: ## Free cloud inference adapter on localhost:8001
+	bash scripts/free-ai.sh server
+free-ai-frontend: ## Local UI with free cloud parsing
+	bash scripts/free-ai.sh frontend
+free-ai-parse: ## Parse TEXT with openrouter/free only
+	bash scripts/free-ai.sh parse
+free-ai-hello: ## Test free API access
+	bash scripts/free-ai.sh hello
+free-ai-evaluate: ## Collect the five real free-provider API outputs
+	bash scripts/free-ai.sh evaluate

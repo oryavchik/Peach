@@ -114,7 +114,7 @@ def test_lambda_usage_log_without_text(monkeypatch, caplog):
     assert result["statusCode"] == 200
     assert json.loads(result["body"])["cost_usd"] > 0
     log = json.loads(caplog.records[-1].message)
-    assert log["user"] == "alice-sub" and log["prompt_version"] == "agenda-v1"
+    assert log["user"] == "alice-sub" and log["prompt_version"] == "agenda-v2"
     assert "private agenda" not in caplog.text
 
 

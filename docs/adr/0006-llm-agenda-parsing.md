@@ -26,4 +26,18 @@ At the lab's regional Opus estimate ($4.40/$22 per million input/output tokens),
 
 ## Current rollout state
 
+On 2026-10-28 the owner requested a free cloud alternative without local model
+downloads. An optional `openrouter_free` provider adapts the same record_agenda
+tool and validation flow to OpenRouter, allowing only `cohere/north-mini-code:free` (the default) or
+`openrouter/free`. Parallel tool calls and reasoning are disabled. It never
+selects paid models or falls back to Bedrock, and stores the actual selected
+model in the response/log. The API key is server-side configuration. Quota or
+availability errors preserve manual editing. Free inference is distinct from
+existing AWS hosting costs. This is an alternative to, rather than completion
+of, the lab's explicit Claude-on-Bedrock requirement; see ../FREE_AI.md.
+No AWS configuration was changed by adding this alternative. Five live API tests on Cohere are recorded in
+`docs/ai-evidence/FREE_EVALUATION.md`, with zero provider cost and documented
+semantic failures. Local API health, unauthenticated 401 and frontend HTTP 200
+were checked; authenticated UI/video and CloudWatch evidence remain unavailable. Downloaded Ollama binaries were removed.
+
 The owner declined the paid model agreement on 2026-10-15. AI stays disabled by default in the UI, handler and plain parser; the disabled Lambda role explicitly denies inference. The agenda form and persistence remain usable. Live evaluations, a successful parse log and the AI screen recording are pending, rather than fabricated from unit-test mocks. Enabling paid inference requires a new explicit owner decision.

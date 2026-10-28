@@ -21,7 +21,21 @@ def main():
             output_config={"effort": "low"},
             messages=[{"role": "user", "content": "In one sentence: what is an ISO week?"}],
         )
-        print(json.dumps(msg.model_dump(), ensure_ascii=False, indent=2, default=str))
+        print(
+            json.dumps(
+                {
+                    "model": msg.model,
+                    "stop_reason": msg.stop_reason,
+                    "content": [block.model_dump() for block in msg.content],
+                    "usage": {
+                        "input_tokens": msg.usage.input_tokens,
+                        "output_tokens": msg.usage.output_tokens,
+                    },
+                },
+                ensure_ascii=False,
+                indent=2,
+            )
+        )
     else:
         agenda, usage = parse_agenda(
             os.environ["TEXT"],

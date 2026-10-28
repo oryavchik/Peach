@@ -6,7 +6,13 @@ import time
 from anthropic import APIConnectionError, APIStatusError, APITimeoutError, RateLimitError
 from pydantic import ValidationError
 
-from app.ai.agenda import PROMPT_VERSION, AgendaParseError, cost_usd, parse_agenda
+from app.ai.agenda import (
+    PROMPT_VERSION,
+    AgendaParseError,
+    AgendaProviderError,
+    cost_usd,
+    parse_agenda,
+)
 from app.ai.auth import verify_cognito_token
 from app.config import get_settings
 from app.schemas.agenda import ParseRequest
@@ -55,18 +61,28 @@ def handler(event, context):
             503, {"error": "AI parsing is disabled. You can enter and save the agenda by hand."}
         )
     started = time.monotonic()
+    settings = get_settings()
+    model = (
+        settings.openrouter_free_model
+        if settings.parser_provider == "openrouter_free"
+        else settings.parser_model
+    )
     usage = {"input_tokens": 0, "output_tokens": 0}
     status = 200
     try:
         agenda, usage = parse_agenda(request.text, request.today, request.tz)
+        model = usage.get("model", model)
         result = {
             "agenda": agenda.model_dump(mode="json"),
-            "model": get_settings().parser_model,
+            "model": model,
             "prompt_version": PROMPT_VERSION,
         }
     except AgendaParseError as error:
         usage = error.usage
         status, result = 422, {"error": str(error)}
+    except AgendaProviderError as error:
+        usage = getattr(error, "agenda_usage", usage)
+        status, result = error.status, {"error": str(error)}
     except RateLimitError as error:
         usage = getattr(error, "agenda_usage", usage)
         status, result = (
@@ -92,7 +108,7 @@ def handler(event, context):
             {
                 "event": "agenda_parsed",
                 "user": user,
-                "model": get_settings().parser_model,
+                "model": model,
                 "prompt_version": PROMPT_VERSION,
                 **usage,
                 "latency_ms": elapsed,

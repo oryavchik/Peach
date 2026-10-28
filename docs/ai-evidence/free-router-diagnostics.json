@@ -1,0 +1,209 @@
+[
+  {
+    "id": 1,
+    "input": {
+      "id": 1,
+      "text": "Пн 10:00, синк по прайсингу, 45 хв. 1) нові тарифи Pro — Олена, 15 хв 2) фідбек від клієнтів — Taras 3) що робимо з річною знижкою. Taras до п'ятниці збирає порівняння з конкурентами.",
+      "today": "2026-10-15",
+      "tz": "Europe/Kyiv"
+    },
+    "source": "real-provider-api-not-deployed-screen",
+    "recorded_at": "2026-10-28T17:59:24.635492+00:00",
+    "prompt_version": "agenda-v1",
+    "requested_model": "openrouter/free",
+    "status": 422,
+    "error": "No agenda returned. Please enter it by hand or try again.",
+    "input_tokens": 1274,
+    "output_tokens": 396,
+    "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+    "latency_ms": 9802,
+    "cost_usd": 0.0,
+    "provider_response": {
+      "id": "gen-1793210365-B6iV39pYBpyXi1Odn3ya",
+      "object": "chat.completion",
+      "created": 1793210365,
+      "model": "nvidia/nemotron-3-ultra-550b-a55b:free",
+      "provider": "Nvidia",
+      "system_fingerprint": null,
+      "service_tier": null,
+      "choices": [
+        {
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "tool_calls",
+          "native_finish_reason": "tool_calls",
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "refusal": null,
+            "reasoning": null,
+            "tool_calls": [
+              {
+                "type": "function",
+                "index": 0,
+                "id": "call-6be48807-5a55-4e5b-8cc0-6def547339d1",
+                "function": {
+                  "name": "record_agenda",
+                  "arguments": "{\"title\": \"Синк по прайсингу\", \"starts_at\": \"2026-10-19T10:00:00+03:00\", \"duration_minutes\": 45, \"items\": [{\"topic\": \"нові тарифи Pro\", \"owner\": \"Олена\", \"minutes\": 15}, {\"topic\": \"фідбек від клієнтів\", \"owner\": \"Taras\", \"minutes\": null}, {\"topic\": \"що робимо з річною знижкою\", \"owner\": null, \"minutes\": null}], \"action_items\": [{\"task\": \"збирає порівняння з конкурентами\", \"owner\": \"Taras\", \"due\": \"2026-10-23\"}], \"language\": \"uk\"}"
+                }
+              },
+              {
+                "type": "function",
+                "index": 1,
+                "id": "call-f7db158d-76ba-4eaa-a4d5-bd340c6b770e",
+                "function": {
+                  "name": "record_agenda",
+                  "arguments": "{\"title\": \"Синк по прайсингу\", \"starts_at\": \"2026-10-19T10:00:00+03:00\", \"duration_minutes\": 45, \"items\": [{\"topic\": \"нові тарифи Pro\", \"owner\": \"Олена\", \"minutes\": 15}, {\"topic\": \"фідбек від клієнтів\", \"owner\": \"Taras\", \"minutes\": null}, {\"topic\": \"що робимо з річною знижкою\", \"owner\": null, \"minutes\": null}], \"action_items\": [{\"task\": \"збирає порівняння з конкурентами\", \"owner\": \"Taras\", \"due\": \"2026-10-23\"}], \"language\": \"uk\"}"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 1274,
+        "completion_tokens": 396,
+        "total_tokens": 1670,
+        "cost": 0,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0,
+          "upstream_inference_prompt_cost": 0,
+          "upstream_inference_completions_cost": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    }
+  },
+  {
+    "id": 2,
+    "input": {
+      "id": 2,
+      "text": "Hi team,\nOur pricing review is on October 19, 2026 at 10:00 Kyiv time for 45 minutes.\nAgenda: Pro pricing — Olena, 15 minutes; customer feedback — Taras.\nAction: Taras will prepare the competitor comparison by October 23.\nThanks,\nMaria",
+      "today": "2026-10-15",
+      "tz": "Europe/Kyiv"
+    },
+    "source": "real-provider-api-not-deployed-screen",
+    "recorded_at": "2026-10-28T17:59:34.438058+00:00",
+    "prompt_version": "agenda-v1",
+    "requested_model": "openrouter/free",
+    "status": 200,
+    "agenda": {
+      "title": "Pricing Review",
+      "starts_at": "2026-10-19T10:00:00+03:00",
+      "duration_minutes": 45,
+      "items": [
+        {
+          "topic": "Pro pricing",
+          "owner": "Olena",
+          "minutes": 15
+        },
+        {
+          "topic": "customer feedback",
+          "owner": "Taras",
+          "minutes": null
+        }
+      ],
+      "action_items": [
+        {
+          "task": "Taras will prepare the competitor comparison",
+          "owner": "Taras",
+          "due": "2026-10-23"
+        }
+      ],
+      "language": "en"
+    },
+    "input_tokens": 721,
+    "output_tokens": 96,
+    "model": "cohere/north-mini-code:free",
+    "latency_ms": 985,
+    "cost_usd": 0.0,
+    "provider_response": {
+      "id": "gen-1793210374-Hv6ZBm2aKTHKn5AolPuc",
+      "object": "chat.completion",
+      "created": 1793210374,
+      "model": "cohere/north-mini-code:free",
+      "provider": "Cohere",
+      "system_fingerprint": null,
+      "service_tier": null,
+      "choices": [
+        {
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "tool_calls",
+          "native_finish_reason": "tool_call",
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "refusal": null,
+            "reasoning": null,
+            "tool_calls": [
+              {
+                "type": "function",
+                "index": 0,
+                "id": "record_agenda_2bj7qj4gvag4",
+                "function": {
+                  "name": "record_agenda",
+                  "arguments": "{\"title\": \"Pricing Review\", \"starts_at\": \"2026-10-19T10:00:00+03:00\", \"duration_minutes\": 45, \"items\": [{\"topic\": \"Pro pricing\", \"owner\": \"Olena\", \"minutes\": 15}, {\"topic\": \"customer feedback\", \"owner\": \"Taras\", \"minutes\": null}], \"action_items\": [{\"task\": \"Taras will prepare the competitor comparison\", \"owner\": \"Taras\", \"due\": \"2026-10-23\"}], \"language\": \"en\"}"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 721,
+        "completion_tokens": 96,
+        "total_tokens": 817,
+        "cost": 0,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0,
+          "upstream_inference_prompt_cost": 0,
+          "upstream_inference_completions_cost": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    }
+  },
+  {
+    "id": 3,
+    "input": {
+      "id": 3,
+      "text": "Pricing sync next Tuesday after lunch. Agenda: review annual discounts with Olena. Taras will collect competitor prices by end of week.",
+      "today": "2026-10-15",
+      "tz": "Europe/Kyiv"
+    },
+    "source": "real-provider-api-not-deployed-screen",
+    "recorded_at": "2026-10-28T17:59:35.424665+00:00",
+    "prompt_version": "agenda-v1",
+    "requested_model": "openrouter/free",
+    "status": 503,
+    "error": "Free AI is unavailable. Check the server API key or enter the agenda by hand.",
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "latency_ms": 406,
+    "cost_usd": 0.0,
+    "note": "No provider response recorded for this error; stale previous-response diagnostic removed."
+  }
+]

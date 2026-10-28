@@ -1,7 +1,7 @@
 from functools import lru_cache
 from typing import Annotated, Literal
 
-from pydantic import Field, field_validator
+from pydantic import Field, SecretStr, field_validator
 from pydantic_settings import BaseSettings, NoDecode, SettingsConfigDict
 
 
@@ -19,6 +19,11 @@ class Settings(BaseSettings):
     # pooled connections open, and Aurora Serverless only pauses at zero.
     db_pooling: bool = True
     parser_enabled: bool = False
+    parser_provider: Literal["bedrock", "openrouter_free"] = "bedrock"
+    openrouter_api_key: SecretStr = SecretStr("")
+    openrouter_free_model: Literal["openrouter/free", "cohere/north-mini-code:free"] = (
+        "cohere/north-mini-code:free"
+    )
     parser_model: str = "anthropic.claude-opus-5-5"
     # Regional endpoint estimates include the lab's 10% premium, USD / million tokens.
     parser_input_price: float = Field(default=4.4, ge=0)

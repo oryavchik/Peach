@@ -1,0 +1,56 @@
+Verification date: 2026-10-28 (Europe/Kyiv)
+
+AWS authentication: successful (STS GetCallerIdentity).
+CloudFormation peach-ai: CREATE_COMPLETE.
+Lambda peach-agenda-parser: Active, 30 seconds, 512 MB, no VPC.
+PARSER_ENABLED: false (owner explicitly reaffirmed that AI must remain off).
+Configured model: anthropic.claude-opus-5-5; no inference requested.
+Budget peach-ai-lab-monthly-5usd: 5 USD, MONTHLY.
+Published /meetings/agenda page: HTTP 200 (availability only, not UI verification).
+
+Local checks:
+- Backend: 62 passed; isolated local PostgreSQL database peach_test.
+- Frontend: 24 passed.
+- Ruff, ESLint and TypeScript --noEmit: passed.
+
+Remaining submission evidence:
+- Five real model evaluations, actual output JSON and measured quality/cost/latency.
+- One successful CloudWatch parse log.
+- A deployed-app screen recording of paste, parse, correction and save (<=45 seconds).
+- Written evaluation conclusions based on those real results.
+
+These remain unavailable while paid AI inference is disabled by owner choice.
+No model agreement was accepted, no paid model call was made, and no mock
+response is presented as real evaluation evidence.
+No browser is connected to the automation runtime in this session.
+
+Free-cloud alternative added later in the same session:
+- Only OpenRouter openrouter/free is selected; no paid model fallback.
+- No model weights downloaded. Previously downloaded Ollama files removed
+  (818,960,982 bytes), and local Ollama implementation removed.
+- Full backend suite: 67 passed, including five free-adapter tests.
+- Frontend: 24 passed; ESLint and TypeScript passed; Ruff passed.
+- Tests exercise the tool contract, validation repair and aggregated tokens,
+  free route selection, selected-model logging, 429 and missing API key.
+- No live OpenRouter inference: OPENROUTER_API_KEY is not configured yet.
+- No AWS deployment/configuration change; paid Bedrock remains disabled.
+- docs/FREE_AI.md documents startup, limitations and remaining evidence.
+
+After the owner supplied an OpenRouter key:
+- Key saved only in ignored root .env (mode 0600); not in evidence/source.
+- All five fixtures evaluated with cohere/north-mini-code:free, agenda-v2.
+- Inputs 1, 2, 3, 5: HTTP-equivalent parse status 200; input 4: expected 422.
+- Actual provider usage.cost=0 for every final response.
+- Final latencies: 2698, 2839, 2060, 733, 1297 ms respectively.
+- Full actual JSON/usage: free-api-results.json.
+- Human assessment and measured Step 5 answers: FREE_EVALUATION.md.
+- Local evaluation log: free-parse-log.jsonl (not CloudWatch).
+- Semantic failures include invented time/duration in input 3; not hidden.
+- Initial router/agenda-v1 runs retained separately for diagnosis.
+- Final backend: 67 passed; frontend: 24 passed, ESLint/TypeScript passed.
+- Local parser health: 200; unsigned POST: 401; local /meetings: 200.
+- Local frontend and parser running on localhost:3000 and 127.0.0.1:8001.
+- No paid model calls or AWS deployment/configuration changes.
+- Authenticated browser workflow and <=45-second recording remain unverified;
+  no connected automated browser is available. Free alternative still differs
+  from the assignment's explicit Bedrock/Claude/CloudWatch requirements.

@@ -30,7 +30,9 @@ function getUserManager(): UserManager {
     manager = new UserManager({
       authority: `https://cognito-idp.${REGION}.amazonaws.com/${USER_POOL_ID}`,
       client_id: CLIENT_ID,
-      redirect_uri: `${window.location.origin}/auth/callback/`,
+      redirect_uri:
+        process.env.NEXT_PUBLIC_COGNITO_REDIRECT_URI ??
+        `${window.location.origin}/auth/callback/`,
       response_type: "code",
       scope: "openid email profile",
       userStore: new WebStorageStateStore({

@@ -1,5 +1,27 @@
 # Agenda parsing lab — implementation and remaining evidence
 
+Free-cloud alternative added and exercised at the owner's request: see
+[FREE_AI.md](FREE_AI.md) and the measured
+[FREE_EVALUATION.md](ai-evidence/FREE_EVALUATION.md). The final five API tests
+used only `cohere/north-mini-code:free` with actual provider cost=0; four agenda
+inputs returned 200 and the shopping list returned the intended 422. Semantic
+errors are documented. No model weights or paid Bedrock calls are involved.
+The free local UI is available via `make free-ai-frontend` and the authenticated
+adapter via `make free-ai-server`. This is not a deployed-screen test, recording
+or CloudWatch evidence, and does not fulfil the literal Claude/Bedrock requirement.
+
+Ukrainian submission package: [AI_LAB_SUBMISSION_UK.md](AI_LAB_SUBMISSION_UK.md).
+It includes the implementation links, five-case evaluation rubric, written
+answers, validation evidence and an explicit list of evidence unavailable
+while paid AI remains disabled.
+
+Rechecked 2026-10-28: AWS login works; the parser stack is deployed and AI is
+still disabled, as explicitly requested again by the owner. All 62 backend
+tests and 24 frontend tests pass; Ruff, ESLint and TypeScript pass. The published
+agenda page returns HTTP 200. See `ai-evidence/verification-2026-10-28.txt`.
+The live evaluation, parse log and recording below remain pending; full AI-lab
+completion requires a future decision to enable model inference.
+
 Status (2026-10-15): the user explicitly declined the Bedrock model agreement and asked to leave AI OFF. No agreement was accepted. Do not describe the AI portion as completed or submit unit-test mock responses as actual model outputs.
 
 ## Implemented
