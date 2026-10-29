@@ -30,6 +30,9 @@ if [[ -f "${ENV_FILE}" ]]; then
   eval "${preset}"
 fi
 
+# After feature ownership is migrated, read those values from Terraform state.
+source "${ROOT}/scripts/terraform-outputs.sh"
+
 # A blank AWS_PROFILE is read as a profile literally named "", and blank keys
 # short-circuit the credential chain - which is exactly what a .env full of
 # empty placeholders hands us. Treat empty as absent.

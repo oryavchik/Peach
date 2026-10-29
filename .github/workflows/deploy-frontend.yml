@@ -22,6 +22,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: hashicorp/setup-terraform@v3
+        if: vars.TERRAFORM_MIGRATION_COMPLETE == 'true'
+        with:
+          terraform_version: 1.16.7
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+          terraform_wrapper: false
+
+      - name: Connect to infrastructure state (read outputs only)
+        if: vars.TERRAFORM_MIGRATION_COMPLETE == 'true'
+        run: terraform -chdir=infra init -input=false
+        env:
+          TF_CLOUD_ORGANIZATION: ${{ vars.TF_CLOUD_ORGANIZATION }}
+
       - name: Assume the deploy role
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -56,3 +69,5 @@ jobs:
           COGNITO_CLIENT_ID: ${{ vars.COGNITO_CLIENT_ID }}
           COGNITO_DOMAIN: ${{ vars.COGNITO_DOMAIN }}
           COGNITO_GOOGLE_ENABLED: ${{ vars.COGNITO_GOOGLE_ENABLED || 'false' }}
+          TF_MANAGED_FEATURES: ${{ vars.TERRAFORM_MIGRATION_COMPLETE }}
+          TF_CLOUD_ORGANIZATION: ${{ vars.TF_CLOUD_ORGANIZATION }}

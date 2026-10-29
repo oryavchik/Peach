@@ -1,0 +1,14 @@
+{
+  "prepared_import_targets": 40,
+  "actual_imports": 0,
+  "actual_recreations": 0,
+  "aws_mutations_performed": false,
+  "hcp_configured": false,
+  "post_migration_no_changes_plan": "not_run",
+  "vcs_apply_screenshot": "not_available",
+  "optional_google_provider_defaults_audit": "not_completed_aws_session_expired",
+  "hcp_workspace_created": true,
+  "hcp_organization": "oryavchik",
+  "hcp_workspace": "Peach",
+  "hcp_configuration_status": "VCS connected; infra directory and manual apply configured by owner; credentials and variables pending"
+}

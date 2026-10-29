@@ -13,6 +13,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: hashicorp/setup-terraform@v3
+        if: vars.TERRAFORM_MIGRATION_COMPLETE == 'true'
+        with:
+          terraform_version: 1.16.7
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+          terraform_wrapper: false
+
+      - name: Connect to infrastructure state (read outputs only)
+        if: vars.TERRAFORM_MIGRATION_COMPLETE == 'true'
+        run: terraform -chdir=infra init -input=false
+        env:
+          TF_CLOUD_ORGANIZATION: ${{ vars.TF_CLOUD_ORGANIZATION }}
+
       - uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
@@ -33,3 +46,11 @@ jobs:
             --sbom=false \
             -t 506126098984.dkr.ecr.us-east-1.amazonaws.com/peach-backend:weekly-reports \
             --push backend
+
+      - name: Deploy report application code after migration
+        if: vars.TERRAFORM_MIGRATION_COMPLETE == 'true'
+        run: |
+          DIGEST=$(aws ecr describe-images --repository-name peach-backend --image-ids imageTag=weekly-reports --query 'imageDetails[0].imageDigest' --output text)
+          IMAGE_URI="506126098984.dkr.ecr.us-east-1.amazonaws.com/peach-backend@${DIGEST}" make deploy-report-code
+        env:
+          TF_CLOUD_ORGANIZATION: ${{ vars.TF_CLOUD_ORGANIZATION }}

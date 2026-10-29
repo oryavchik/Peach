@@ -1,0 +1,22 @@
+{
+  "peach-backend": {
+    "Role": "arn:aws:iam::506126098984:role/peach-backend-ExecutionRole-Wl1ccFq0TkVC",
+    "Image": "506126098984.dkr.ecr.us-east-1.amazonaws.com/peach-backend@sha256:23b12d6cd62c79e3dddd29775d6ff05ddcfeed18375f1e2ed8c4a79bfaa32e9c"
+  },
+  "peach-agenda-parser": {
+    "Role": "arn:aws:iam::506126098984:role/peach-ai-ParserRole-mdEJTPrrjCyy",
+    "Image": "506126098984.dkr.ecr.us-east-1.amazonaws.com/peach-backend@sha256:23b12d6cd62c79e3dddd29775d6ff05ddcfeed18375f1e2ed8c4a79bfaa32e9c"
+  },
+  "peach-report-builder": {
+    "Role": "arn:aws:iam::506126098984:role/peach-reports-ReportBuilderRole-p9u0vZcfwAEd",
+    "Image": "506126098984.dkr.ecr.us-east-1.amazonaws.com/peach-backend@sha256:a9f7c68287e247805d88a112784302020ba16cb89b05f4fa88cd23a298efe066"
+  },
+  "peach-report-mailer": {
+    "Role": "arn:aws:iam::506126098984:role/peach-reports-ReportMailerRole-AybCF4Y51FJj",
+    "Image": "506126098984.dkr.ecr.us-east-1.amazonaws.com/peach-backend@sha256:a9f7c68287e247805d88a112784302020ba16cb89b05f4fa88cd23a298efe066"
+  },
+  "peach-report-dispatcher": {
+    "Role": "arn:aws:iam::506126098984:role/peach-reports-ReportDispatcherRole-ROSvpWdj7aol",
+    "Image": "506126098984.dkr.ecr.us-east-1.amazonaws.com/peach-backend@sha256:a9f7c68287e247805d88a112784302020ba16cb89b05f4fa88cd23a298efe066"
+  }
+}

@@ -57,11 +57,12 @@ shell-backend: ## Shell into the backend container
 shell-db: ## psql into the database
 	$(COMPOSE) exec db psql -U $${POSTGRES_USER:-peach} -d $${POSTGRES_DB:-peach}
 
-deploy-cognito: ## Create/update the Cognito user pool; writes COGNITO_* to .env and prints them
-	./scripts/deploy-cognito.sh
+deploy-cognito: ## Review Cognito infrastructure in Terraform; apply only in HCP
+	$(MAKE) infra-plan
 
-destroy-cognito: ## Delete the Cognito stack, every account in the pool included
-	./scripts/destroy-cognito.sh
+destroy-cognito: ## Disabled: preserve the existing user pool during migration
+	@echo "Use the reviewed HCP Terraform workflow; local Cognito deletion is disabled." >&2
+	@exit 1
 
 deploy-backend: ## Build + push the image, roll the Lambda (function URL + Aurora), migrate, write BACKEND_URL to .env
 	./scripts/deploy-backend.sh
@@ -94,13 +95,13 @@ github-role: ## Create the IAM role GitHub Actions assumes to deploy (OIDC, no k
 .PHONY: report-now
 report-now:
 	aws sqs send-message \
-		--queue-url https://sqs.us-east-1.amazonaws.com/506126098984/peach-reports-queue \
+		--queue-url "$$( $(TERRAFORM) -chdir=infra output -raw reports_queue_url )" \
 		--message-body '{"week":"$(WEEK)","source":"manual"}' \
 		--region us-east-1
 
 .PHONY: deploy-reports
-deploy-reports: ## Update the existing reports stack using REPORT_IMAGE_URI and REPORT_* email settings
-	./scripts/deploy-reports.sh
+deploy-reports: ## Review report infrastructure in Terraform; no local apply
+	$(MAKE) infra-plan
 
 UV ?= $(if $(wildcard $(HOME)/.local/bin/uv),$(HOME)/.local/bin/uv,uv)
 .PHONY: llm-hello parse
@@ -113,8 +114,8 @@ parse: ## Parse TEXT="..." using Bedrock without writing a meeting
 	cd backend && $(UV) run python -m app.ai.cli parse
 
 .PHONY: deploy-ai
-deploy-ai: ## Deploy the isolated parser (disabled by default) and $5 monthly budget
-	./scripts/deploy-ai.sh
+deploy-ai: ## Review parser infrastructure in Terraform; paid inference stays off
+	$(MAKE) infra-plan
 
 .PHONY: free-ai-server free-ai-frontend free-ai-parse free-ai-hello free-ai-evaluate
 free-ai-server: ## Free cloud inference adapter on localhost:8001
@@ -131,3 +132,21 @@ free-ai-evaluate: ## Collect the five real free-provider API outputs
 .PHONY: build-cloudflare
 build-cloudflare: ## Export the original Peach interface for Cloudflare Free
 	bash scripts/build-cloudflare.sh
+
+TERRAFORM ?= terraform
+.PHONY: infra-init infra-plan infra-validate infra-fmt infra-outputs deploy-report-code deploy-parser-code
+infra-init: ## Connect to HCP workspace Peach (set TF_CLOUD_ORGANIZATION)
+	$(TERRAFORM) -chdir=infra init
+infra-plan: ## Plan only; infrastructure applies happen in HCP after review
+	$(TERRAFORM) -chdir=infra plan -input=false
+infra-validate: ## Offline validation after init -backend=false
+	$(TERRAFORM) -chdir=infra fmt -check
+	$(TERRAFORM) -chdir=infra validate
+infra-fmt: ## Format Terraform configuration
+	$(TERRAFORM) -chdir=infra fmt
+infra-outputs: ## Read non-secret application configuration from HCP state
+	$(TERRAFORM) -chdir=infra output
+deploy-report-code: ## CI-only application image update; no infrastructure changes
+	bash scripts/deploy-feature-code.sh reports
+deploy-parser-code: ## CI-only parser image update; does not enable inference
+	bash scripts/deploy-feature-code.sh parser

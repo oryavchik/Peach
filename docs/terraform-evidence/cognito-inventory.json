@@ -1,0 +1,45 @@
+{
+  "pool": {
+    "Id": "us-east-1_0mtP1IR3E",
+    "Name": "peach-users",
+    "UsernameAttributes": [
+      "email"
+    ],
+    "AliasAttributes": null,
+    "AutoVerifiedAttributes": [
+      "email"
+    ],
+    "UserPoolTier": "ESSENTIALS",
+    "Tags": {}
+  },
+  "client": {
+    "ClientId": "2p3i99e7rbukboqojfrdmdsfcl",
+    "ClientName": "peach-web",
+    "SupportedIdentityProviders": [
+      "COGNITO",
+      "Google"
+    ],
+    "CallbackURLs": [
+      "http://localhost:3000/auth/callback",
+      "https://d2u4q6uy2ofop2.cloudfront.net/auth/callback/"
+    ],
+    "LogoutURLs": [
+      "http://localhost:3000",
+      "https://d2u4q6uy2ofop2.cloudfront.net/"
+    ]
+  },
+  "providers": {
+    "Providers": [
+      {
+        "ProviderName": "Google",
+        "ProviderType": "Google",
+        "LastModifiedDate": "2026-10-08T17:03:39.476000+03:00",
+        "CreationDate": "2026-10-08T14:02:38.339000+03:00"
+      }
+    ]
+  },
+  "branding": {
+    "ManagedLoginBrandingId": "26653d9e-92c2-41d1-bd36-02d61014b25f",
+    "UserPoolId": "us-east-1_0mtP1IR3E"
+  }
+}

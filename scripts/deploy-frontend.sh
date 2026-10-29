@@ -25,6 +25,9 @@ if [[ -f "${ROOT}/.env" ]]; then
   eval "${preset}"
 fi
 
+# Optional after the completed feature-stack migration; base site stays CFN.
+source "${ROOT}/scripts/terraform-outputs.sh"
+
 # A blank AWS_PROFILE is read as a profile literally named "", and blank keys
 # short-circuit the credential chain. Treat empty as absent.
 for var in AWS_PROFILE AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN; do

@@ -1,0 +1,151 @@
+{
+  "peach-auth": {
+    "status": "not_found_or_unavailable"
+  },
+  "peach-reports": {
+    "resources": [
+      {
+        "LogicalResourceId": "ApiReportRequestPolicy",
+        "PhysicalResourceId": "peach-ApiRe-lDqvlDQufkyQ",
+        "ResourceType": "AWS::IAM::Policy",
+        "ResourceStatus": "CREATE_COMPLETE"
+      },
+      {
+        "LogicalResourceId": "ReportBuilder",
+        "PhysicalResourceId": "peach-report-builder",
+        "ResourceType": "AWS::Lambda::Function",
+        "ResourceStatus": "UPDATE_COMPLETE"
+      },
+      {
+        "LogicalResourceId": "ReportBuilderRole",
+        "PhysicalResourceId": "peach-reports-ReportBuilderRole-p9u0vZcfwAEd",
+        "ResourceType": "AWS::IAM::Role",
+        "ResourceStatus": "UPDATE_COMPLETE"
+      },
+      {
+        "LogicalResourceId": "ReportDispatcher",
+        "PhysicalResourceId": "peach-report-dispatcher",
+        "ResourceType": "AWS::Lambda::Function",
+        "ResourceStatus": "CREATE_COMPLETE"
+      },
+      {
+        "LogicalResourceId": "ReportDispatcherPermission",
+        "PhysicalResourceId": "peach-reports-ReportDispatcherPermission-u7xveq0rugIY",
+        "ResourceType": "AWS::Lambda::Permission",
+        "ResourceStatus": "CREATE_COMPLETE"
+      },
+      {
+        "LogicalResourceId": "ReportDispatcherRole",
+        "PhysicalResourceId": "peach-reports-ReportDispatcherRole-ROSvpWdj7aol",
+        "ResourceType": "AWS::IAM::Role",
+        "ResourceStatus": "CREATE_COMPLETE"
+      },
+      {
+        "LogicalResourceId": "ReportMailer",
+        "PhysicalResourceId": "peach-report-mailer",
+        "ResourceType": "AWS::Lambda::Function",
+        "ResourceStatus": "UPDATE_COMPLETE"
+      },
+      {
+        "LogicalResourceId": "ReportMailerPermission",
+        "PhysicalResourceId": "peach-reports-ReportMailerPermission-aSuKOoRhE3Hs",
+        "ResourceType": "AWS::Lambda::Permission",
+        "ResourceStatus": "CREATE_COMPLETE"
+      },
+      {
+        "LogicalResourceId": "ReportMailerRole",
+        "PhysicalResourceId": "peach-reports-ReportMailerRole-AybCF4Y51FJj",
+        "ResourceType": "AWS::IAM::Role",
+        "ResourceStatus": "UPDATE_COMPLETE"
+      },
+      {
+        "LogicalResourceId": "ReportsBucket",
+        "PhysicalResourceId": "peach-reports-506126098984-us-east-1",
+        "ResourceType": "AWS::S3::Bucket",
+        "ResourceStatus": "UPDATE_COMPLETE"
+      },
+      {
+        "LogicalResourceId": "ReportsDLQ",
+        "PhysicalResourceId": "https://sqs.us-east-1.amazonaws.com/506126098984/peach-reports-dlq",
+        "ResourceType": "AWS::SQS::Queue",
+        "ResourceStatus": "UPDATE_COMPLETE"
+      },
+      {
+        "LogicalResourceId": "ReportsEventSource",
+        "PhysicalResourceId": "a3d73f56-fb3b-44d6-9631-1c7e6efc0df8",
+        "ResourceType": "AWS::Lambda::EventSourceMapping",
+        "ResourceStatus": "UPDATE_COMPLETE"
+      },
+      {
+        "LogicalResourceId": "ReportsQueue",
+        "PhysicalResourceId": "https://sqs.us-east-1.amazonaws.com/506126098984/peach-reports-queue",
+        "ResourceType": "AWS::SQS::Queue",
+        "ResourceStatus": "UPDATE_COMPLETE"
+      },
+      {
+        "LogicalResourceId": "S3GatewayEndpoint",
+        "PhysicalResourceId": "vpce-0284e281ee1dec046",
+        "ResourceType": "AWS::EC2::VPCEndpoint",
+        "ResourceStatus": "UPDATE_COMPLETE"
+      },
+      {
+        "LogicalResourceId": "SchedulerRole",
+        "PhysicalResourceId": "peach-reports-SchedulerRole-On6szH2RLPvB",
+        "ResourceType": "AWS::IAM::Role",
+        "ResourceStatus": "UPDATE_COMPLETE"
+      },
+      {
+        "LogicalResourceId": "WeeklySchedule",
+        "PhysicalResourceId": "peach-weekly-reports",
+        "ResourceType": "AWS::Scheduler::Schedule",
+        "ResourceStatus": "UPDATE_COMPLETE"
+      }
+    ]
+  },
+  "peach-ai": {
+    "resources": [
+      {
+        "LogicalResourceId": "MonthlyBudget",
+        "PhysicalResourceId": "peach-ai-lab-monthly-5usd",
+        "ResourceType": "AWS::Budgets::Budget",
+        "ResourceStatus": "CREATE_COMPLETE"
+      },
+      {
+        "LogicalResourceId": "Parser",
+        "PhysicalResourceId": "peach-agenda-parser",
+        "ResourceType": "AWS::Lambda::Function",
+        "ResourceStatus": "CREATE_COMPLETE"
+      },
+      {
+        "LogicalResourceId": "ParserInvokePermission",
+        "PhysicalResourceId": "peach-ai-ParserInvokePermission-6gmcuLalkY98",
+        "ResourceType": "AWS::Lambda::Permission",
+        "ResourceStatus": "CREATE_COMPLETE"
+      },
+      {
+        "LogicalResourceId": "ParserLogGroup",
+        "PhysicalResourceId": "/aws/lambda/peach-agenda-parser",
+        "ResourceType": "AWS::Logs::LogGroup",
+        "ResourceStatus": "CREATE_COMPLETE"
+      },
+      {
+        "LogicalResourceId": "ParserRole",
+        "PhysicalResourceId": "peach-ai-ParserRole-mdEJTPrrjCyy",
+        "ResourceType": "AWS::IAM::Role",
+        "ResourceStatus": "CREATE_COMPLETE"
+      },
+      {
+        "LogicalResourceId": "ParserUrl",
+        "PhysicalResourceId": "arn:aws:lambda:us-east-1:506126098984:function:peach-agenda-parser",
+        "ResourceType": "AWS::Lambda::Url",
+        "ResourceStatus": "CREATE_COMPLETE"
+      },
+      {
+        "LogicalResourceId": "ParserUrlPermission",
+        "PhysicalResourceId": "peach-ai-ParserUrlPermission-dAUemKhv75YW",
+        "ResourceType": "AWS::Lambda::Permission",
+        "ResourceStatus": "CREATE_COMPLETE"
+      }
+    ]
+  }
+}

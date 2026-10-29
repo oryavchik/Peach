@@ -32,3 +32,14 @@ pgdata/
 .local/
 .wrangler/
 .dev.vars
+
+# Terraform state and saved plans can contain credentials.
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+tfplan
+*.plan.json
+crash.log
+*.secret.tfvars
+*.secret.tfvars.json

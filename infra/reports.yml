@@ -27,12 +27,16 @@ Conditions:
 
 Resources:
   SenderDomainIdentity:
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
     Type: AWS::SES::EmailIdentity
     Condition: HasSenderDomain
     Properties:
       EmailIdentity: !Ref SenderDomain
 
   ReportsBucket:
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
     Type: AWS::S3::Bucket
     DependsOn: [ReportMailerPermission, ReportDispatcherPermission]
     Properties:
@@ -74,6 +78,8 @@ Resources:
             ExpirationInDays: 7
 
   ApiReportRequestPolicy:
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
     Type: AWS::IAM::Policy
     Properties:
       PolicyName: PeachReportRequests
@@ -86,6 +92,8 @@ Resources:
             Resource: !Sub "arn:${AWS::Partition}:s3:::peach-reports-${AWS::AccountId}-${AWS::Region}/requests/*"
 
   ReportDispatcherRole:
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
     Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
@@ -109,6 +117,8 @@ Resources:
                 Resource: !GetAtt ReportsQueue.Arn
 
   ReportDispatcher:
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
     Type: AWS::Lambda::Function
     Properties:
       FunctionName: peach-report-dispatcher
@@ -126,6 +136,8 @@ Resources:
           REPORT_QUEUE_URL: !Ref ReportsQueue
 
   ReportDispatcherPermission:
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
     Type: AWS::Lambda::Permission
     Properties:
       Action: lambda:InvokeFunction
@@ -135,11 +147,15 @@ Resources:
       SourceArn: !Sub "arn:${AWS::Partition}:s3:::peach-reports-${AWS::AccountId}-${AWS::Region}"
 
   ReportsDLQ:
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
     Type: AWS::SQS::Queue
     Properties:
       QueueName: peach-reports-dlq
 
   ReportsQueue:
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
     Type: AWS::SQS::Queue
     Properties:
       QueueName: peach-reports-queue
@@ -149,6 +165,8 @@ Resources:
         maxReceiveCount: 3
 
   S3GatewayEndpoint:
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
     Type: AWS::EC2::VPCEndpoint
     Properties:
       VpcEndpointType: Gateway
@@ -159,6 +177,8 @@ Resources:
 
 
   ReportBuilderRole:
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
     Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
@@ -187,6 +207,8 @@ Resources:
                 Resource: !GetAtt ReportsQueue.Arn
 
   ReportBuilder:
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
     Type: AWS::Lambda::Function
     DependsOn: S3GatewayEndpoint
     Properties:
@@ -219,6 +241,8 @@ Resources:
           REPORTS_BUCKET: !Ref ReportsBucket
 
   ReportsEventSource:
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
     Type: AWS::Lambda::EventSourceMapping
     Properties:
       EventSourceArn: !GetAtt ReportsQueue.Arn
@@ -227,6 +251,8 @@ Resources:
       Enabled: true
 
   SchedulerRole:
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
     Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
@@ -246,6 +272,8 @@ Resources:
                 Resource: !GetAtt ReportsQueue.Arn
 
   WeeklySchedule:
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
     Type: AWS::Scheduler::Schedule
     Properties:
       Name: peach-weekly-reports
@@ -261,6 +289,8 @@ Resources:
 
 
   ReportMailerRole:
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
     Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
@@ -287,6 +317,8 @@ Resources:
                 Resource: "*"
 
   ReportMailer:
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
     Type: AWS::Lambda::Function
     Properties:
       FunctionName: peach-report-mailer
@@ -307,6 +339,8 @@ Resources:
           REPORT_RECIPIENTS: !Join [",", !Ref ReportRecipients]
 
   ReportMailerPermission:
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
     Type: AWS::Lambda::Permission
     Properties:
       Action: lambda:InvokeFunction
