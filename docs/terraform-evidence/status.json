@@ -6,9 +6,11 @@
   "hcp_configured": false,
   "post_migration_no_changes_plan": "not_run",
   "vcs_apply_screenshot": "not_available",
-  "optional_google_provider_defaults_audit": "not_completed_aws_session_expired",
+  "optional_google_provider_defaults_audit": "completed_read_only",
   "hcp_workspace_created": true,
   "hcp_organization": "oryavchik",
   "hcp_workspace": "Peach",
-  "hcp_configuration_status": "VCS connected; infra directory and manual apply configured by owner; credentials and variables pending"
+  "hcp_configuration_status": "VCS connected; infra directory and manual apply configured by owner; credentials and variables pending",
+  "local_adoption_plan": "40 imports; 0 creates/deletes; 4 sensitivity-only updates; not applied",
+  "hcp_credentials_status": "Owner screenshot shows Active; role hcp-terraform-Peac"
 }

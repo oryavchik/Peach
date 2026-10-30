@@ -121,8 +121,9 @@ resource "aws_s3_bucket_lifecycle_configuration" "reports" {
 }
 
 resource "aws_sqs_queue" "dlq" {
-  name = "peach-reports-dlq"
-  tags = local.tags
+  name             = "peach-reports-dlq"
+  max_message_size = 1048576
+  tags             = local.tags
   lifecycle {
     prevent_destroy = true
   }
@@ -131,6 +132,7 @@ resource "aws_sqs_queue" "dlq" {
 
 resource "aws_sqs_queue" "reports" {
   name                       = "peach-reports-queue"
+  max_message_size           = 1048576
   visibility_timeout_seconds = 360
   redrive_policy = jsonencode({
     deadLetterTargetArn = aws_sqs_queue.dlq.arn, maxReceiveCount = 3
@@ -270,6 +272,7 @@ resource "aws_s3_bucket_notification" "reports" {
 }
 
 resource "aws_lambda_event_source_mapping" "reports" {
+  tags             = local.tags
   event_source_arn = aws_sqs_queue.reports.arn
   function_name    = aws_lambda_function.reports["builder"].arn
   batch_size       = 1
@@ -289,10 +292,8 @@ resource "aws_scheduler_schedule" "weekly" {
   target {
     arn      = aws_sqs_queue.reports.arn
     role_arn = aws_iam_role.reports["scheduler"].arn
-    input = jsonencode({
-      week = null, source = "schedule"
-      }
-    )
+    # Preserve the existing string: Scheduler compares JSON input bytewise.
+    input = "{\"week\":null,\"source\":\"schedule\"}"
   }
 
 }

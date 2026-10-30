@@ -152,3 +152,21 @@ a Plan-only HCP run and reviews the proposed reconciliation. If the manual
 change was a real emergency fix, commit that intended fix to Git before the
 next apply rather than blindly reverting it. None of these actions has been
 executed under the current no-AWS-changes constraint.
+
+## Read-only reconciliation findings
+
+The local read-only adoption plan recorded in
+`docs/terraform-evidence/adoption-plan-summary.json` now has 40 imports, no
+creates/deletes, and four updates whose before/after values are identical.
+Terraform marks imported Google credentials, Lambda environment values and
+budget notification addresses as sensitive. These metadata-only updates are
+not a final no-change plan and the strict guard still rejects them. Do not
+remove sensitivity, ignore live configuration drift, or approve an apply
+merely to make the counter green. Review the actual HCP plan and finish the
+retained-stack ownership transfer before an owner-approved import.
+
+The Cognito client replacement was caused by imported `generate_secret = null`
+versus explicit `false`; omitting that optional argument preserves the imported
+client without changing `prevent_destroy`. Other differences reconciled to AWS:
+password symbols enabled; Google discovery fields and username mapping; SQS
+1 MiB maximum messages; event-source mapping tags; exact Scheduler JSON input.

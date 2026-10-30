@@ -16,7 +16,7 @@ resource "aws_cognito_user_pool" "main" {
     require_lowercase = true
     require_uppercase = true
     require_numbers   = true
-    require_symbols   = false
+    require_symbols   = true
   }
 
   schema {
@@ -47,13 +47,19 @@ resource "aws_cognito_identity_provider" "google" {
   provider_name = "Google"
   provider_type = "Google"
   provider_details = {
-    client_id        = var.google_client_id
-    client_secret    = var.google_client_secret
-    authorize_scopes = "openid email profile"
+    client_id                     = var.google_client_id
+    client_secret                 = var.google_client_secret
+    authorize_scopes              = "openid email profile"
+    attributes_url                = "https://people.googleapis.com/v1/people/me?personFields="
+    attributes_url_add_attributes = "true"
+    authorize_url                 = "https://accounts.google.com/o/oauth2/v2/auth"
+    oidc_issuer                   = "https://accounts.google.com"
+    token_request_method          = "POST"
+    token_url                     = "https://www.googleapis.com/oauth2/v4/token"
   }
 
   attribute_mapping = {
-    email = "email", email_verified = "email_verified", name = "name"
+    email = "email", email_verified = "email_verified", name = "name", username = "sub"
   }
 
   lifecycle {
@@ -63,9 +69,10 @@ resource "aws_cognito_identity_provider" "google" {
 }
 
 resource "aws_cognito_user_pool_client" "web" {
-  user_pool_id                         = aws_cognito_user_pool.main.id
-  name                                 = "${var.project_name}-web"
-  generate_secret                      = false
+  user_pool_id = aws_cognito_user_pool.main.id
+  name         = "${var.project_name}-web"
+  # Omit generate_secret on adoption: the provider imports it as null even
+  # for clients without a secret; setting false would force replacement.
   supported_identity_providers         = ["COGNITO", aws_cognito_identity_provider.google.provider_name]
   allowed_oauth_flows_user_pool_client = true
   allowed_oauth_flows                  = ["code"]

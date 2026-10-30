@@ -1,0 +1,31 @@
+{
+  "kind": "read_only_local_adoption_plan",
+  "terraform_version": "1.16.7",
+  "imports": 40,
+  "creates": 0,
+  "deletes": 0,
+  "updates": [
+    {
+      "address": "aws_budgets_budget.ai",
+      "values_unchanged": true,
+      "sensitivity_metadata_changed": true
+    },
+    {
+      "address": "aws_cognito_identity_provider.google",
+      "values_unchanged": true,
+      "sensitivity_metadata_changed": true
+    },
+    {
+      "address": "aws_lambda_function.reports[\"builder\"]",
+      "values_unchanged": true,
+      "sensitivity_metadata_changed": true
+    },
+    {
+      "address": "aws_lambda_function.reports[\"mailer\"]",
+      "values_unchanged": true,
+      "sensitivity_metadata_changed": true
+    }
+  ],
+  "applied": false,
+  "hcp_plan_verified": false
+}
