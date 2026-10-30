@@ -173,7 +173,7 @@ resource "aws_iam_role" "reports" {
 resource "aws_iam_role_policy_attachment" "reports" {
   for_each   = local.report_managed_policies
   role       = aws_iam_role.reports[each.key].name
-  policy_arn = "arn:${local.partition} :iam::aws:policy/service-role/${each.value}"
+  policy_arn = "arn:${local.partition}:iam::aws:policy/service-role/${each.value}"
 }
 
 resource "aws_iam_role_policy" "reports" {

@@ -7,9 +7,9 @@ resource "aws_cognito_user_pool" "main" {
     allow_admin_create_user_only = false
   }
 
-  username_configuration {
-    case_sensitive = false
-  }
+  # Adopt the existing immutable username case-sensitivity setting.
+  # Provider 6.71 computes username_configuration from AWS when omitted;
+  # imposing false during import can force replacement of an existing pool.
 
   password_policy {
     minimum_length    = 8
