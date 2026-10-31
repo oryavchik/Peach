@@ -1,0 +1,12 @@
+{
+  "part2_aws": "not_run_owner_prohibits_cloud_charges",
+  "part2_local": "one real day checked in DuckDB; not AWS evidence",
+  "part3": "all five real Redpanda experiments passed",
+  "part4_cloud": "design/code only; not deployed",
+  "aws_resources_created": 0,
+  "aws_queries_executed": 0,
+  "new_cloud_spend_usd": 0,
+  "dataset_generated": false,
+  "full_dataset_downloaded": false,
+  "actual_source": "s3://ucu-ooad-lab8-payments/payments/dt=2026-10-01/events.jsonl"
+}

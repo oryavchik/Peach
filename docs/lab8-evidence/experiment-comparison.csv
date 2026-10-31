@@ -1,0 +1,6 @@
+experiment,events,duplicates,accepted,late_rejected,windows,alerts,pause_seconds
+baseline,101084,1001,99495,588,4593,905,0
+restart,101084,1001,99497,586,4592,906,60.005
+two-consumers,101084,1001,99563,520,4593,904,0
+failure-30,101084,1001,99487,596,4593,3289,0
+lateness-zero,101084,1001,99297,786,4593,905,0

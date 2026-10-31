@@ -1,0 +1,129 @@
+{
+  "baseline": {
+    "records": 101087,
+    "events": 101084,
+    "accepted": 99495,
+    "duplicates": 1001,
+    "alerts": 905,
+    "late_rejected": 588,
+    "type": "summary",
+    "windows": 4593,
+    "closed_windows": 4593,
+    "ended_partitions": 3,
+    "assignments": [
+      [
+        0,
+        1,
+        2
+      ]
+    ],
+    "pause_seconds": 0,
+    "broker": "real Redpanda v26.2.6",
+    "replay_payments_per_second": 0,
+    "replay_mode": "accelerated; event and received timestamps preserved"
+  },
+  "restart": {
+    "records": 101087,
+    "events": 101084,
+    "accepted": 99497,
+    "duplicates": 1001,
+    "alerts": 906,
+    "late_rejected": 586,
+    "type": "summary",
+    "windows": 4592,
+    "closed_windows": 4592,
+    "ended_partitions": 3,
+    "assignments": [
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        0,
+        1,
+        2
+      ]
+    ],
+    "pause_seconds": 60.005,
+    "broker": "real Redpanda v26.2.6",
+    "replay_payments_per_second": 0,
+    "replay_mode": "accelerated; event and received timestamps preserved"
+  },
+  "two-consumers": {
+    "records": 101087,
+    "events": 101084,
+    "accepted": 99563,
+    "duplicates": 1001,
+    "alerts": 904,
+    "late_rejected": 520,
+    "type": "summary",
+    "windows": 4593,
+    "closed_windows": 4593,
+    "ended_partitions": 3,
+    "assignments": [
+      [
+        0,
+        1,
+        2
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        2
+      ]
+    ],
+    "pause_seconds": 0,
+    "broker": "real Redpanda v26.2.6",
+    "replay_payments_per_second": 0,
+    "replay_mode": "accelerated; event and received timestamps preserved"
+  },
+  "failure-30": {
+    "records": 101087,
+    "events": 101084,
+    "accepted": 99487,
+    "duplicates": 1001,
+    "alerts": 3289,
+    "late_rejected": 596,
+    "type": "summary",
+    "windows": 4593,
+    "closed_windows": 4593,
+    "ended_partitions": 3,
+    "assignments": [
+      [
+        0,
+        1,
+        2
+      ]
+    ],
+    "pause_seconds": 0,
+    "broker": "real Redpanda v26.2.6",
+    "replay_payments_per_second": 0,
+    "replay_mode": "accelerated; event and received timestamps preserved"
+  },
+  "lateness-zero": {
+    "records": 101087,
+    "events": 101084,
+    "accepted": 99297,
+    "duplicates": 1001,
+    "alerts": 905,
+    "late_rejected": 786,
+    "type": "summary",
+    "windows": 4593,
+    "closed_windows": 4593,
+    "ended_partitions": 3,
+    "assignments": [
+      [
+        0,
+        1,
+        2
+      ]
+    ],
+    "pause_seconds": 0,
+    "broker": "real Redpanda v26.2.6",
+    "replay_payments_per_second": 0,
+    "replay_mode": "accelerated; event and received timestamps preserved"
+  }
+}

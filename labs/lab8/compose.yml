@@ -1,0 +1,31 @@
+name: peach-lab8
+services:
+  redpanda:
+    image: docker.redpanda.com/redpandadata/redpanda:v26.2.6
+    command:
+      - redpanda
+      - start
+      - --mode=dev-container
+      - --smp=1
+      - --memory=768M
+      - --reserve-memory=0M
+      - --kafka-addr=internal://0.0.0.0:9092,external://0.0.0.0:19092
+      - --advertise-kafka-addr=internal://redpanda:9092,external://localhost:19092
+      - --rpc-addr=redpanda:33145
+      - --advertise-rpc-addr=redpanda:33145
+    ports: ["127.0.0.1:19092:19092"]
+    volumes: ["broker-data:/var/lib/redpanda/data"]
+    healthcheck:
+      test: ["CMD", "rpk", "cluster", "info", "-X", "brokers=localhost:9092"]
+      interval: 3s
+      timeout: 5s
+      retries: 40
+  console:
+    image: docker.redpanda.com/redpandadata/console:v3.13.1
+    environment:
+      KAFKA_BROKERS: redpanda:9092
+    ports: ["127.0.0.1:8080:8080"]
+    depends_on:
+      redpanda: {condition: service_healthy}
+volumes:
+  broker-data:

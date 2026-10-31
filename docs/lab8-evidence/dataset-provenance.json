@@ -1,0 +1,9 @@
+{
+  "source": "s3://ucu-ooad-lab8-payments/payments/dt=2026-10-01/events.jsonl",
+  "bytes": 42042253,
+  "sha256": "7bade848b44f2b798431c1539475f0e74a763c207b67c9e6479d0e3467d7a0b0",
+  "raw_records": 101084,
+  "exact_duplicates": 1001,
+  "unique_invoices": 33361,
+  "scope": "one real day; no generator used"
+}

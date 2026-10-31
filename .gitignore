@@ -43,3 +43,6 @@ tfplan
 crash.log
 *.secret.tfvars
 *.secret.tfvars.json
+
+# Lab 8 generated Lambda archive
+labs/lab8/cloud/alert.zip

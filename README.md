@@ -91,3 +91,12 @@ output access. Application scripts then read Cognito/parser configuration with
    a screenshot must still be captured by the owner.
 3. Attach [the actual HCP no-change output](docs/terraform-evidence/NO_CHANGES.txt)
    and its [verification summary](docs/terraform-evidence/hcp-no-changes.json).
+
+## Lab 8: free local batch/streaming work
+
+See [the implementation](labs/lab8/README.md) and [real results](docs/lab8-evidence/RESULTS.md).
+All five local Redpanda experiments ran on the provided real October 1 dataset.
+Local DuckDB CSVs are explicitly one-day cross-checks, not Athena results.
+The owner prohibits cloud charges: Part 2 AWS measurements and Part 4 AWS
+execution/screenshot remain outstanding. SQL, cloud code and an undeployed
+pipeline diagram are prepared separately; no cloud resources were created.
