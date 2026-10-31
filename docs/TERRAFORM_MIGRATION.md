@@ -2,16 +2,16 @@
 
 ## Current status and authorization
 
-The owner authorized Retain-only updates and release of `peach-reports` and
-`peach-ai`. Both stack containers are now `DELETE_COMPLETE`; all 23 resources
-were verified `DELETE_SKIPPED`. No Terraform apply or state import was run.
-HCP organization `oryavchik`, workspace `Peach`, has an owner-configured OIDC
-role `hcp-terraform-Peac` with `ReadOnlyAccess`. Its trust is restricted to this
-organization/project/workspace. The post-release read-only plan still finds all
-40 import targets with no creates/deletes and four sensitivity-only updates.
-See `terraform-evidence/cloudformation-release.json` and
-`terraform-evidence/post-release-plan-summary.json`. The owner must review and
-confirm the HCP import, then obtain a real post-import no-change plan.
+The owner-authorized migration is complete. Retain-only updates were verified
+and the two stack containers released with all 23 resources preserved. The owner
+confirmed the VCS-triggered HCP apply `run-EgM4hPVixxmAJ2rT`, which imported all
+40 Terraform objects. No resources were recreated. The subsequent remote
+plan-only run `run-shqNo6KtbUHjrpiM` passed the strict no-change guard: 40 managed
+objects, zero imports/updates/creates/deletes and no output changes. Temporary
+import blocks and the three feature YAML files were removed after verification.
+The following sections retain the reviewed operational procedure as a record;
+do not repeat completed release/import steps. The owner still needs to capture
+the Apply finished screenshot from the linked HCP run.
 
 The former `peach-reports` and `peach-ai` stacks contained 16 and 7 resources.
 `peach-auth` is absent; the named Cognito pool/client/Google provider/branding
@@ -21,7 +21,7 @@ before adoption. Do not create a second pool because an auth stack is absent.
 Forty Terraform objects cover those 28 existing objects, with S3 settings and
 IAM inline policies/attachments decomposed. See `import-map.json`. The optional
 SES domain is absent and stays `count=0`. Re-created objects: none planned.
-Actual imports/re-creations so far: zero.
+Actual imports: 40. Actual re-creations: zero.
 
 ## 1. HCP setup
 

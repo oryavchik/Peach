@@ -18,7 +18,7 @@ VCS-triggered plans, and human-reviewed remote applies. The assistant does not r
 owner authorization and verified deployed retention policies. Keep the existing base API/database/site stacks.
 
 Adopt the existing resources with explicit import blocks and unchanged names.
-Forty import targets are prepared; no imports have been performed. Before
+All forty Terraform objects were imported in place; no resources were recreated. Before
 release, review/deploy Retain-only updates to the currently owning stacks;
 verify retention, release ownership, then review an import-only plan. Do not
 let CloudFormation and Terraform manage the same resource concurrently.
@@ -65,6 +65,9 @@ Do not create a second local state or bypass locking. A genuine emergency needs
 an authorized, documented recovery using the same authoritative state, with
 review and reconciliation afterward.
 
-Status: translation/validation preparation only. HCP setup, bootstrap, ownership
-release, imports, real no-change output, drift exercise and VCS apply screenshot
-are pending. The live free Cloudflare app is not changed by this migration.
+Status: ownership release, owner-approved VCS import apply and remote no-change
+verification completed. The temporary import blocks and original feature YAML
+files were retired after verification. A second VCS plan verifies the final
+source revision. The screenshot still needs to be captured from the successful
+apply run. The optional drift exercise is not claimed as completed.
+The live free Cloudflare app is unchanged.

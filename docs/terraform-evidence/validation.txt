@@ -22,3 +22,9 @@ Both stack containers deleted: DELETE_COMPLETE; 16+7 resources DELETE_SKIPPED.
 Post-release read-only plan: 40 imports, 0 creates/deletes, 4 sensitivity-only
 updates with identical before/after values. No Terraform apply/state import.
 This is not a post-import no-change plan or an HCP Apply finished artifact.
+
+Final remote verification:
+Owner-approved VCS run run-EgM4hPVixxmAJ2rT: applied; apply status finished.
+Remote plan-only run run-shqNo6KtbUHjrpiM: planned_and_finished.
+Strict no-change guard: managed=40, imports=0, cloud_mutations=0.
+No resource or output changes. Feature YAML/import blocks retired afterward.

@@ -18,25 +18,22 @@ For the original interface with the local free-parser adapter, use
 `make free-ai-server` and `make free-ai-frontend`. Server secrets belong in
 ignored `.env` files, never in `NEXT_PUBLIC_` browser variables.
 
-## Terraform lab: ownership released, HCP import pending
+## Terraform lab: migration verified
 
-`infra/auth.tf`, `reports.tf` and `ai.tf` translate the three feature templates.
-The older base API/database/site templates stay in CloudFormation, as the lab
-allows. The Cloudflare deployment is independent and is not managed by this
-AWS Terraform root module.
+Feature infrastructure is managed by `infra/auth.tf`, `reports.tf` and `ai.tf`
+in HCP organization `oryavchik`, workspace `Peach`. The base API/database/site
+stacks remain in CloudFormation. The independent Cloudflare deployment is unchanged.
 
-**The owner-authorized CloudFormation handoff is complete; Terraform import/apply is pending.**
-Retain-only updates were deployed and verified, then the two stack containers
-were deleted. All 23 resources were retained (`DELETE_SKIPPED`). HCP organization
-`oryavchik`, workspace `Peach`, is connected through OIDC. A post-release read-only
-plan verifies all 40 import targets, zero creates/deletes, and four sensitivity-only
-updates with unchanged values. Original templates remain until import and the
-post-import no-change plan are verified. No Terraform apply has been executed.
+The owner confirmed the VCS-triggered import apply. All **40 Terraform resources**
+were imported; none were recreated. Both former feature stack containers were
+released after verified Retain-only updates; all 23 CloudFormation resources
+were retained. The five Cognito objects were adopted in place. Temporary import
+blocks and the three feature YAML templates were removed after a real HCP
+post-import plan verified zero imports, updates, creates, deletes or output changes.
 
-The prepared adoption contains 40 Terraform import targets covering 23 existing
-CloudFormation objects and five existing Cognito objects; bucket properties and
-role policies/attachments are separate Terraform objects. No recreation is planned.
-Actual recreation/import counts are both zero until the migration is performed.
+Evidence: [apply result](docs/terraform-evidence/hcp-import-result.json),
+[no-change output](docs/terraform-evidence/NO_CHANGES.txt), and
+[ADR 0007](docs/adr/0007-terraform.md). Saved state/plans and credentials are never committed.
 
 Install Terraform 1.10+ (tested CLI: 1.16.7; locked AWS provider: 6.71.0).
 Local syntax checks do not need HCP or AWS writes:
@@ -85,13 +82,12 @@ output access. Application scripts then read Cognito/parser configuration with
 - The existing base API/frontend CloudFormation pipelines remain unchanged
   until the feature migration is complete.
 
-## Submission status
+## Submission
 
-1. Terraform source, imports, Retain templates, Makefile/pipeline preparation,
-   inventory and [ADR 0007](docs/adr/0007-terraform.md): prepared.
-2. VCS-triggered HCP `Apply finished` screenshot: **pending**.
-3. Actual post-migration `No changes` plan output: **pending**.
-
-Neither mock plan data nor a local validation is submitted as real migration
-evidence. Original YAML files are removed only after a successful handoff and
-verified no-change plan. Existing users and reports must be preserved.
+1. Submit the final migration commit containing Terraform, the Makefile, this README
+   and [ADR 0007](docs/adr/0007-terraform.md).
+2. Open [the owner-approved VCS run](https://app.terraform.io/app/oryavchik/workspaces/Peach/runs/run-EgM4hPVixxmAJ2rT)
+   and capture its **Apply finished** screen. API status confirms it finished;
+   a screenshot must still be captured by the owner.
+3. Attach [the actual HCP no-change output](docs/terraform-evidence/NO_CHANGES.txt)
+   and its [verification summary](docs/terraform-evidence/hcp-no-changes.json).

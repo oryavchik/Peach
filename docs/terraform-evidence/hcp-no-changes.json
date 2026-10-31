@@ -1,0 +1,15 @@
+{
+  "run_id": "run-shqNo6KtbUHjrpiM",
+  "plan_id": "plan-ui7C9a76PDaRhcT4",
+  "status": "planned_and_finished",
+  "managed_resources": 40,
+  "imports": 0,
+  "creates": 0,
+  "updates": 0,
+  "deletes": 0,
+  "output_changes": 0,
+  "verified_from_hcp_json": true,
+  "messages": [
+    "Plan: 0 to add, 0 to change, 0 to destroy."
+  ]
+}

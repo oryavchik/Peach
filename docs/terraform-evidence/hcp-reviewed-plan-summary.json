@@ -1,0 +1,13 @@
+{
+  "source": "HCP Terraform JSON plan API",
+  "run_id": "run-EgM4hPVixxmAJ2rT",
+  "plan_id": "plan-3nL5ZdZgR72gcVcS",
+  "managed_objects": 40,
+  "imports": 40,
+  "creates": 0,
+  "deletes": 0,
+  "updates": 4,
+  "all_update_values_identical": true,
+  "updates_change_sensitivity_metadata_only": true,
+  "terraform_apply_performed_by_assistant": false
+}
