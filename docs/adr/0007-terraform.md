@@ -5,16 +5,17 @@
 Authentication, reports and parsing were described in three CloudFormation
 templates. The project also uses GitHub and Cloudflare. We need reviewable,
 parameterized infrastructure, central state and a migration that preserves
-user accounts, reports and resource names. The current owner permits code
-preparation and read-only inventory but prohibits AWS changes/paid inference.
+user accounts, reports and resource names. The owner permits free lab work and explicitly authorized Retain-only updates
+and stack-container deletion while retaining resources. Paid inference remains
+disabled.
 
 ## Decision
 
 Prepare one AWS Terraform root module in `infra/`, with `auth.tf`, `reports.tf`,
-`ai.tf`, non-secret variables and an HCP workspace `peach-dev`. Use an HCP
+`ai.tf`, non-secret variables and an HCP workspace `Peach`. Use an HCP
 organization supplied by the owner, remote execution, versioned/locked state,
-VCS-triggered plans, and human-reviewed remote applies. The assistant does not
-run apply or delete stacks. Keep the existing base API/database/site stacks.
+VCS-triggered plans, and human-reviewed remote applies. The assistant does not run Terraform apply. Stack release requires explicit
+owner authorization and verified deployed retention policies. Keep the existing base API/database/site stacks.
 
 Adopt the existing resources with explicit import blocks and unchanged names.
 Forty import targets are prepared; no imports have been performed. Before

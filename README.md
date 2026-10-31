@@ -18,17 +18,20 @@ For the original interface with the local free-parser adapter, use
 `make free-ai-server` and `make free-ai-frontend`. Server secrets belong in
 ignored `.env` files, never in `NEXT_PUBLIC_` browser variables.
 
-## Terraform lab: migration prepared, not executed
+## Terraform lab: ownership released, HCP import pending
 
 `infra/auth.tf`, `reports.tf` and `ai.tf` translate the three feature templates.
 The older base API/database/site templates stay in CloudFormation, as the lab
 allows. The Cloudflare deployment is independent and is not managed by this
 AWS Terraform root module.
 
-**No resources have been imported, no stacks released, and no apply executed.**
-The owner currently prohibits AWS changes and has not configured HCP Terraform.
-The three CloudFormation templates remain with Retain policies until ownership
-is safely transferred. Deleting them prematurely would misrepresent completion.
+**The owner-authorized CloudFormation handoff is complete; Terraform import/apply is pending.**
+Retain-only updates were deployed and verified, then the two stack containers
+were deleted. All 23 resources were retained (`DELETE_SKIPPED`). HCP organization
+`oryavchik`, workspace `Peach`, is connected through OIDC. A post-release read-only
+plan verifies all 40 import targets, zero creates/deletes, and four sensitivity-only
+updates with unchanged values. Original templates remain until import and the
+post-import no-change plan are verified. No Terraform apply has been executed.
 
 The prepared adoption contains 40 Terraform import targets covering 23 existing
 CloudFormation objects and five existing Cognito objects; bucket properties and

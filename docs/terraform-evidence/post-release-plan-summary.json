@@ -1,0 +1,15 @@
+{
+  "kind": "read_only_plan_after_cloudformation_release",
+  "terraform_version": "1.16.7",
+  "imports": 40,
+  "creates": 0,
+  "deletes": 0,
+  "sensitivity_only_updates": [
+    "aws_budgets_budget.ai",
+    "aws_cognito_identity_provider.google",
+    "aws_lambda_function.reports[\"builder\"]",
+    "aws_lambda_function.reports[\"mailer\"]"
+  ],
+  "terraform_apply_performed": false,
+  "post_import_no_changes_verified": false
+}

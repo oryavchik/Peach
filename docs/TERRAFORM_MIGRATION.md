@@ -2,13 +2,18 @@
 
 ## Current status and authorization
 
-Prepared on 2026-10-29. No AWS mutations, stack deletions, Terraform applies or
-state imports were performed. Read-only inventory is in `terraform-evidence/`.
-The owner has not configured HCP and currently prohibits AWS changes. The
-following operational phases are instructions for later owner-reviewed work,
-not permission for the assistant to execute them.
+The owner authorized Retain-only updates and release of `peach-reports` and
+`peach-ai`. Both stack containers are now `DELETE_COMPLETE`; all 23 resources
+were verified `DELETE_SKIPPED`. No Terraform apply or state import was run.
+HCP organization `oryavchik`, workspace `Peach`, has an owner-configured OIDC
+role `hcp-terraform-Peac` with `ReadOnlyAccess`. Its trust is restricted to this
+organization/project/workspace. The post-release read-only plan still finds all
+40 import targets with no creates/deletes and four sensitivity-only updates.
+See `terraform-evidence/cloudformation-release.json` and
+`terraform-evidence/post-release-plan-summary.json`. The owner must review and
+confirm the HCP import, then obtain a real post-import no-change plan.
 
-The existing `peach-reports` and `peach-ai` stacks contain 16 and 7 resources.
+The former `peach-reports` and `peach-ai` stacks contained 16 and 7 resources.
 `peach-auth` is absent; the named Cognito pool/client/Google provider/branding
 exist. Verify the domain and whether any other stack owns those resources
 before adoption. Do not create a second pool because an auth stack is absent.

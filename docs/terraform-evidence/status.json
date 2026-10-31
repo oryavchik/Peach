@@ -2,7 +2,7 @@
   "prepared_import_targets": 40,
   "actual_imports": 0,
   "actual_recreations": 0,
-  "aws_mutations_performed": false,
+  "aws_mutations_performed": true,
   "hcp_configured": false,
   "post_migration_no_changes_plan": "not_run",
   "vcs_apply_screenshot": "not_available",
@@ -10,7 +10,10 @@
   "hcp_workspace_created": true,
   "hcp_organization": "oryavchik",
   "hcp_workspace": "Peach",
-  "hcp_configuration_status": "VCS connected; infra directory and manual apply configured by owner; credentials and variables pending",
-  "local_adoption_plan": "40 imports; 0 creates/deletes; 4 sensitivity-only updates; not applied",
-  "hcp_credentials_status": "Owner screenshot shows Active; role hcp-terraform-Peac"
+  "hcp_configuration_status": "Owner configured variables and active OIDC role; screenshot confirms successful VCS plan; apply pending",
+  "local_adoption_plan": "Post-release read-only plan: 40 imports; 0 creates/deletes; 4 sensitivity-only updates; not applied",
+  "hcp_credentials_status": "Owner screenshot shows Active; role hcp-terraform-Peac",
+  "aws_mutations_scope": "Owner-authorized Retain-only updates and deletion of the two stack containers; all 23 resources retained",
+  "cloudformation_ownership_released": true,
+  "retained_resource_count": 23
 }

@@ -1,0 +1,14 @@
+[
+  {
+    "stack": "peach-reports",
+    "status": "DELETE_COMPLETE",
+    "retained_resources": 16,
+    "all_resources_delete_skipped": true
+  },
+  {
+    "stack": "peach-ai",
+    "status": "DELETE_COMPLETE",
+    "retained_resources": 7,
+    "all_resources_delete_skipped": true
+  }
+]
