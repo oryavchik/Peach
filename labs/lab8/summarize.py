@@ -17,11 +17,12 @@ assert any(len(p)==2 for p in d['two-consumers']['assignments'])
 assert any(len(p)==1 for p in d['two-consumers']['assignments'])
 fields=['experiment','events','duplicates','accepted','late_rejected','windows','alerts','pause_seconds']
 with (evidence/'experiment-comparison.csv').open('w') as f:
-    writer=csv.DictWriter(f,fieldnames=fields);writer.writeheader()
+    writer=csv.DictWriter(f,fieldnames=fields,lineterminator='\n');writer.writeheader()
     for name,r in d.items():writer.writerow({'experiment':name,**{k:r.get(k,0) for k in fields[1:]}})
+rate=json.loads((evidence/'default-rate-check.json').read_text())
 lines=['# Real local Redpanda results','',
        'Source: public dataset, October 1, 2026. Each experiment used all 101,084 webhook records.',
-       'Accelerated replay (original timestamps preserved); separate default-rate check: 41 payments in 2.054 s.',
+       f"Accelerated replay (original timestamps preserved); separate default-rate check: {rate['payments']} payments in {rate['seconds']} s.",
        'Three partitions. No AWS query or cloud pipeline was executed.','',
        '| Experiment | Input events | Exact duplicates | Accepted | Too late | Closed windows | Alerts |',
        '|---|---:|---:|---:|---:|---:|---:|']

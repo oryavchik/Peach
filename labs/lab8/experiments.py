@@ -68,7 +68,7 @@ def main():
         results[name]=summary
         if windows:
             with (args.out/(name+'-windows.csv')).open('w') as f:
-                writer=csv.DictWriter(f,fieldnames=windows[0].keys());writer.writeheader();writer.writerows(windows)
+                writer=csv.DictWriter(f,fieldnames=windows[0].keys(),lineterminator='\n');writer.writeheader();writer.writerows(windows)
         (args.out/'experiments.json').write_text(json.dumps(results,indent=2)+'\n')
         print(name+': '+json.dumps(summary),flush=True)
     baseline=results['baseline']

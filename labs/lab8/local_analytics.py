@@ -34,7 +34,7 @@ def main():
     for name,sql in queries.items():
         cursor=c.execute(sql);cols=[x[0] for x in cursor.description];rows=cursor.fetchall()
         with (args.out/(name+'.csv')).open('w') as f:
-            writer=csv.writer(f);writer.writerow(cols);writer.writerows(rows)
+            writer=csv.writer(f,lineterminator='\n');writer.writerow(cols);writer.writerows(rows)
         results['queries'][name]=[dict(zip(cols,row)) for row in rows]
     (args.out/'local-analytics.json').write_text(json.dumps(results,indent=2,ensure_ascii=False,default=str)+'\n')
     print(json.dumps({k:results['queries'][k] for k in ['scale','late_events']}))
