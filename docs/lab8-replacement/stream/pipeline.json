@@ -1,0 +1,33 @@
+{
+  "execution": "real local Redpanda -> buffered JSONL file sink; separate event-time alert consumer",
+  "aws_executed": false,
+  "topic": "payments-replacement",
+  "source_rows": 101084,
+  "sink_rows": 101084,
+  "unique_exact_records": 100083,
+  "source_sink_multiset_equal": true,
+  "sink_checkpoint_restart_verified": true,
+  "sink": {
+    "type": "file_sink_result",
+    "topic": "payments-replacement",
+    "rows": 101084,
+    "ended_partitions": 3,
+    "batches": 39,
+    "buffer_seconds": 60,
+    "buffer_bytes": 1048576,
+    "aws_executed": false
+  },
+  "alert_summary": {
+    "records": 101087,
+    "events": 101084,
+    "accepted": 99492,
+    "duplicates": 1001,
+    "alerts": 908,
+    "late_rejected": 591,
+    "type": "summary",
+    "windows": 4593,
+    "closed_windows": 4593,
+    "ended_partitions": 3
+  },
+  "replay": "accelerated, original timestamps preserved"
+}

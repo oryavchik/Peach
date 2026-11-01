@@ -1,0 +1,165 @@
+{
+    "total_bytes_written": 0,
+    "total_bytes_read": 3134,
+    "rows_returned": 12,
+    "latency": 0.001682917,
+    "result_set_size": 768,
+    "cumulative_rows_scanned": 33361,
+    "cpu_time": 0.000759785,
+    "extra_info": {},
+    "system_peak_buffer_memory": 117362688,
+    "blocked_thread_time": 0.0,
+    "cumulative_cardinality": 66770,
+    "system_peak_temp_dir_size": 0,
+    "query_name": "SELECT paymentMethod,device,count(*) payments,\n    count(*) FILTER(WHERE status='failure') failures,\n    100.0*count(*) FILTER(WHERE status='failure')/\n      nullif(count(*) FILTER(WHERE status IN ('success','failure')),0) terminal_failure_percent,\n    100.0*count(*) FILTER(WHERE status='failure')/count(*) all_payment_failure_percent\n    FROM payments_parquet GROUP BY paymentMethod,device ORDER BY paymentMethod,device",
+    "children": [
+        {
+            "total_bytes_written": 0,
+            "result_set_size": 768,
+            "operator_timing": 0.000032458,
+            "operator_rows_scanned": 0,
+            "cumulative_rows_scanned": 33361,
+            "operator_cardinality": 12,
+            "operator_type": "ORDER_BY",
+            "total_bytes_read": 0,
+            "operator_name": "ORDER_BY",
+            "cpu_time": 0.000759785,
+            "extra_info": {
+                "Order By": [
+                    "memory.main.payments_parquet.paymentMethod ASC",
+                    "memory.main.payments_parquet.device ASC"
+                ]
+            },
+            "cumulative_cardinality": 66770,
+            "children": [
+                {
+                    "cumulative_cardinality": 66758,
+                    "extra_info": {
+                        "Projections": [
+                            "paymentMethod",
+                            "device",
+                            "payments",
+                            "failures",
+                            "terminal_failure_percent",
+                            "all_payment_failure_percent"
+                        ],
+                        "Estimated Cardinality": "33360"
+                    },
+                    "operator_name": "PROJECTION",
+                    "cpu_time": 0.000727327,
+                    "cumulative_rows_scanned": 33361,
+                    "operator_rows_scanned": 0,
+                    "operator_timing": 0.000002875,
+                    "result_set_size": 768,
+                    "total_bytes_read": 0,
+                    "operator_type": "PROJECTION",
+                    "total_bytes_written": 0,
+                    "operator_cardinality": 12,
+                    "children": [
+                        {
+                            "total_bytes_written": 0,
+                            "result_set_size": 768,
+                            "operator_timing": 0.000003542,
+                            "operator_rows_scanned": 0,
+                            "cumulative_rows_scanned": 33361,
+                            "operator_cardinality": 12,
+                            "operator_type": "PROJECTION",
+                            "total_bytes_read": 0,
+                            "operator_name": "PROJECTION",
+                            "cpu_time": 0.0007244520000000001,
+                            "extra_info": {
+                                "Projections": [
+                                    "paymentMethod",
+                                    "device",
+                                    "payments",
+                                    "failures",
+                                    "CAST((100.0 * CAST(count_star() FILTER (WHERE (status = CAST('failure' AS VARCHAR))) AS DECIMAL(23,0))) AS DOUBLE)",
+                                    "count_star() FILTER (WHERE (status IN (CAST('success' AS VARCHAR), CAST('failure' AS VARCHAR))))"
+                                ],
+                                "Estimated Cardinality": "33360"
+                            },
+                            "cumulative_cardinality": 66746,
+                            "children": [
+                                {
+                                    "cumulative_cardinality": 66734,
+                                    "extra_info": {
+                                        "Groups": [
+                                            "#0",
+                                            "#1"
+                                        ],
+                                        "Aggregates": [
+                                            "count_star()",
+                                            "count_star() FILTER (WHERE #0) Filter: #0",
+                                            "count_star() FILTER (WHERE #1) Filter: #1"
+                                        ],
+                                        "Estimated Cardinality": "33360"
+                                    },
+                                    "operator_name": "HASH_GROUP_BY",
+                                    "cpu_time": 0.0007209100000000001,
+                                    "cumulative_rows_scanned": 33361,
+                                    "operator_rows_scanned": 0,
+                                    "operator_timing": 0.00045045600000000007,
+                                    "result_set_size": 672,
+                                    "total_bytes_read": 0,
+                                    "operator_type": "HASH_GROUP_BY",
+                                    "total_bytes_written": 0,
+                                    "operator_cardinality": 12,
+                                    "children": [
+                                        {
+                                            "total_bytes_written": 0,
+                                            "result_set_size": 1134274,
+                                            "operator_timing": 0.000175496,
+                                            "operator_rows_scanned": 0,
+                                            "cumulative_rows_scanned": 33361,
+                                            "operator_cardinality": 33361,
+                                            "operator_type": "PROJECTION",
+                                            "total_bytes_read": 0,
+                                            "operator_name": "PROJECTION",
+                                            "cpu_time": 0.000270454,
+                                            "extra_info": {
+                                                "Projections": [
+                                                    "paymentMethod",
+                                                    "device",
+                                                    "(status = 'failure')",
+                                                    "(status IN ('success', 'failure'))"
+                                                ],
+                                                "Estimated Cardinality": "33361"
+                                            },
+                                            "cumulative_cardinality": 66722,
+                                            "children": [
+                                                {
+                                                    "cumulative_cardinality": 33361,
+                                                    "extra_info": {
+                                                        "Function": "READ_PARQUET",
+                                                        "Projections": [
+                                                            "paymentMethod",
+                                                            "device",
+                                                            "status"
+                                                        ],
+                                                        "Estimated Cardinality": "33361",
+                                                        "Total Files Read": "1"
+                                                    },
+                                                    "operator_name": "READ_PARQUET ",
+                                                    "cpu_time": 0.000094958,
+                                                    "cumulative_rows_scanned": 33361,
+                                                    "operator_rows_scanned": 33361,
+                                                    "operator_timing": 0.000094958,
+                                                    "result_set_size": 1601328,
+                                                    "total_bytes_read": 0,
+                                                    "operator_type": "TABLE_SCAN",
+                                                    "total_bytes_written": 0,
+                                                    "operator_cardinality": 33361,
+                                                    "children": []
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

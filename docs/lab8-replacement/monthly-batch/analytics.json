@@ -1,0 +1,568 @@
+{
+  "engine": "DuckDB 1.4.1",
+  "scope": "Full October 2026 dataset, all 31 public day files; actual local DuckDB execution, not AWS",
+  "aws_executed": false,
+  "scale": {
+    "raw_rows": 3030197,
+    "exact_events": 3000000,
+    "exact_duplicate_rows": 30197,
+    "unique_invoices": 1000000
+  },
+  "lateness": {
+    "total_exact_events": 3000000,
+    "over_60_seconds": 60231,
+    "over_one_hour": 0,
+    "percent_over_one_hour": 0.0,
+    "with_failure_reason": 60180,
+    "partitions": 31,
+    "first_partition": "2026-10-01",
+    "last_partition": "2026-10-31"
+  },
+  "inferred_schema": {
+    "invoiceId": {
+      "type": "VARCHAR",
+      "nullable": "YES"
+    },
+    "amount": {
+      "type": "BIGINT",
+      "nullable": "YES"
+    },
+    "ccy": {
+      "type": "BIGINT",
+      "nullable": "YES"
+    },
+    "reference": {
+      "type": "VARCHAR",
+      "nullable": "YES"
+    },
+    "createdDate": {
+      "type": "TIMESTAMP",
+      "nullable": "YES"
+    },
+    "merchantId": {
+      "type": "VARCHAR",
+      "nullable": "YES"
+    },
+    "merchantName": {
+      "type": "VARCHAR",
+      "nullable": "YES"
+    },
+    "mcc": {
+      "type": "BIGINT",
+      "nullable": "YES"
+    },
+    "customerId": {
+      "type": "VARCHAR",
+      "nullable": "YES"
+    },
+    "paymentMethod": {
+      "type": "VARCHAR",
+      "nullable": "YES"
+    },
+    "device": {
+      "type": "VARCHAR",
+      "nullable": "YES"
+    },
+    "status": {
+      "type": "VARCHAR",
+      "nullable": "YES"
+    },
+    "modifiedDate": {
+      "type": "TIMESTAMP",
+      "nullable": "YES"
+    },
+    "finalAmount": {
+      "type": "BIGINT",
+      "nullable": "YES"
+    },
+    "receivedAt": {
+      "type": "TIMESTAMP",
+      "nullable": "YES"
+    },
+    "failureReason": {
+      "type": "VARCHAR",
+      "nullable": "YES"
+    },
+    "dt": {
+      "type": "DATE",
+      "nullable": "YES"
+    }
+  },
+  "metrics": [
+    {
+      "query": "turnover",
+      "storage": "JSON_GZIP",
+      "wall_seconds": 4.714031,
+      "duckdb_total_bytes_read": 961,
+      "duckdb_cumulative_rows_scanned": 2604,
+      "result_rows": 30,
+      "matches_other_format": true
+    },
+    {
+      "query": "turnover",
+      "storage": "PARQUET_SNAPPY",
+      "wall_seconds": 0.04617,
+      "duckdb_total_bytes_read": 71214,
+      "duckdb_cumulative_rows_scanned": 2068382,
+      "result_rows": 30,
+      "matches_other_format": true
+    },
+    {
+      "query": "failure_rate",
+      "storage": "JSON_GZIP",
+      "wall_seconds": 4.768898,
+      "duckdb_total_bytes_read": 961,
+      "duckdb_cumulative_rows_scanned": 2604,
+      "result_rows": 12,
+      "matches_other_format": true
+    },
+    {
+      "query": "failure_rate",
+      "storage": "PARQUET_SNAPPY",
+      "wall_seconds": 0.019629,
+      "duckdb_total_bytes_read": 96227,
+      "duckdb_cumulative_rows_scanned": 2068382,
+      "result_rows": 12,
+      "matches_other_format": true
+    },
+    {
+      "query": "peak_hours",
+      "storage": "JSON_GZIP",
+      "wall_seconds": 4.743944,
+      "duckdb_total_bytes_read": 961,
+      "duckdb_cumulative_rows_scanned": 2604,
+      "result_rows": 24,
+      "matches_other_format": true
+    },
+    {
+      "query": "peak_hours",
+      "storage": "PARQUET_SNAPPY",
+      "wall_seconds": 0.093238,
+      "duckdb_total_bytes_read": 76815,
+      "duckdb_cumulative_rows_scanned": 2068382,
+      "result_rows": 24,
+      "matches_other_format": true
+    }
+  ],
+  "ctas_seconds": 5.991323,
+  "parquet_value_parity": true,
+  "parquet_snappy_file_bytes": 78964873,
+  "notes": [
+    "Local wall times and DuckDB profiler reads; not Athena timings or billing.",
+    "One measured run per query; filesystem cache is not reset.",
+    "Physical file-size ratio is not a cloud scan-cost ratio.",
+    "JSON queries include exact deduplication and latest-state ranking; Parquet already contains final states."
+  ],
+  "results": {
+    "turnover": [
+      {
+        "merchantId": "m-001",
+        "merchantName": "Кав'ярня",
+        "ccy": 840,
+        "successful_payments": 3819,
+        "turnover": 505697.22
+      },
+      {
+        "merchantId": "m-001",
+        "merchantName": "Кав'ярня",
+        "ccy": 978,
+        "successful_payments": 2802,
+        "turnover": 365038.15
+      },
+      {
+        "merchantId": "m-001",
+        "merchantName": "Кав'ярня",
+        "ccy": 980,
+        "successful_payments": 87637,
+        "turnover": 11435687.68
+      },
+      {
+        "merchantId": "m-002",
+        "merchantName": "Супермаркет",
+        "ccy": 840,
+        "successful_payments": 3776,
+        "turnover": 2310115.59
+      },
+      {
+        "merchantId": "m-002",
+        "merchantName": "Супермаркет",
+        "ccy": 978,
+        "successful_payments": 2841,
+        "turnover": 1737547.31
+      },
+      {
+        "merchantId": "m-002",
+        "merchantName": "Супермаркет",
+        "ccy": 980,
+        "successful_payments": 87283,
+        "turnover": 54147597.02
+      },
+      {
+        "merchantId": "m-003",
+        "merchantName": "Таксі",
+        "ccy": 840,
+        "successful_payments": 3742,
+        "turnover": 923507.17
+      },
+      {
+        "merchantId": "m-003",
+        "merchantName": "Таксі",
+        "ccy": 978,
+        "successful_payments": 2875,
+        "turnover": 724136.69
+      },
+      {
+        "merchantId": "m-003",
+        "merchantName": "Таксі",
+        "ccy": 980,
+        "successful_payments": 87307,
+        "turnover": 21528219.39
+      },
+      {
+        "merchantId": "m-004",
+        "merchantName": "Доставка їжі",
+        "ccy": 840,
+        "successful_payments": 3754,
+        "turnover": 2036639.2
+      },
+      {
+        "merchantId": "m-004",
+        "merchantName": "Доставка їжі",
+        "ccy": 978,
+        "successful_payments": 2727,
+        "turnover": 1427829.18
+      },
+      {
+        "merchantId": "m-004",
+        "merchantName": "Доставка їжі",
+        "ccy": 980,
+        "successful_payments": 87820,
+        "turnover": 46044018.26
+      },
+      {
+        "merchantId": "m-005",
+        "merchantName": "Онлайн-кінотеатр",
+        "ccy": 840,
+        "successful_payments": 3688,
+        "turnover": 549512.0
+      },
+      {
+        "merchantId": "m-005",
+        "merchantName": "Онлайн-кінотеатр",
+        "ccy": 978,
+        "successful_payments": 2840,
+        "turnover": 423160.0
+      },
+      {
+        "merchantId": "m-005",
+        "merchantName": "Онлайн-кінотеатр",
+        "ccy": 980,
+        "successful_payments": 87357,
+        "turnover": 13016193.0
+      },
+      {
+        "merchantId": "m-006",
+        "merchantName": "Музичний сервіс",
+        "ccy": 840,
+        "successful_payments": 3762,
+        "turnover": 372438.0
+      },
+      {
+        "merchantId": "m-006",
+        "merchantName": "Музичний сервіс",
+        "ccy": 978,
+        "successful_payments": 2777,
+        "turnover": 274923.0
+      },
+      {
+        "merchantId": "m-006",
+        "merchantName": "Музичний сервіс",
+        "ccy": 980,
+        "successful_payments": 87517,
+        "turnover": 8664183.0
+      },
+      {
+        "merchantId": "m-007",
+        "merchantName": "Аптека",
+        "ccy": 840,
+        "successful_payments": 3727,
+        "turnover": 1659126.96
+      },
+      {
+        "merchantId": "m-007",
+        "merchantName": "Аптека",
+        "ccy": 978,
+        "successful_payments": 2758,
+        "turnover": 1203052.19
+      },
+      {
+        "merchantId": "m-007",
+        "merchantName": "Аптека",
+        "ccy": 980,
+        "successful_payments": 87374,
+        "turnover": 38554151.04
+      },
+      {
+        "merchantId": "m-008",
+        "merchantName": "АЗС",
+        "ccy": 840,
+        "successful_payments": 3600,
+        "turnover": 5856481.33
+      },
+      {
+        "merchantId": "m-008",
+        "merchantName": "АЗС",
+        "ccy": 978,
+        "successful_payments": 2873,
+        "turnover": 4708258.32
+      },
+      {
+        "merchantId": "m-008",
+        "merchantName": "АЗС",
+        "ccy": 980,
+        "successful_payments": 87560,
+        "turnover": 144641341.06
+      },
+      {
+        "merchantId": "m-009",
+        "merchantName": "Інтернет-магазин",
+        "ccy": 840,
+        "successful_payments": 3725,
+        "turnover": 13840942.83
+      },
+      {
+        "merchantId": "m-009",
+        "merchantName": "Інтернет-магазин",
+        "ccy": 978,
+        "successful_payments": 2840,
+        "turnover": 10084500.3
+      },
+      {
+        "merchantId": "m-009",
+        "merchantName": "Інтернет-магазин",
+        "ccy": 980,
+        "successful_payments": 87115,
+        "turnover": 310259259.21
+      },
+      {
+        "merchantId": "m-010",
+        "merchantName": "Квитки",
+        "ccy": 840,
+        "successful_payments": 3876,
+        "turnover": 3602313.89
+      },
+      {
+        "merchantId": "m-010",
+        "merchantName": "Квитки",
+        "ccy": 978,
+        "successful_payments": 2745,
+        "turnover": 2451613.23
+      },
+      {
+        "merchantId": "m-010",
+        "merchantName": "Квитки",
+        "ccy": 980,
+        "successful_payments": 87303,
+        "turnover": 77749863.65
+      }
+    ],
+    "failure_rate": [
+      {
+        "paymentMethod": "apple_pay",
+        "device": "android",
+        "payments": 83677,
+        "failures": 5130,
+        "terminal_failure_percent": 6.130716923407866,
+        "all_payment_failure_percent": 6.130716923407866
+      },
+      {
+        "paymentMethod": "apple_pay",
+        "device": "ios",
+        "payments": 83164,
+        "failures": 5025,
+        "terminal_failure_percent": 6.0422779087105,
+        "all_payment_failure_percent": 6.0422779087105
+      },
+      {
+        "paymentMethod": "apple_pay",
+        "device": "web",
+        "payments": 83505,
+        "failures": 4966,
+        "terminal_failure_percent": 5.946949284473984,
+        "all_payment_failure_percent": 5.946949284473984
+      },
+      {
+        "paymentMethod": "card",
+        "device": "android",
+        "payments": 183332,
+        "failures": 11079,
+        "terminal_failure_percent": 6.043134859162612,
+        "all_payment_failure_percent": 6.043134859162612
+      },
+      {
+        "paymentMethod": "card",
+        "device": "ios",
+        "payments": 183541,
+        "failures": 10912,
+        "terminal_failure_percent": 5.9452656354710935,
+        "all_payment_failure_percent": 5.9452656354710935
+      },
+      {
+        "paymentMethod": "card",
+        "device": "web",
+        "payments": 183435,
+        "failures": 11020,
+        "terminal_failure_percent": 6.007577616049282,
+        "all_payment_failure_percent": 6.007577616049282
+      },
+      {
+        "paymentMethod": "google_pay",
+        "device": "android",
+        "payments": 59450,
+        "failures": 3563,
+        "terminal_failure_percent": 5.9932716568545,
+        "all_payment_failure_percent": 5.9932716568545
+      },
+      {
+        "paymentMethod": "google_pay",
+        "device": "ios",
+        "payments": 59761,
+        "failures": 3590,
+        "terminal_failure_percent": 6.007262261341008,
+        "all_payment_failure_percent": 6.007262261341008
+      },
+      {
+        "paymentMethod": "google_pay",
+        "device": "web",
+        "payments": 59996,
+        "failures": 3645,
+        "terminal_failure_percent": 6.0754050270018,
+        "all_payment_failure_percent": 6.0754050270018
+      },
+      {
+        "paymentMethod": "qr",
+        "device": "android",
+        "payments": 6675,
+        "failures": 448,
+        "terminal_failure_percent": 6.711610486891386,
+        "all_payment_failure_percent": 6.711610486891386
+      },
+      {
+        "paymentMethod": "qr",
+        "device": "ios",
+        "payments": 6795,
+        "failures": 402,
+        "terminal_failure_percent": 5.916114790286976,
+        "all_payment_failure_percent": 5.916114790286976
+      },
+      {
+        "paymentMethod": "qr",
+        "device": "web",
+        "payments": 6669,
+        "failures": 400,
+        "terminal_failure_percent": 5.99790073474284,
+        "all_payment_failure_percent": 5.99790073474284
+      }
+    ],
+    "peak_hours": [
+      {
+        "hour_kyiv": 0,
+        "payments": 42762
+      },
+      {
+        "hour_kyiv": 1,
+        "payments": 23905
+      },
+      {
+        "hour_kyiv": 2,
+        "payments": 11689
+      },
+      {
+        "hour_kyiv": 3,
+        "payments": 6813
+      },
+      {
+        "hour_kyiv": 4,
+        "payments": 6666
+      },
+      {
+        "hour_kyiv": 5,
+        "payments": 6551
+      },
+      {
+        "hour_kyiv": 6,
+        "payments": 6713
+      },
+      {
+        "hour_kyiv": 7,
+        "payments": 7882
+      },
+      {
+        "hour_kyiv": 8,
+        "payments": 15953
+      },
+      {
+        "hour_kyiv": 9,
+        "payments": 30679
+      },
+      {
+        "hour_kyiv": 10,
+        "payments": 49352
+      },
+      {
+        "hour_kyiv": 11,
+        "payments": 58823
+      },
+      {
+        "hour_kyiv": 12,
+        "payments": 51959
+      },
+      {
+        "hour_kyiv": 13,
+        "payments": 47969
+      },
+      {
+        "hour_kyiv": 14,
+        "payments": 55866
+      },
+      {
+        "hour_kyiv": 15,
+        "payments": 65296
+      },
+      {
+        "hour_kyiv": 16,
+        "payments": 58420
+      },
+      {
+        "hour_kyiv": 17,
+        "payments": 53547
+      },
+      {
+        "hour_kyiv": 18,
+        "payments": 55046
+      },
+      {
+        "hour_kyiv": 19,
+        "payments": 62691
+      },
+      {
+        "hour_kyiv": 20,
+        "payments": 74695
+      },
+      {
+        "hour_kyiv": 21,
+        "payments": 78663
+      },
+      {
+        "hour_kyiv": 22,
+        "payments": 70662
+      },
+      {
+        "hour_kyiv": 23,
+        "payments": 57398
+      }
+    ]
+  },
+  "json_file_bytes": 126333987,
+  "json_storage": "JSON_GZIP"
+}

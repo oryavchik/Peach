@@ -1,0 +1,256 @@
+{
+  "source": "existing public October 2026 payments",
+  "generated": false,
+  "days": [
+    {
+      "day": "2026-10-01",
+      "source": "https://ucu-ooad-lab8-payments.s3.us-east-1.amazonaws.com/payments/dt=2026-10-01/events.jsonl",
+      "source_bytes": 42042253,
+      "gzip_bytes": 4215134,
+      "sha256_uncompressed": "7bade848b44f2b798431c1539475f0e74a763c207b67c9e6479d0e3467d7a0b0",
+      "etag": "\"6fbbf6c49ebeca776c870387500d0105-6\""
+    },
+    {
+      "day": "2026-10-02",
+      "source": "https://ucu-ooad-lab8-payments.s3.us-east-1.amazonaws.com/payments/dt=2026-10-02/events.jsonl",
+      "source_bytes": 42087514,
+      "gzip_bytes": 4218442,
+      "sha256_uncompressed": "3d940c3ed0dc10f843cdeb1cea7c3aae4ae45620eedfc6361ab8530c2b7ecbc5",
+      "etag": "\"2f3c5d6aa8716a56d2257ec6d41022d7-6\""
+    },
+    {
+      "day": "2026-10-03",
+      "source": "https://ucu-ooad-lab8-payments.s3.us-east-1.amazonaws.com/payments/dt=2026-10-03/events.jsonl",
+      "source_bytes": 42362221,
+      "gzip_bytes": 4244996,
+      "sha256_uncompressed": "03c6345421366b2d1e98a1083afa70ced395247e80a089bfc1f12bcfa5c9a400",
+      "etag": "\"2cf6347f25df424d03514cb56805fc2c-6\""
+    },
+    {
+      "day": "2026-10-04",
+      "source": "https://ucu-ooad-lab8-payments.s3.us-east-1.amazonaws.com/payments/dt=2026-10-04/events.jsonl",
+      "source_bytes": 41836345,
+      "gzip_bytes": 4192767,
+      "sha256_uncompressed": "827b33974854e14592d01b8ff9fc810b0efa9c5eeabafbb1bc48c0dab544fe51",
+      "etag": "\"870b7346132c3b8bfe88388b3616db08-5\""
+    },
+    {
+      "day": "2026-10-05",
+      "source": "https://ucu-ooad-lab8-payments.s3.us-east-1.amazonaws.com/payments/dt=2026-10-05/events.jsonl",
+      "source_bytes": 42222689,
+      "gzip_bytes": 4231702,
+      "sha256_uncompressed": "cd025e86afbc8ce03794871147346a3b76fee05ddfdfb39eba76e98d09bc4694",
+      "etag": "\"c7485d737b3c3053625f02be0c5e9b88-6\""
+    },
+    {
+      "day": "2026-10-06",
+      "source": "https://ucu-ooad-lab8-payments.s3.us-east-1.amazonaws.com/payments/dt=2026-10-06/events.jsonl",
+      "source_bytes": 41729409,
+      "gzip_bytes": 4181130,
+      "sha256_uncompressed": "000695efc862a625a5e74f1d63cba893ad899cd523239d904717260b6d45c401",
+      "etag": "\"f81779509308bd8356cdc5ded4cd5f30-5\""
+    },
+    {
+      "day": "2026-10-07",
+      "source": "https://ucu-ooad-lab8-payments.s3.us-east-1.amazonaws.com/payments/dt=2026-10-07/events.jsonl",
+      "source_bytes": 42106997,
+      "gzip_bytes": 4220345,
+      "sha256_uncompressed": "7c389251b88649f7e93e9fdc283c1776aafb4d5305f988e4e6726a8bffd028cb",
+      "etag": "\"63562c7714c34d4d49bf5e204e223a68-6\""
+    },
+    {
+      "day": "2026-10-08",
+      "source": "https://ucu-ooad-lab8-payments.s3.us-east-1.amazonaws.com/payments/dt=2026-10-08/events.jsonl",
+      "source_bytes": 41973065,
+      "gzip_bytes": 4205674,
+      "sha256_uncompressed": "4ac65a94b13f9a4e016dc40e90f8e2a0782c8d6e7c7a1d975f560ebeec8362e9",
+      "etag": "\"9e200d40550cc01b880f4942ba0b02d6-6\""
+    },
+    {
+      "day": "2026-10-09",
+      "source": "https://ucu-ooad-lab8-payments.s3.us-east-1.amazonaws.com/payments/dt=2026-10-09/events.jsonl",
+      "source_bytes": 41981843,
+      "gzip_bytes": 4206319,
+      "sha256_uncompressed": "8abfab9eec15c0c5a735e25f5384158762259365d789d30e41fd0cb1b931f36f",
+      "etag": "\"c60743c4d0a0423d52ea4f76a5d43c0c-6\""
+    },
+    {
+      "day": "2026-10-10",
+      "source": "https://ucu-ooad-lab8-payments.s3.us-east-1.amazonaws.com/payments/dt=2026-10-10/events.jsonl",
+      "source_bytes": 41899172,
+      "gzip_bytes": 4199852,
+      "sha256_uncompressed": "7fce696994e41131a604daffc7bb56dd6bf5aa6b34ce4bf42096b2e102366e8f",
+      "etag": "\"1deade82748314080bd99f4b03261aac-5\""
+    },
+    {
+      "day": "2026-10-11",
+      "source": "https://ucu-ooad-lab8-payments.s3.us-east-1.amazonaws.com/payments/dt=2026-10-11/events.jsonl",
+      "source_bytes": 42126954,
+      "gzip_bytes": 4223596,
+      "sha256_uncompressed": "1da4c1f4eeea4b6521eccef4b483d0ad5e9023e1ac4ec0257db763c10bc1efef",
+      "etag": "\"c400633ec4535fac409cb2dc0a7c271a-6\""
+    },
+    {
+      "day": "2026-10-12",
+      "source": "https://ucu-ooad-lab8-payments.s3.us-east-1.amazonaws.com/payments/dt=2026-10-12/events.jsonl",
+      "source_bytes": 41872936,
+      "gzip_bytes": 4192422,
+      "sha256_uncompressed": "686dc2c932dbf4428e6fdd787526240d1f369caa9f1765b6efa898ff0d51d866",
+      "etag": "\"73610be6822b7d42c0dbfab0a7e87d2d-5\""
+    },
+    {
+      "day": "2026-10-13",
+      "source": "https://ucu-ooad-lab8-payments.s3.us-east-1.amazonaws.com/payments/dt=2026-10-13/events.jsonl",
+      "source_bytes": 42078553,
+      "gzip_bytes": 4217039,
+      "sha256_uncompressed": "5aa8c02aeabf3138330b39150dfb6c373ea186f1abb39c8c9e35d248065770d6",
+      "etag": "\"06bde801e715c2274244bc67846e4fb9-6\""
+    },
+    {
+      "day": "2026-10-14",
+      "source": "https://ucu-ooad-lab8-payments.s3.us-east-1.amazonaws.com/payments/dt=2026-10-14/events.jsonl",
+      "source_bytes": 42323138,
+      "gzip_bytes": 4242412,
+      "sha256_uncompressed": "73b1429e2bae9bad01facfd709c99c86c48343a13e52cbdabdff0727b3620272",
+      "etag": "\"38b84df58dd02da227665e5c58afcd25-6\""
+    },
+    {
+      "day": "2026-10-15",
+      "source": "https://ucu-ooad-lab8-payments.s3.us-east-1.amazonaws.com/payments/dt=2026-10-15/events.jsonl",
+      "source_bytes": 42352731,
+      "gzip_bytes": 4242629,
+      "sha256_uncompressed": "66ec1a7ff6dfba4ed24858133e7a654d1cae80e21210fd81d2eb5adeedd66c9c",
+      "etag": "\"a6fabfc9d4e7aec0183ebac881f12d8c-6\""
+    },
+    {
+      "day": "2026-10-16",
+      "source": "https://ucu-ooad-lab8-payments.s3.us-east-1.amazonaws.com/payments/dt=2026-10-16/events.jsonl",
+      "source_bytes": 42007576,
+      "gzip_bytes": 4211046,
+      "sha256_uncompressed": "e369d34cfaa67b3b02a39f8e8122a896c9c2423793666a7c1a765ed54dc4afb8",
+      "etag": "\"0ac39e0bffc8bbd0de36a3eb7db30911-6\""
+    },
+    {
+      "day": "2026-10-17",
+      "source": "https://ucu-ooad-lab8-payments.s3.us-east-1.amazonaws.com/payments/dt=2026-10-17/events.jsonl",
+      "source_bytes": 41515407,
+      "gzip_bytes": 4161367,
+      "sha256_uncompressed": "14189788dca27fd318cb6ab234b90db552a2722f62124aaa6d25b9e55f7f210a",
+      "etag": "\"450bfa66f07f455279f69aa7502c63cc-5\""
+    },
+    {
+      "day": "2026-10-18",
+      "source": "https://ucu-ooad-lab8-payments.s3.us-east-1.amazonaws.com/payments/dt=2026-10-18/events.jsonl",
+      "source_bytes": 41856129,
+      "gzip_bytes": 4194952,
+      "sha256_uncompressed": "d60d4bd6554efde6b15d0921787a8f8c0f9a74eb7bf178ddfcca1abae22b52c9",
+      "etag": "\"2230677c4ab517fa7ef1f37f7f6083f4-5\""
+    },
+    {
+      "day": "2026-10-19",
+      "source": "https://ucu-ooad-lab8-payments.s3.us-east-1.amazonaws.com/payments/dt=2026-10-19/events.jsonl",
+      "source_bytes": 42175054,
+      "gzip_bytes": 4224915,
+      "sha256_uncompressed": "42af19eb0586544510e8d2def0105a648c1978eb355c19e7850c832029066897",
+      "etag": "\"827acedeb32d4cb61166524ccd489214-6\""
+    },
+    {
+      "day": "2026-10-20",
+      "source": "https://ucu-ooad-lab8-payments.s3.us-east-1.amazonaws.com/payments/dt=2026-10-20/events.jsonl",
+      "source_bytes": 41859678,
+      "gzip_bytes": 4190963,
+      "sha256_uncompressed": "38fd215ed2a83c6ce5944fe98203fb5267a5c826989b30ac99dfc12ec91889cf",
+      "etag": "\"eb01efd6e961b0b8ee32d764cd7a8c5f-5\""
+    },
+    {
+      "day": "2026-10-21",
+      "source": "https://ucu-ooad-lab8-payments.s3.us-east-1.amazonaws.com/payments/dt=2026-10-21/events.jsonl",
+      "source_bytes": 42238302,
+      "gzip_bytes": 4233728,
+      "sha256_uncompressed": "8729c82323d53c3aafc1b7f4bfbe43d7ddcc57f66b6ac7f25cf62669eb9f74b4",
+      "etag": "\"a5c27fda50f660b13faec8d66e48a34c-6\""
+    },
+    {
+      "day": "2026-10-22",
+      "source": "https://ucu-ooad-lab8-payments.s3.us-east-1.amazonaws.com/payments/dt=2026-10-22/events.jsonl",
+      "source_bytes": 42312376,
+      "gzip_bytes": 4241837,
+      "sha256_uncompressed": "04f7e5977bc4b7b5900669693e32679b6d868b7ef3ae7bd48d0046c072708be1",
+      "etag": "\"1d780a7951b2d336986b6985e53485ba-6\""
+    },
+    {
+      "day": "2026-10-23",
+      "source": "https://ucu-ooad-lab8-payments.s3.us-east-1.amazonaws.com/payments/dt=2026-10-23/events.jsonl",
+      "source_bytes": 42053164,
+      "gzip_bytes": 4214630,
+      "sha256_uncompressed": "ce403eda04a1c08bf45a0f69e6bffc71dd8041d7ff667a873de8221fdb8308a8",
+      "etag": "\"db69b5059e55cd271a4edbc1327e30f5-6\""
+    },
+    {
+      "day": "2026-10-24",
+      "source": "https://ucu-ooad-lab8-payments.s3.us-east-1.amazonaws.com/payments/dt=2026-10-24/events.jsonl",
+      "source_bytes": 42162092,
+      "gzip_bytes": 4224375,
+      "sha256_uncompressed": "7eba647a597e9e92d936fd1f1f06197f90e3e082f6e3ff5841d0ade2bc6fba54",
+      "etag": "\"1e443f09e4f5993302f072f0434455ae-6\""
+    },
+    {
+      "day": "2026-10-25",
+      "source": "https://ucu-ooad-lab8-payments.s3.us-east-1.amazonaws.com/payments/dt=2026-10-25/events.jsonl",
+      "source_bytes": 41760232,
+      "gzip_bytes": 4181588,
+      "sha256_uncompressed": "5135fdd454e949de20f64be17d679b835667d0ffa6a6caf3f8bace22f4fd1be8",
+      "etag": "\"eb7989f6b251df37c647de4b21345218-5\""
+    },
+    {
+      "day": "2026-10-26",
+      "source": "https://ucu-ooad-lab8-payments.s3.us-east-1.amazonaws.com/payments/dt=2026-10-26/events.jsonl",
+      "source_bytes": 42085853,
+      "gzip_bytes": 4216752,
+      "sha256_uncompressed": "29302d99e54c249363f390ba48baa1df20fab2ac9bfeff894788213ed562b69e",
+      "etag": "\"6cb9c7c750b55f5d87d39cbc120ce46c-6\""
+    },
+    {
+      "day": "2026-10-27",
+      "source": "https://ucu-ooad-lab8-payments.s3.us-east-1.amazonaws.com/payments/dt=2026-10-27/events.jsonl",
+      "source_bytes": 42224481,
+      "gzip_bytes": 4233442,
+      "sha256_uncompressed": "6285ef499fd9bf86faa221b0654b01b85cf884bb1891e9bba64434e1e6d83eb8",
+      "etag": "\"86a790eddf4d96a86e78fe0df354191d-6\""
+    },
+    {
+      "day": "2026-10-28",
+      "source": "https://ucu-ooad-lab8-payments.s3.us-east-1.amazonaws.com/payments/dt=2026-10-28/events.jsonl",
+      "source_bytes": 41785981,
+      "gzip_bytes": 4187274,
+      "sha256_uncompressed": "9b46cfbb02dc1e545cc500c2a1de90161ef76cbc69c34f394da878d2c83a5098",
+      "etag": "\"cde4ae6a7170d6fe40a2bb3269d1077d-5\""
+    },
+    {
+      "day": "2026-10-29",
+      "source": "https://ucu-ooad-lab8-payments.s3.us-east-1.amazonaws.com/payments/dt=2026-10-29/events.jsonl",
+      "source_bytes": 42018860,
+      "gzip_bytes": 4210336,
+      "sha256_uncompressed": "240682b225613b3ac8faa90ac828bd43d9db4b90ca8c621350cf80f4727b667d",
+      "etag": "\"9adf9beebd9860253b62bf83399b7e7f-6\""
+    },
+    {
+      "day": "2026-10-30",
+      "source": "https://ucu-ooad-lab8-payments.s3.us-east-1.amazonaws.com/payments/dt=2026-10-30/events.jsonl",
+      "source_bytes": 41619750,
+      "gzip_bytes": 4171706,
+      "sha256_uncompressed": "4ffc7f31d6ca9a4c4ab4c8251456569e05913a1c1ef59d435005e1163d180246",
+      "etag": "\"77190a622ce2e171f364068fb078c585-5\""
+    },
+    {
+      "day": "2026-10-31",
+      "source": "https://ucu-ooad-lab8-payments.s3.us-east-1.amazonaws.com/payments/dt=2026-10-31/events.jsonl",
+      "source_bytes": 2094,
+      "gzip_bytes": 617,
+      "sha256_uncompressed": "9fd6a5cd81947de468c469cf4e4da82b8f86c906c9be58b9ca29bb9c765bf01d",
+      "etag": "\"735fd390e2f42781f066b124b692efe7\""
+    }
+  ],
+  "source_bytes": 1260672849,
+  "gzip_bytes": 126333987
+}

@@ -1,5 +1,6 @@
 """Shared real-dataset parsing. No synthetic dataset generator."""
 import hashlib
+import gzip
 import json
 from datetime import datetime, timezone
 
@@ -18,7 +19,8 @@ def fingerprint(event):
 
 
 def load_events(path):
-    with open(path) as stream:
+    opener = gzip.open if str(path).endswith('.gz') else open
+    with opener(path, 'rt') as stream:
         events = [json.loads(line) for line in stream if line.strip()]
     # Stable tie order: do not reorder equal receivedAt timestamps arbitrarily.
     return sorted(events, key=lambda e: timestamp(e['receivedAt']))

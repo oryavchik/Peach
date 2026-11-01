@@ -1,0 +1,18 @@
+{
+  "variant": "owner-authorized free local replacement",
+  "local_replacement_complete": true,
+  "literal_aws_lab_complete": false,
+  "aws_services_executed": false,
+  "new_cloud_spend_usd": 0,
+  "full_month_batch_executed": true,
+  "batch_raw_rows": 3030197,
+  "batch_unique_invoices": 1000000,
+  "stream_rows": 101084,
+  "source_sink_multiset_equal": true,
+  "parquet_results_match_json": true,
+  "instructor_acceptance_of_substitution": "not confirmed",
+  "part3_prior_real_experiments": "docs/lab8-evidence/experiments.json",
+  "real_timer_trigger_verified": true,
+  "timer_probe_seconds": 60.265,
+  "tests_passed": 14
+}

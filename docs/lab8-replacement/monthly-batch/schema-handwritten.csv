@@ -1,0 +1,18 @@
+column,type
+invoiceId,VARCHAR
+amount,BIGINT
+ccy,INTEGER
+reference,VARCHAR
+createdDate,VARCHAR
+merchantId,VARCHAR
+merchantName,VARCHAR
+mcc,INTEGER
+customerId,VARCHAR
+paymentMethod,VARCHAR
+device,VARCHAR
+status,VARCHAR
+modifiedDate,VARCHAR
+finalAmount,BIGINT
+receivedAt,VARCHAR
+failureReason,VARCHAR
+dt,VARCHAR (Hive partition)

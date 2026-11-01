@@ -156,3 +156,11 @@ docker compose -f labs/lab8/compose.yml down -v
 After exporting evidence, remove only `.local/lab8` and the two lab-pulled images
 if unused. Do not run docker system prune or touch the Peach app's volumes.
 Do not leave Redpanda running in the background after collecting evidence.
+
+## Later owner-authorized replacement
+
+The scope above records the original one-day run. The owner subsequently asked
+for a full free replacement. See [replacement/README.md](replacement/README.md)
+and [the new evidence](../../docs/lab8-replacement/README.md): actual full-month
+batch, real buffered stream-to-files, inferred schemas, Parquet and SQL results.
+AWS evidence is still not claimed; the replacement is a separate local variant.

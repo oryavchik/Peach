@@ -1,0 +1,318 @@
+{
+    "total_bytes_written": 0,
+    "total_bytes_read": 961,
+    "rows_returned": 24,
+    "latency": 4.741916417,
+    "result_set_size": 384,
+    "cumulative_rows_scanned": 2604,
+    "cpu_time": 7.856384765000001,
+    "extra_info": {},
+    "system_peak_buffer_memory": 512819200,
+    "blocked_thread_time": 0.04,
+    "cumulative_cardinality": 21090639,
+    "system_peak_temp_dir_size": 918093824,
+    "query_name": "SELECT hour(createdDate::TIMESTAMPTZ) hour_kyiv,count(*) payments\n    FROM payments_json GROUP BY 1 ORDER BY 1",
+    "children": [
+        {
+            "total_bytes_written": 0,
+            "result_set_size": 384,
+            "operator_timing": 0.00008850000000000001,
+            "operator_rows_scanned": 0,
+            "cumulative_rows_scanned": 2604,
+            "operator_cardinality": 24,
+            "operator_type": "ORDER_BY",
+            "total_bytes_read": 0,
+            "operator_name": "ORDER_BY",
+            "cpu_time": 7.856384765000001,
+            "extra_info": {
+                "Order By": "hour_kyiv ASC"
+            },
+            "cumulative_cardinality": 21090639,
+            "children": [
+                {
+                    "cumulative_cardinality": 21090615,
+                    "extra_info": {
+                        "Groups": "#0",
+                        "Aggregates": "count_star()",
+                        "Estimated Cardinality": "130"
+                    },
+                    "operator_name": "HASH_GROUP_BY",
+                    "cpu_time": 7.856296265000001,
+                    "cumulative_rows_scanned": 2604,
+                    "operator_rows_scanned": 0,
+                    "operator_timing": 0.0050755909999999895,
+                    "result_set_size": 384,
+                    "total_bytes_read": 0,
+                    "operator_type": "HASH_GROUP_BY",
+                    "total_bytes_written": 0,
+                    "operator_cardinality": 24,
+                    "children": [
+                        {
+                            "total_bytes_written": 0,
+                            "result_set_size": 8000000,
+                            "operator_timing": 0.1511603040000002,
+                            "operator_rows_scanned": 0,
+                            "cumulative_rows_scanned": 2604,
+                            "operator_cardinality": 1000000,
+                            "operator_type": "PROJECTION",
+                            "total_bytes_read": 0,
+                            "operator_name": "PROJECTION",
+                            "cpu_time": 7.851220674000001,
+                            "extra_info": {
+                                "Projections": "hour_kyiv",
+                                "Estimated Cardinality": "260"
+                            },
+                            "cumulative_cardinality": 21090591,
+                            "children": [
+                                {
+                                    "cumulative_cardinality": 20090591,
+                                    "extra_info": {
+                                        "Projections": "#4",
+                                        "Estimated Cardinality": "260"
+                                    },
+                                    "operator_name": "PROJECTION",
+                                    "cpu_time": 7.700060370000001,
+                                    "cumulative_rows_scanned": 2604,
+                                    "operator_rows_scanned": 0,
+                                    "operator_timing": 0.00006171400000000007,
+                                    "result_set_size": 16000000,
+                                    "total_bytes_read": 0,
+                                    "operator_type": "PROJECTION",
+                                    "total_bytes_written": 0,
+                                    "operator_cardinality": 1000000,
+                                    "children": [
+                                        {
+                                            "total_bytes_written": 0,
+                                            "result_set_size": 240000000,
+                                            "operator_timing": 0.002913368000000004,
+                                            "operator_rows_scanned": 0,
+                                            "cumulative_rows_scanned": 2604,
+                                            "operator_cardinality": 1000000,
+                                            "operator_type": "FILTER",
+                                            "total_bytes_read": 0,
+                                            "operator_name": "FILTER",
+                                            "cpu_time": 7.699998656000001,
+                                            "extra_info": {
+                                                "Expression": "(rn = 1)",
+                                                "Estimated Cardinality": "260"
+                                            },
+                                            "cumulative_cardinality": 19090591,
+                                            "children": [
+                                                {
+                                                    "cumulative_cardinality": 18090591,
+                                                    "extra_info": {
+                                                        "Projections": [
+                                                            "#0",
+                                                            "#1",
+                                                            "#2",
+                                                            "#3",
+                                                            "#4",
+                                                            "#5",
+                                                            "#6",
+                                                            "#7",
+                                                            "#8",
+                                                            "#9",
+                                                            "#10",
+                                                            "#11",
+                                                            "#12",
+                                                            "#13",
+                                                            "#14",
+                                                            "#15",
+                                                            "#16",
+                                                            "#17"
+                                                        ],
+                                                        "Estimated Cardinality": "1302"
+                                                    },
+                                                    "operator_name": "PROJECTION",
+                                                    "cpu_time": 7.697085288000001,
+                                                    "cumulative_rows_scanned": 2604,
+                                                    "operator_rows_scanned": 0,
+                                                    "operator_timing": 0.0004145790000000043,
+                                                    "result_set_size": 720000000,
+                                                    "total_bytes_read": 0,
+                                                    "operator_type": "PROJECTION",
+                                                    "total_bytes_written": 0,
+                                                    "operator_cardinality": 3000000,
+                                                    "children": [
+                                                        {
+                                                            "total_bytes_written": 0,
+                                                            "result_set_size": 720000000,
+                                                            "operator_timing": 2.58803399,
+                                                            "operator_rows_scanned": 0,
+                                                            "cumulative_rows_scanned": 2604,
+                                                            "operator_cardinality": 3000000,
+                                                            "operator_type": "WINDOW",
+                                                            "total_bytes_read": 0,
+                                                            "operator_name": "WINDOW",
+                                                            "cpu_time": 7.696670709000001,
+                                                            "extra_info": {
+                                                                "Projections": "ROW_NUMBER() OVER (PARTITION BY invoiceId ORDER BY modifiedDate DESC NULLS LAST, receivedAt DESC NULLS LAST, CASE  WHEN ((status = 'success')) THEN (3) WHEN ((status = 'failure')) THEN (3) WHEN ((status = 'processing')) THEN (2) ELSE 1 END DESC NULLS LAST, status DESC NULLS LAST, reference DESC NULLS LAST)"
+                                                            },
+                                                            "cumulative_cardinality": 15090591,
+                                                            "children": [
+                                                                {
+                                                                    "cumulative_cardinality": 12090591,
+                                                                    "extra_info": {
+                                                                        "Groups": [
+                                                                            "#0",
+                                                                            "#1",
+                                                                            "#2",
+                                                                            "#3",
+                                                                            "#4",
+                                                                            "#5",
+                                                                            "#6",
+                                                                            "#7",
+                                                                            "#8",
+                                                                            "#9",
+                                                                            "#10",
+                                                                            "#11",
+                                                                            "#12",
+                                                                            "#13",
+                                                                            "#14",
+                                                                            "#15",
+                                                                            "#16"
+                                                                        ],
+                                                                        "Aggregates": "",
+                                                                        "Estimated Cardinality": "1302"
+                                                                    },
+                                                                    "operator_name": "HASH_GROUP_BY",
+                                                                    "cpu_time": 5.108636719000001,
+                                                                    "cumulative_rows_scanned": 2604,
+                                                                    "operator_rows_scanned": 0,
+                                                                    "operator_timing": 2.9366098670000014,
+                                                                    "result_set_size": 696000000,
+                                                                    "total_bytes_read": 0,
+                                                                    "operator_type": "HASH_GROUP_BY",
+                                                                    "total_bytes_written": 0,
+                                                                    "operator_cardinality": 3000000,
+                                                                    "children": [
+                                                                        {
+                                                                            "total_bytes_written": 0,
+                                                                            "result_set_size": 703005704,
+                                                                            "operator_timing": 0.0005914629999999978,
+                                                                            "operator_rows_scanned": 0,
+                                                                            "cumulative_rows_scanned": 2604,
+                                                                            "operator_cardinality": 3030197,
+                                                                            "operator_type": "PROJECTION",
+                                                                            "total_bytes_read": 0,
+                                                                            "operator_name": "PROJECTION",
+                                                                            "cpu_time": 2.1720268519999992,
+                                                                            "extra_info": {
+                                                                                "Projections": [
+                                                                                    "invoiceId",
+                                                                                    "amount",
+                                                                                    "ccy",
+                                                                                    "reference",
+                                                                                    "createdDate",
+                                                                                    "merchantId",
+                                                                                    "merchantName",
+                                                                                    "mcc",
+                                                                                    "customerId",
+                                                                                    "paymentMethod",
+                                                                                    "device",
+                                                                                    "status",
+                                                                                    "modifiedDate",
+                                                                                    "finalAmount",
+                                                                                    "receivedAt",
+                                                                                    "failureReason",
+                                                                                    "dt"
+                                                                                ],
+                                                                                "Estimated Cardinality": "1302"
+                                                                            },
+                                                                            "cumulative_cardinality": 9090591,
+                                                                            "children": [
+                                                                                {
+                                                                                    "cumulative_cardinality": 6060394,
+                                                                                    "extra_info": {
+                                                                                        "Projections": [
+                                                                                            "invoiceId",
+                                                                                            "amount",
+                                                                                            "ccy",
+                                                                                            "reference",
+                                                                                            "createdDate",
+                                                                                            "merchantId",
+                                                                                            "merchantName",
+                                                                                            "mcc",
+                                                                                            "customerId",
+                                                                                            "paymentMethod",
+                                                                                            "device",
+                                                                                            "status",
+                                                                                            "modifiedDate",
+                                                                                            "finalAmount",
+                                                                                            "receivedAt",
+                                                                                            "failureReason",
+                                                                                            "dt"
+                                                                                        ],
+                                                                                        "Estimated Cardinality": "1302"
+                                                                                    },
+                                                                                    "operator_name": "PROJECTION",
+                                                                                    "cpu_time": 2.171435388999999,
+                                                                                    "cumulative_rows_scanned": 2604,
+                                                                                    "operator_rows_scanned": 0,
+                                                                                    "operator_timing": 0.0010628880000000018,
+                                                                                    "result_set_size": 703005704,
+                                                                                    "total_bytes_read": 0,
+                                                                                    "operator_type": "PROJECTION",
+                                                                                    "total_bytes_written": 0,
+                                                                                    "operator_cardinality": 3030197,
+                                                                                    "children": [
+                                                                                        {
+                                                                                            "total_bytes_written": 0,
+                                                                                            "result_set_size": 666643340,
+                                                                                            "operator_timing": 2.1703725009999992,
+                                                                                            "operator_rows_scanned": 2604,
+                                                                                            "cumulative_rows_scanned": 2604,
+                                                                                            "operator_cardinality": 3030197,
+                                                                                            "operator_type": "TABLE_SCAN",
+                                                                                            "total_bytes_read": 0,
+                                                                                            "operator_name": "READ_JSON ",
+                                                                                            "cpu_time": 2.1703725009999992,
+                                                                                            "extra_info": {
+                                                                                                "Function": "READ_JSON",
+                                                                                                "Projections": [
+                                                                                                    "invoiceId",
+                                                                                                    "amount",
+                                                                                                    "ccy",
+                                                                                                    "reference",
+                                                                                                    "createdDate",
+                                                                                                    "merchantId",
+                                                                                                    "merchantName",
+                                                                                                    "mcc",
+                                                                                                    "customerId",
+                                                                                                    "paymentMethod",
+                                                                                                    "device",
+                                                                                                    "status",
+                                                                                                    "modifiedDate",
+                                                                                                    "finalAmount",
+                                                                                                    "receivedAt",
+                                                                                                    "failureReason",
+                                                                                                    "dt"
+                                                                                                ],
+                                                                                                "Estimated Cardinality": "1302",
+                                                                                                "Total Files Read": "31"
+                                                                                            },
+                                                                                            "cumulative_cardinality": 3030197,
+                                                                                            "children": []
+                                                                                        }
+                                                                                    ]
+                                                                                }
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

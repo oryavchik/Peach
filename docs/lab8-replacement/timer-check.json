@@ -1,0 +1,10 @@
+{
+  "execution": "real local file-sink time trigger",
+  "source_records": 10,
+  "persisted_before_end_markers": 10,
+  "configured_flush_seconds": 60,
+  "configured_flush_bytes": 1048576,
+  "observed_seconds_since_sink_start": 60.265,
+  "flush_reason": "time; far below size threshold; EOS not sent until after flush",
+  "aws_executed": false
+}

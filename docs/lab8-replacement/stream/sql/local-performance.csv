@@ -1,0 +1,7 @@
+query,storage,wall_seconds,duckdb_total_bytes_read,duckdb_cumulative_rows_scanned,result_rows,matches_other_format
+turnover,JSON_LINES,0.083079,0,3276,30,True
+turnover,PARQUET_SNAPPY,0.008947,2280,33361,30,True
+failure_rate,JSON_LINES,0.073369,0,3276,12,True
+failure_rate,PARQUET_SNAPPY,0.00191,3134,33361,12,True
+peak_hours,JSON_LINES,0.074532,0,3276,24,True
+peak_hours,PARQUET_SNAPPY,0.007092,2489,33361,24,True

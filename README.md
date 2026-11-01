@@ -100,3 +100,13 @@ Local DuckDB CSVs are explicitly one-day cross-checks, not Athena results.
 The owner prohibits cloud charges: Part 2 AWS measurements and Part 4 AWS
 execution/screenshot remain outstanding. SQL, cloud code and an undeployed
 pipeline diagram are prepared separately; no cloud resources were created.
+
+### Lab 8 — owner-authorized free replacement completed
+
+The [local replacement](labs/lab8/replacement/README.md) now executes the full
+October batch dataset (3,030,197 events / 1,000,000 invoices), real schema
+discovery, JSON/Parquet parity checks and timed local SQL. A separate real
+Redpanda -> buffered-file -> DuckDB pipeline delivered and verified every one
+of 101,084 replayed events. [Evidence and reports](docs/lab8-replacement/README.md)
+are explicitly LOCAL, not Athena/Glue. No new AWS services were executed.
+Instructor acceptance of the replacement is not asserted.
