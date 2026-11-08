@@ -1,0 +1,84 @@
+{
+  "configuration": {
+    "jobType": "LOAD",
+    "load": {
+      "destinationTable": {
+        "datasetId": "lab9_20261107",
+        "projectId": "peach-510910",
+        "tableId": "word_shares_free_20261108"
+      },
+      "schema": {
+        "fields": [
+          {
+            "name": "corpus",
+            "type": "STRING"
+          },
+          {
+            "name": "total_words",
+            "type": "INTEGER"
+          },
+          {
+            "name": "distinct_words",
+            "type": "INTEGER"
+          },
+          {
+            "name": "share_of_words",
+            "type": "FLOAT"
+          }
+        ]
+      },
+      "sourceFormat": "NEWLINE_DELIMITED_JSON"
+    }
+  },
+  "etag": "sGSq/4and+lfIHeBSI96bw==",
+  "id": "peach-510910:US.bqjob_r3e957564f6b2c7ab_000001a1bb66d7f9_1",
+  "jobCreationReason": {
+    "code": "REQUESTED"
+  },
+  "jobReference": {
+    "jobId": "bqjob_r3e957564f6b2c7ab_000001a1bb66d7f9_1",
+    "location": "US",
+    "projectId": "peach-510910"
+  },
+  "kind": "bigquery#job",
+  "principal_subject": "user:0689415525maria@gmail.com",
+  "selfLink": "https://bigquery.googleapis.com/bigquery/v2/projects/peach-510910/jobs/bqjob_r3e957564f6b2c7ab_000001a1bb66d7f9_1?location=US",
+  "statistics": {
+    "completionRatio": 1,
+    "creationTime": "1794145444430",
+    "endTime": "1794145445688",
+    "finalExecutionDurationMs": "357",
+    "load": {
+      "badRecords": "0",
+      "inputFileBytes": "4780",
+      "inputFiles": "1",
+      "outputBytes": "1643",
+      "outputRows": "42",
+      "timeline": [
+        {
+          "activeUnits": "0",
+          "completedUnits": "0",
+          "elapsedMs": "318",
+          "estimatedRunnableUnits": "0",
+          "pendingUnits": "1",
+          "totalSlotMs": "97"
+        },
+        {
+          "completedUnits": "1",
+          "elapsedMs": "424",
+          "estimatedRunnableUnits": "0",
+          "pendingUnits": "0",
+          "shuffleRamUsageRatio": 4.561377901036345e-06,
+          "totalSlotMs": "97"
+        }
+      ]
+    },
+    "reservation_id": "default-pipeline",
+    "startTime": "1794145444682",
+    "totalSlotMs": "97"
+  },
+  "status": {
+    "state": "DONE"
+  },
+  "user_email": "0689415525maria@gmail.com"
+}

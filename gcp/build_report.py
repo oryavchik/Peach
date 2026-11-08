@@ -31,11 +31,28 @@ def main():
     smoke_path = E / 'firestore-smoke.json'
     smoke = json.loads(smoke_path.read_text()) if smoke_path.exists() else {'write_read_equal': False}
     sections = '<h2>Firestore REST smoke test</h2><pre>' + html.escape(json.dumps(smoke, ensure_ascii=False, indent=2)) + '</pre>'
-    body = '''<h1>Lab 9 — Google Cloud / Peach</h1><p>Перевірено 8 листопада 2026. Без billing і trial.</p>
+    body = '''<h1>Lab 9 — Google Cloud / Peach: безкоштовні заміни</h1><p>Перевірено 8 листопада 2026. Без GCP billing і trial.</p>
+<p><strong>Робочий альтернативний застосунок:</strong> <a href="https://peach-agenda-free.peach-free-cloud-demo.workers.dev/">Peach на Cloudflare</a>. Static Assets + Workers + D1 замінюють Firebase Hosting + Cloud Run + Cloud SQL. Це відхилення від умови, а не GCP core deployment. Google BigQuery та Firestore виконані окремо.</p>
 <p><strong>Частково виконано.</strong> Немає розгорнутого Cloud Run/FastAPI, Firebase Hosting, Looker/OCR screenshots, Vertex/Dataflow runs або provider calculator exports. Цей документ не заявляє повного виконання лабораторної.</p>
 <p>Terraform та ADR підготовлені. BigQuery запит реально виконаний. Firestore створена як free tier. Firebase повертає 403. Доступ до керування браузером відсутній.</p>
 <h2>BigQuery: реальні результати</h2><p>Job peach_lab9_public_20261107_01, US; 42 рядки; 3 781 873 bytes processed. Графік нижче локальний, із збереженого CSV; це не скриншот Looker Studio.</p>'''
     body += '<pre>' + html.escape(job['configuration']['query']['query']) + '</pre>' + chart + table(results) + sections
+    for filename, title in [
+        ('cloudflare-core-check.json', 'Робочий безкоштовний core: реальна перевірка'),
+        ('local-ocr.json', 'Заміна Google OCR: Apple Vision, локально'),
+        ('local-etl.json', 'Заміна Dataflow: локальний ETL'),
+        ('etl-bigquery-verification.json', 'Реальне завантаження ETL у Google BigQuery'),
+        ('free-agenda-demo.json', 'Заміна Vertex: безкоштовна agenda модель'),
+    ]:
+        path = E / filename
+        if path.exists():
+            value = json.loads(path.read_text())
+            body += '<h2>' + html.escape(title) + '</h2>'
+            if filename == 'local-ocr.json':
+                import base64
+                encoded = base64.b64encode((E / 'synthetic-receipt.png').read_bytes()).decode()
+                body += f'<img alt="Синтетичний чек для локального OCR" style="max-width:650px;width:100%" src="data:image/png;base64,{encoded}">'
+            body += '<pre>' + html.escape(json.dumps(value, ensure_ascii=False, indent=2)) + '</pre>'
     body += '<h2>Чотири профілі вартості, USD</h2><p>Модель за ставками завдання; нижня межа, не фактичний рахунок і не результат provider calculators. Детальні припущення та відповіді наведені нижче.</p>' + table(costs)
     answers = (OUT / 'ANSWERS.md').read_text()
     body += '<h2>Відповіді та відтворення</h2><pre>' + html.escape(answers) + '</pre>'

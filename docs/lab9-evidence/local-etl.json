@@ -1,0 +1,10 @@
+{
+  "engine": "Python CSV to JSONL batch transform",
+  "is_dataflow": false,
+  "input_rows": 42,
+  "output_rows": 42,
+  "total_words": 945845,
+  "share_sum_verified": true,
+  "source": "Actual public BigQuery Shakespeare query result",
+  "transform": "Convert integer types and compute share_of_words"
+}

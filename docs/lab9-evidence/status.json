@@ -39,5 +39,20 @@
   "report": "docs/lab9-submit/Lab9_report.html",
   "written_answers": "docs/lab9-submit/ANSWERS.md",
   "local_bigquery_chart": "real CSV visualization; not Looker screenshot",
-  "browser_access": "browser host unavailable; native Computer Use permission not granted"
+  "browser_access": "browser host unavailable; native Computer Use permission not granted",
+  "free_substitutions_authorized": true,
+  "alternative_core": {
+    "provider": "Cloudflare",
+    "frontend": "Workers Static Assets",
+    "api": "Workers JavaScript",
+    "database": "D1 SQLite",
+    "url": "https://peach-agenda-free.peach-free-cloud-demo.workers.dev/",
+    "live_core_verified": true,
+    "is_gcp": false
+  },
+  "alternative_ocr": "Executed locally: Apple Vision, synthetic receipt; not Google Vision",
+  "alternative_dataflow": "Local Python ETL + real BigQuery Sandbox batch load, 42 rows",
+  "alternative_vertex": "Fresh free OpenRouter agenda request succeeded; not Vertex",
+  "alternative_looker": "Standalone SVG chart from actual BigQuery CSV; not Looker Studio",
+  "alternative_ready_for_review": true
 }

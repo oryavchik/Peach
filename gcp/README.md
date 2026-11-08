@@ -111,3 +111,29 @@ Rebuild saved-evidence report: `python3 gcp/cost_model.py` then
 `python3 gcp/build_report.py`. The chart is an actual CSV visualization, not a
 Looker screenshot. Browser access was tested again and remains unavailable.
 Firebase addFirebase was retried and still returns 403 PERMISSION_DENIED.
+
+## Free alternative delivery
+
+The owner authorized explicit substitutions. The working site is
+https://peach-agenda-free.peach-free-cloud-demo.workers.dev/ . It uses original
+Peach frontend + Worker API + D1, not Firestore or Cloud Run. A fresh core test
+passed (`python3 cloudflare/lab9-smoke.py`), retaining no synthetic item.
+The report now includes offline Apple Vision OCR, a local ETL followed by a
+real BigQuery batch load, and a fresh free-model agenda response. SVG replaces
+Looker only for visualization. These are documented deviations from the GCP
+rubric. See the final substitution table in `docs/lab9-submit/ANSWERS.md`.
+
+The ETL table `lab9_20261107.word_shares_free_20261108` has 48h expiration.
+To reproduce the load after `python3 gcp/alternatives/local_etl.py`, add the
+local SDK bin to PATH, use the existing gcloud login, and run:
+
+```sh
+bq --project_id=peach-510910 --location=US load \
+  --source_format=NEWLINE_DELIMITED_JSON \
+  peach-510910:lab9_20261107.word_shares_free_20261108 \
+  docs/lab9-evidence/etl-output.jsonl \
+  corpus:STRING,total_words:INTEGER,distinct_words:INTEGER,share_of_words:FLOAT
+```
+
+For a repeat run, use a new table name (load appends by default), or wait for
+expiry. Set 48h expiration for each new table and keep billing disabled.

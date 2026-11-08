@@ -81,3 +81,50 @@ Cloud SQL/Run/Dataflow не створено — немає instance compute д�
 - https://cloud.google.com/sql/pricing
 - https://aws.amazon.com/lambda/pricing/
 - https://aws.amazon.com/rds/aurora/pricing/
+
+## Безкоштовні заміни, виконані за рішенням власника 2026-11-08
+
+Це альтернативне виконання. Відповідність вимогам конкретних GCP-сервісів оцінює викладач. Платні підписки не підключали. Наявний Cloudflare deployment використано повторно, замість створення дубля.
+
+| Вимога | Фактично виконана заміна | Чим відрізняється |
+|---|---|---|
+| Firebase Hosting | Cloudflare Workers Static Assets, оригінальний Next.js export | Інший провайдер; HTTPS і статичний frontend працюють |
+| Cloud Run FastAPI | Cloudflare Workers, JavaScript API сумісне з інтерфейсом Peach | Не Docker/FastAPI; інше runtime та CPU/request limits |
+| Cloud SQL | Cloudflare D1, наявні SQL migrations та owner-scoped prepared statements | SQLite, не PostgreSQL; історичні AWS-дані не переносили |
+| GCP database demo | Firestore free-tier REST write/read | Реальний GCP; окремий smoke test, не база Cloudflare-застосунку |
+| Looker Studio chart | Локальний SVG/HTML графік над справжнім BigQuery CSV | Графік виконує візуальне порівняння, але не демонструє Looker connector/dashboard |
+| Vision/Document AI OCR | Apple Vision VNRecognizeTextRequest на синтетичному чеку | Локальний OCR без мережі, не Google OCR; не показує Form Parser |
+| Dataflow Text → BigQuery | Python CSV → typed JSONL → справжній BigQuery batch load | Немає Beam workers, GCS input, autoscaling чи managed streaming |
+| Vertex AI agenda prompt | Наявний Worker → OpenRouter :free model | Не Gemini/Vertex; результат конкретного запуску та статус у free-agenda-demo.json |
+| Cognito sign-in | Наявна demo-сесія одного власника | HttpOnly Secure signed cookie, не багатокористувацька IAM система |
+
+### Перевірений застосунок
+
+URL: https://peach-agenda-free.peach-free-cloud-demo.workers.dev/
+Вхід: локальний `.env`, поле `CLOUDFLARE_DEMO_PASSWORD`. Пароль у звіт не копіюється.
+Перевірка `python3 cloudflare/lab9-smoke.py`: frontend /home, /items, /meetings — HTTP 200; unsigned /api/v1/items — 401; після входу SELECT 1 health ready підтвердив D1; синтетичну задачу створено, знайдено повторним list-запитом і видалено. Відповіді з особистими записами не експортовано. Доказ: cloudflare-core-check.json.
+
+Firestore не приєднували до Worker через довготривалий Google ключ або відкриті security rules. Залишили робочу D1 інтеграцію. Google Firestore demo окреме; у звіті немає твердження, що сайт читає Firestore.
+
+### OCR
+
+Вхід — згенерований чек, не реальна покупка. Локальний Apple Vision розпізнав заголовки, дату, товари й total 8.00; confidence для кількості/ціни нижчий (приблизно 0.3), порядок колонок відрізняється від reading order. OCR текст не можна без перевірки вважати структурованим рахунком. Джерело/результат: synthetic-receipt.png, ocr-expected.txt, local-ocr.json.
+Відтворення на macOS: `python3 gcp/alternatives/make_receipt.py`, потім `swift -module-cache-path .local/lab9-swift-cache gcp/alternatives/ocr.swift docs/lab9-evidence/synthetic-receipt.png`.
+
+### ETL і BigQuery
+
+`python3 gcp/alternatives/local_etl.py`: 42 реальні публічні BigQuery result rows → цілі типи + share_of_words → JSONL. Перевірено унікальність corpus і суму часток 1. JSONL завантажено у реальну таблицю `peach-510910.lab9_20261107.word_shares_free_20261108`. Load job і verification JSON збережені, TTL таблиці 48 годин. Для перевірки задано maximumBytesBilled=10485760 (10 MiB); попередній нижчий ліміт 10000000 був відхилений. BigQuery sandbox лишився без billing.
+
+### Вартість альтернативи
+
+Для навчального використання очікувана додаткова вартість цих замін — $0 у вільних квотах, без нових платних підписок. Cloudflare Free: 100000 Worker requests/day, D1 5 млн rows read/day, 100000 rows written/day; також діють CPU, storage та інші обмеження. При 1 request/s цілий день — 86400 API requests/day; 2 indexed row reads/request — 172800 rows/day; 5% writes — 4320/day плюс index maintenance. Це workload assumption, не вимірювання фактичних scans чи CPU. Неефективний SQL може сканувати значно більше рядків. Перевищення квот Free означає недоступність/помилки, а не обіцянку необмеженого $0. Сам Cloudflare тариф через billing API не підтверджено: раніше token отримував 403; upgrade не виконували. Наявні AWS-ресурси мають окремі витрати й цією заміною не зупинені.
+
+Офіційні квоти: https://developers.cloudflare.com/workers/platform/limits/ і https://developers.cloudflare.com/d1/platform/pricing/ .
+
+### Межі цієї здачі
+
+Функціональні заміни не перетворюють Cloudflare на GCP. GCP Terraform apply/HCP workspace, Cloud Run, Firebase Hosting, Vertex, Dataflow та Looker/Google OCR screenshots не виконані. Таблиця вище прямо документує всі відхилення. Для буквального виконання вимог потрібні інші дозволи/доступи або погодження замін викладачем.
+
+### Якість безкоштовної agenda-моделі
+
+Свіжий запит повернув HTTP 200 та cost_usd=0, але `10:00 Kyiv time` для 19 жовтня 2026 модель перетворила на `10:00+00:00`. За zoneinfo Europe/Kyiv правильний offset цієї дати +03:00 (07:00 UTC). Отже структурна валідація JSON успішна, семантика часу — ні. Це демонструє потребу перевірки людиною; відповідь не зберігали до зустрічі. Не заявляємо повної точності чи еквівалентної якості Vertex/Gemini.

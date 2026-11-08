@@ -1,0 +1,48 @@
+{
+  "engine" : "Apple Vision VNRecognizeTextRequest",
+  "is_google_cloud_vision" : false,
+  "lines" : [
+    {
+      "confidence" : 1,
+      "text" : "PEACH LAB DEMO"
+    },
+    {
+      "confidence" : 1,
+      "text" : "SYNTHETIC RECEIPT"
+    },
+    {
+      "confidence" : 1,
+      "text" : "Date: 2026-11-08"
+    },
+    {
+      "confidence" : 1,
+      "text" : "Notebook"
+    },
+    {
+      "confidence" : 1,
+      "text" : "Pen"
+    },
+    {
+      "confidence" : 1,
+      "text" : "TOTAL USD"
+    },
+    {
+      "confidence" : 0.30000001192092896,
+      "text" : "2 x 3.00"
+    },
+    {
+      "confidence" : 0.30000001192092896,
+      "text" : "1 x 2.00"
+    },
+    {
+      "confidence" : 1,
+      "text" : "8.00"
+    },
+    {
+      "confidence" : 1,
+      "text" : "NOT A REAL PURCHASE"
+    }
+  ],
+  "network_required" : false,
+  "synthetic_input" : true
+}

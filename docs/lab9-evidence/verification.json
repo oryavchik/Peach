@@ -8,5 +8,11 @@
   "firestore_free_tier": true,
   "firestore_synthetic_write_read": true,
   "report_generated": true,
-  "billing_still_disabled": true
+  "billing_still_disabled": true,
+  "alternative_core_live_verified": true,
+  "alternative_ocr_recognized_receipt": true,
+  "alternative_etl_real_bigquery_load_rows": 42,
+  "alternative_agenda_http_200": true,
+  "alternative_agenda_semantic_timezone_correct": false,
+  "cloudflare_unit_tests_passed": 8
 }

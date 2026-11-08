@@ -1,0 +1,16 @@
+{
+  "date": "2026-11-08",
+  "url": "https://peach-agenda-free.peach-free-cloud-demo.workers.dev",
+  "substitute": "Cloudflare Workers Static Assets + Workers + D1",
+  "is_gcp_core": false,
+  "frontend_pages_http_200": true,
+  "unsigned_items_status": 401,
+  "database_ready": {
+    "status": "ok",
+    "database": "ok"
+  },
+  "database_create_then_list_read": true,
+  "synthetic_item_deleted": true,
+  "ai_called": false,
+  "personal_data_exported": false
+}

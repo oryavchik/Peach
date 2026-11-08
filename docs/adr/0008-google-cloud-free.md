@@ -74,3 +74,23 @@ This ADR documents a constrained partial lab, not full rubric completion.
 ## Update 2026-11-08
 
 Firestore Native Standard default database was actually created without billing; the Admin API returned freeTier=true. A synthetic document was written and read successfully through authenticated REST. No production data migration or Firestore FastAPI adapter is claimed. Deletion protection is enabled; Terraform must import this existing database before apply. Firebase addFirebase still returns 403.
+
+## Accepted free substitutes, 2026-11-08
+
+The owner requested free replacements with mandatory disclosure. Reuse the
+existing original Peach interface on Cloudflare Static Assets + Workers + D1
+instead of Firebase Hosting + Cloud Run + Cloud SQL. Live core smoke testing
+passed, including authenticated create/read/delete of a synthetic item.
+Do not connect the Worker to Firestore using a downloaded service-account key
+or public rules: the working application uses D1; Firestore stays an independent
+GCP free-tier demonstration. Authentication is the existing single-owner demo
+session, not a migrated Cognito/Identity Platform deployment.
+
+Replace Google OCR with offline Apple Vision on a generated synthetic receipt;
+replace Dataflow with local Python typed JSONL transformation plus an actual
+BigQuery Sandbox batch load; replace Looker with the real-query CSV chart;
+replace Vertex with the existing free OpenRouter agenda endpoint. A fresh
+synthetic agenda request succeeded with cost_usd=0. None of these substitutes
+is evidence of running its named GCP counterpart. No paid subscription or GCP
+billing was enabled. Full mapping and reproducible evidence are in
+`docs/lab9-submit/ANSWERS.md` and `docs/lab9-submit/Lab9_report.html`.

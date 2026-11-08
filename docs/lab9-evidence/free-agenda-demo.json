@@ -1,0 +1,50 @@
+{
+  "date": "2026-11-08",
+  "is_vertex_ai": false,
+  "status": 200,
+  "synthetic_input": {
+    "text": "Hi team,\nOur pricing review is on October 19, 2026 at 10:00 Kyiv time for 45 minutes.\nAgenda: Pro pricing — Olena, 15 minutes; customer feedback — Taras.\nAction: Taras will prepare the competitor comparison by October 23.\nThanks,\nMaria",
+    "today": "2026-10-15",
+    "tz": "Europe/Kyiv"
+  },
+  "response": {
+    "agenda": {
+      "title": "Pricing review",
+      "starts_at": "2026-10-19T10:00:00+00:00",
+      "duration_minutes": 45,
+      "items": [
+        {
+          "owner": "Olena",
+          "minutes": 15,
+          "topic": "Pro pricing"
+        },
+        {
+          "owner": "Taras",
+          "minutes": null,
+          "topic": "customer feedback"
+        }
+      ],
+      "action_items": [
+        {
+          "owner": "Taras",
+          "due": "2026-10-23",
+          "task": "Taras will prepare the competitor comparison"
+        }
+      ],
+      "language": "en"
+    },
+    "model": "cohere/north-mini-code:free",
+    "prompt_version": "agenda-v2",
+    "input_tokens": 964,
+    "output_tokens": 91,
+    "latency_ms": 1323,
+    "cost_usd": 0
+  },
+  "database_write": false,
+  "semantic_review": {
+    "expected_starts_at": "2026-10-19T10:00:00+03:00",
+    "actual_starts_at": "2026-10-19T10:00:00+00:00",
+    "same_instant": false,
+    "finding": "Timezone mismatch; human correction required; output was not saved to meeting"
+  }
+}
