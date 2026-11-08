@@ -1,0 +1,212 @@
+[
+  {
+    "corpus": "hamlet", 
+    "distinct_words": "5318", 
+    "total_words": "32446"
+  }, 
+  {
+    "corpus": "kingrichardiii", 
+    "distinct_words": "4713", 
+    "total_words": "31868"
+  }, 
+  {
+    "corpus": "coriolanus", 
+    "distinct_words": "4653", 
+    "total_words": "29535"
+  }, 
+  {
+    "corpus": "cymbeline", 
+    "distinct_words": "4875", 
+    "total_words": "29231"
+  }, 
+  {
+    "corpus": "2kinghenryiv", 
+    "distinct_words": "4605", 
+    "total_words": "28241"
+  }, 
+  {
+    "corpus": "othello", 
+    "distinct_words": "4284", 
+    "total_words": "28076"
+  }, 
+  {
+    "corpus": "kinglear", 
+    "distinct_words": "4784", 
+    "total_words": "28001"
+  }, 
+  {
+    "corpus": "kinghenryv", 
+    "distinct_words": "5104", 
+    "total_words": "27894"
+  }, 
+  {
+    "corpus": "troilusandcressida", 
+    "distinct_words": "4795", 
+    "total_words": "27837"
+  }, 
+  {
+    "corpus": "antonyandcleopatra", 
+    "distinct_words": "4582", 
+    "total_words": "27310"
+  }, 
+  {
+    "corpus": "2kinghenryvi", 
+    "distinct_words": "4683", 
+    "total_words": "27165"
+  }, 
+  {
+    "corpus": "1kinghenryiv", 
+    "distinct_words": "4317", 
+    "total_words": "26401"
+  }, 
+  {
+    "corpus": "3kinghenryvi", 
+    "distinct_words": "4076", 
+    "total_words": "26288"
+  }, 
+  {
+    "corpus": "kinghenryviii", 
+    "distinct_words": "4236", 
+    "total_words": "26265"
+  }, 
+  {
+    "corpus": "romeoandjuliet", 
+    "distinct_words": "4230", 
+    "total_words": "26192"
+  }, 
+  {
+    "corpus": "winterstale", 
+    "distinct_words": "4404", 
+    "total_words": "26181"
+  }, 
+  {
+    "corpus": "allswellthatendswell", 
+    "distinct_words": "3949", 
+    "total_words": "24622"
+  }, 
+  {
+    "corpus": "kingrichardii", 
+    "distinct_words": "4200", 
+    "total_words": "24150"
+  }, 
+  {
+    "corpus": "merrywivesofwindsor", 
+    "distinct_words": "3653", 
+    "total_words": "24033"
+  }, 
+  {
+    "corpus": "measureforemeasure", 
+    "distinct_words": "3786", 
+    "total_words": "23303"
+  }, 
+  {
+    "corpus": "1kinghenryvi", 
+    "distinct_words": "4441", 
+    "total_words": "23272"
+  }, 
+  {
+    "corpus": "loveslabourslost", 
+    "distinct_words": "4236", 
+    "total_words": "23189"
+  }, 
+  {
+    "corpus": "asyoulikeit", 
+    "distinct_words": "3676", 
+    "total_words": "23087"
+  }, 
+  {
+    "corpus": "muchadoaboutnothing", 
+    "distinct_words": "3369", 
+    "total_words": "22760"
+  }, 
+  {
+    "corpus": "merchantofvenice", 
+    "distinct_words": "3677", 
+    "total_words": "22448"
+  }, 
+  {
+    "corpus": "tamingoftheshrew", 
+    "distinct_words": "3699", 
+    "total_words": "22358"
+  }, 
+  {
+    "corpus": "kingjohn", 
+    "distinct_words": "4024", 
+    "total_words": "21983"
+  }, 
+  {
+    "corpus": "titusandronicus", 
+    "distinct_words": "3869", 
+    "total_words": "21911"
+  }, 
+  {
+    "corpus": "twelfthnight", 
+    "distinct_words": "3534", 
+    "total_words": "21633"
+  }, 
+  {
+    "corpus": "juliuscaesar", 
+    "distinct_words": "3361", 
+    "total_words": "21052"
+  }, 
+  {
+    "corpus": "periclesprinceoftyre", 
+    "distinct_words": "3754", 
+    "total_words": "19846"
+  }, 
+  {
+    "corpus": "timonofathens", 
+    "distinct_words": "3795", 
+    "total_words": "19841"
+  }, 
+  {
+    "corpus": "twogentlemenofverona", 
+    "distinct_words": "3122", 
+    "total_words": "18493"
+  }, 
+  {
+    "corpus": "macbeth", 
+    "distinct_words": "3833", 
+    "total_words": "18439"
+  }, 
+  {
+    "corpus": "sonnets", 
+    "distinct_words": "3677", 
+    "total_words": "17805"
+  }, 
+  {
+    "corpus": "tempest", 
+    "distinct_words": "3636", 
+    "total_words": "17593"
+  }, 
+  {
+    "corpus": "midsummersnightsdream", 
+    "distinct_words": "3406", 
+    "total_words": "17348"
+  }, 
+  {
+    "corpus": "comedyoferrors", 
+    "distinct_words": "2870", 
+    "total_words": "16361"
+  }, 
+  {
+    "corpus": "rapeoflucrece", 
+    "distinct_words": "3960", 
+    "total_words": "15221"
+  }, 
+  {
+    "corpus": "venusandadonis", 
+    "distinct_words": "2926", 
+    "total_words": "10035"
+  }, 
+  {
+    "corpus": "various", 
+    "distinct_words": "1349", 
+    "total_words": "3545"
+  }, 
+  {
+    "corpus": "loverscomplaint", 
+    "distinct_words": "1195", 
+    "total_words": "2586"
+  }
+]

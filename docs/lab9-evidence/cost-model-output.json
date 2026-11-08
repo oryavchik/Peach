@@ -1,0 +1,58 @@
+[
+  {
+    "profile": "nobody",
+    "active_hours": 0,
+    "active_days": 0,
+    "requests": 0,
+    "AWS_Lambda_USD": 0.0,
+    "AWS_Aurora_USD": 0.1,
+    "AWS_core_lower_bound_USD": 0.1,
+    "GCP_Cloud_Run_USD": 0.0,
+    "GCP_Firestore_USD": 0.0,
+    "GCP_Firestore_core_lower_bound_USD": 0.0,
+    "GCP_Cloud_SQL_always_on_core_USD": 9.365,
+    "GCP_Cloud_SQL_active_hours_core_USD": 1.7
+  },
+  {
+    "profile": "class demos",
+    "active_hours": 20,
+    "active_days": 10,
+    "requests": 72000,
+    "AWS_Lambda_USD": 0.0,
+    "AWS_Aurora_USD": 1.3,
+    "AWS_core_lower_bound_USD": 1.3,
+    "GCP_Cloud_Run_USD": 0.0,
+    "GCP_Firestore_USD": 0.0,
+    "GCP_Firestore_core_lower_bound_USD": 0.0,
+    "GCP_Cloud_SQL_always_on_core_USD": 9.365,
+    "GCP_Cloud_SQL_active_hours_core_USD": 1.91
+  },
+  {
+    "profile": "office hours",
+    "active_hours": 176,
+    "active_days": 22,
+    "requests": 633600,
+    "AWS_Lambda_USD": 0.0,
+    "AWS_Aurora_USD": 10.66,
+    "AWS_core_lower_bound_USD": 10.66,
+    "GCP_Cloud_Run_USD": 0.0,
+    "GCP_Firestore_USD": 0.0502,
+    "GCP_Firestore_core_lower_bound_USD": 0.0502,
+    "GCP_Cloud_SQL_always_on_core_USD": 9.365,
+    "GCP_Cloud_SQL_active_hours_core_USD": 3.548
+  },
+  {
+    "profile": "busy 24h",
+    "active_hours": 730,
+    "active_days": 30.416666666666668,
+    "requests": 2628000,
+    "AWS_Lambda_USD": 0.3256,
+    "AWS_Aurora_USD": 43.9,
+    "AWS_core_lower_bound_USD": 44.2256,
+    "GCP_Cloud_Run_USD": 2.2384,
+    "GCP_Firestore_USD": 1.1205,
+    "GCP_Firestore_core_lower_bound_USD": 3.359,
+    "GCP_Cloud_SQL_always_on_core_USD": 11.6034,
+    "GCP_Cloud_SQL_active_hours_core_USD": 11.6034
+  }
+]

@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-08",
+  "project": "peach-510910",
+  "billing_enabled": false,
+  "database_free_tier": true,
+  "synthetic_only": true,
+  "write_read_equal": true,
+  "endpoint": "https://firestore.googleapis.com/v1/projects/peach-510910/databases/(default)/documents/lab9_demo/free-tier-smoke",
+  "read_result": {
+    "name": "projects/peach-510910/databases/(default)/documents/lab9_demo/free-tier-smoke",
+    "fields": {
+      "title": {
+        "stringValue": "Peach synthetic GCP database check"
+      },
+      "contains_personal_data": {
+        "booleanValue": false
+      },
+      "synthetic": {
+        "booleanValue": true
+      },
+      "duration_minutes": {
+        "integerValue": "30"
+      }
+    },
+    "createTime": "2026-11-08T13:37:43.849138Z",
+    "updateTime": "2026-11-08T13:37:43.849138Z"
+  },
+  "scope": "Authenticated Firestore REST write/read; not a deployed Peach FastAPI endpoint",
+  "cleanup": "One synthetic document retained for review; no paid TTL/PITR enabled"
+}

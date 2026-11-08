@@ -1,0 +1,43 @@
+{
+  "date": "2026-11-08",
+  "project": "peach-510910",
+  "owner_constraint": "no billing account including trial",
+  "billing_connected": false,
+  "gcloud_login": true,
+  "terraform_root_valid": true,
+  "terraform_bootstrap_valid": true,
+  "terraform_applied": false,
+  "hcp_workspace_created": false,
+  "long_lived_keys_created": false,
+  "adr_prepared": true,
+  "cost_model_four_profiles": "illustrative estimates; provider calculators not executed",
+  "bigquery": {
+    "executed": true,
+    "job": "peach_lab9_public_20261107_01",
+    "rows": 42,
+    "bytes_processed": 3781873,
+    "table_expires_after_seconds": 172800
+  },
+  "firebase": "Retried 2026-11-08: addFirebase 403 PERMISSION_DENIED",
+  "cloud_run": "not deployed; billing required",
+  "cloud_sql": "not created",
+  "application_migrated": false,
+  "looker_chart": "not created; browser automation unavailable",
+  "ocr": "not executed; public Vision demo suggested for manual check",
+  "dataflow_vertex": "not executed under no-billing constraint",
+  "submission_commit": "Created locally; git log -1 -- gcp; not pushed",
+  "lab_ready_to_submit": false,
+  "firestore": {
+    "created": true,
+    "free_tier": true,
+    "location": "us-central1",
+    "synthetic_write_read_verified": true,
+    "production_data_migrated": false,
+    "deletion_protection": true
+  },
+  "firestore_rest_demo": true,
+  "report": "docs/lab9-submit/Lab9_report.html",
+  "written_answers": "docs/lab9-submit/ANSWERS.md",
+  "local_bigquery_chart": "real CSV visualization; not Looker screenshot",
+  "browser_access": "browser host unavailable; native Computer Use permission not granted"
+}

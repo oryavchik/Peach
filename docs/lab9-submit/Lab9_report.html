@@ -1,0 +1,116 @@
+<!doctype html><html lang="uk"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Lab 9 — Google Cloud / Peach</title><style>body{font:16px/1.6 system-ui;color:#173047;max-width:1150px;margin:40px auto;padding:0 24px}table{border-collapse:collapse;font-size:12px;display:block;overflow:auto}td,th{padding:8px;border:1px solid #ccd9df;text-align:left}th{background:#e8f1f5}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f1f5f7;padding:20px}svg{width:100%;height:auto}h2{margin-top:40px}</style><h1>Lab 9 — Google Cloud / Peach</h1><p>Перевірено 8 листопада 2026. Без billing і trial.</p>
+<p><strong>Частково виконано.</strong> Немає розгорнутого Cloud Run/FastAPI, Firebase Hosting, Looker/OCR screenshots, Vertex/Dataflow runs або provider calculator exports. Цей документ не заявляє повного виконання лабораторної.</p>
+<p>Terraform та ADR підготовлені. BigQuery запит реально виконаний. Firestore створена як free tier. Firebase повертає 403. Доступ до керування браузером відсутній.</p>
+<h2>BigQuery: реальні результати</h2><p>Job peach_lab9_public_20261107_01, US; 42 рядки; 3 781 873 bytes processed. Графік нижче локальний, із збереженого CSV; це не скриншот Looker Studio.</p><pre>SELECT corpus, SUM(word_count) AS total_words, COUNT(*) AS distinct_words FROM `bigquery-public-data.samples.shakespeare` GROUP BY corpus ORDER BY total_words DESC</pre><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440" role="img" aria-label="Top ten Shakespeare corpora by total words"><text x="0" y="38" font-size="14">hamlet</text><rect x="155" y="20" width="580.0" height="28" fill="#287b8e"/><text x="745.0" y="38" font-size="13">32446</text><text x="0" y="79" font-size="14">kingrichardiii</text><rect x="155" y="61" width="569.6677556555508" height="28" fill="#287b8e"/><text x="734.6677556555508" y="79" font-size="13">31868</text><text x="0" y="120" font-size="14">coriolanus</text><rect x="155" y="102" width="527.9633853171423" height="28" fill="#287b8e"/><text x="692.9633853171423" y="120" font-size="13">29535</text><text x="0" y="161" font-size="14">cymbeline</text><rect x="155" y="143" width="522.5291253159095" height="28" fill="#287b8e"/><text x="687.5291253159095" y="161" font-size="13">29231</text><text x="0" y="202" font-size="14">2kinghenryiv</text><rect x="155" y="184" width="504.83202860136845" height="28" fill="#287b8e"/><text x="669.8320286013684" y="202" font-size="13">28241</text><text x="0" y="243" font-size="14">othello</text><rect x="155" y="225" width="501.88251248227823" height="28" fill="#287b8e"/><text x="666.8825124822782" y="243" font-size="13">28076</text><text x="0" y="284" font-size="14">kinglear</text><rect x="155" y="266" width="500.54182333723725" height="28" fill="#287b8e"/><text x="665.5418233372372" y="284" font-size="13">28001</text><text x="0" y="325" font-size="14">kinghenryv</text><rect x="155" y="307" width="498.62910682364543" height="28" fill="#287b8e"/><text x="663.6291068236454" y="325" font-size="13">27894</text><text x="0" y="366" font-size="14">troilusandcressida</text><rect x="155" y="348" width="497.6101830734143" height="28" fill="#287b8e"/><text x="662.6101830734143" y="366" font-size="13">27837</text><text x="0" y="407" font-size="14">antonyandcleopatra</text><rect x="155" y="389" width="488.1896073475929" height="28" fill="#287b8e"/><text x="653.189607347593" y="407" font-size="13">27310</text></svg><table><thead><tr><th>corpus</th><th>total_words</th><th>distinct_words</th></tr></thead><tbody><tr><td>hamlet</td><td>32446</td><td>5318</td></tr><tr><td>kingrichardiii</td><td>31868</td><td>4713</td></tr><tr><td>coriolanus</td><td>29535</td><td>4653</td></tr><tr><td>cymbeline</td><td>29231</td><td>4875</td></tr><tr><td>2kinghenryiv</td><td>28241</td><td>4605</td></tr><tr><td>othello</td><td>28076</td><td>4284</td></tr><tr><td>kinglear</td><td>28001</td><td>4784</td></tr><tr><td>kinghenryv</td><td>27894</td><td>5104</td></tr><tr><td>troilusandcressida</td><td>27837</td><td>4795</td></tr><tr><td>antonyandcleopatra</td><td>27310</td><td>4582</td></tr><tr><td>2kinghenryvi</td><td>27165</td><td>4683</td></tr><tr><td>1kinghenryiv</td><td>26401</td><td>4317</td></tr><tr><td>3kinghenryvi</td><td>26288</td><td>4076</td></tr><tr><td>kinghenryviii</td><td>26265</td><td>4236</td></tr><tr><td>romeoandjuliet</td><td>26192</td><td>4230</td></tr><tr><td>winterstale</td><td>26181</td><td>4404</td></tr><tr><td>allswellthatendswell</td><td>24622</td><td>3949</td></tr><tr><td>kingrichardii</td><td>24150</td><td>4200</td></tr><tr><td>merrywivesofwindsor</td><td>24033</td><td>3653</td></tr><tr><td>measureforemeasure</td><td>23303</td><td>3786</td></tr><tr><td>1kinghenryvi</td><td>23272</td><td>4441</td></tr><tr><td>loveslabourslost</td><td>23189</td><td>4236</td></tr><tr><td>asyoulikeit</td><td>23087</td><td>3676</td></tr><tr><td>muchadoaboutnothing</td><td>22760</td><td>3369</td></tr><tr><td>merchantofvenice</td><td>22448</td><td>3677</td></tr><tr><td>tamingoftheshrew</td><td>22358</td><td>3699</td></tr><tr><td>kingjohn</td><td>21983</td><td>4024</td></tr><tr><td>titusandronicus</td><td>21911</td><td>3869</td></tr><tr><td>twelfthnight</td><td>21633</td><td>3534</td></tr><tr><td>juliuscaesar</td><td>21052</td><td>3361</td></tr><tr><td>periclesprinceoftyre</td><td>19846</td><td>3754</td></tr><tr><td>timonofathens</td><td>19841</td><td>3795</td></tr><tr><td>twogentlemenofverona</td><td>18493</td><td>3122</td></tr><tr><td>macbeth</td><td>18439</td><td>3833</td></tr><tr><td>sonnets</td><td>17805</td><td>3677</td></tr><tr><td>tempest</td><td>17593</td><td>3636</td></tr><tr><td>midsummersnightsdream</td><td>17348</td><td>3406</td></tr><tr><td>comedyoferrors</td><td>16361</td><td>2870</td></tr><tr><td>rapeoflucrece</td><td>15221</td><td>3960</td></tr><tr><td>venusandadonis</td><td>10035</td><td>2926</td></tr><tr><td>various</td><td>3545</td><td>1349</td></tr><tr><td>loverscomplaint</td><td>2586</td><td>1195</td></tr></tbody></table><h2>Firestore REST smoke test</h2><pre>{
+  &quot;date&quot;: &quot;2026-11-08&quot;,
+  &quot;project&quot;: &quot;peach-510910&quot;,
+  &quot;billing_enabled&quot;: false,
+  &quot;database_free_tier&quot;: true,
+  &quot;synthetic_only&quot;: true,
+  &quot;write_read_equal&quot;: true,
+  &quot;endpoint&quot;: &quot;https://firestore.googleapis.com/v1/projects/peach-510910/databases/(default)/documents/lab9_demo/free-tier-smoke&quot;,
+  &quot;read_result&quot;: {
+    &quot;name&quot;: &quot;projects/peach-510910/databases/(default)/documents/lab9_demo/free-tier-smoke&quot;,
+    &quot;fields&quot;: {
+      &quot;title&quot;: {
+        &quot;stringValue&quot;: &quot;Peach synthetic GCP database check&quot;
+      },
+      &quot;contains_personal_data&quot;: {
+        &quot;booleanValue&quot;: false
+      },
+      &quot;synthetic&quot;: {
+        &quot;booleanValue&quot;: true
+      },
+      &quot;duration_minutes&quot;: {
+        &quot;integerValue&quot;: &quot;30&quot;
+      }
+    },
+    &quot;createTime&quot;: &quot;2026-11-08T13:37:43.849138Z&quot;,
+    &quot;updateTime&quot;: &quot;2026-11-08T13:37:43.849138Z&quot;
+  },
+  &quot;scope&quot;: &quot;Authenticated Firestore REST write/read; not a deployed Peach FastAPI endpoint&quot;,
+  &quot;cleanup&quot;: &quot;One synthetic document retained for review; no paid TTL/PITR enabled&quot;
+}</pre><h2>Чотири профілі вартості, USD</h2><p>Модель за ставками завдання; нижня межа, не фактичний рахунок і не результат provider calculators. Детальні припущення та відповіді наведені нижче.</p><table><thead><tr><th>profile</th><th>active_hours</th><th>active_days</th><th>requests</th><th>AWS_Lambda_USD</th><th>AWS_Aurora_USD</th><th>AWS_core_lower_bound_USD</th><th>GCP_Cloud_Run_USD</th><th>GCP_Firestore_USD</th><th>GCP_Firestore_core_lower_bound_USD</th><th>GCP_Cloud_SQL_always_on_core_USD</th><th>GCP_Cloud_SQL_active_hours_core_USD</th></tr></thead><tbody><tr><td>nobody</td><td>0</td><td>0</td><td>0</td><td>0.0</td><td>0.1</td><td>0.1</td><td>0.0</td><td>0.0</td><td>0.0</td><td>9.365</td><td>1.7</td></tr><tr><td>class demos</td><td>20</td><td>10</td><td>72000</td><td>0.0</td><td>1.3</td><td>1.3</td><td>0.0</td><td>0.0</td><td>0.0</td><td>9.365</td><td>1.91</td></tr><tr><td>office hours</td><td>176</td><td>22</td><td>633600</td><td>0.0</td><td>10.66</td><td>10.66</td><td>0.0</td><td>0.0502</td><td>0.0502</td><td>9.365</td><td>3.548</td></tr><tr><td>busy 24h</td><td>730</td><td>30.416666666666668</td><td>2628000</td><td>0.3256</td><td>43.9</td><td>44.2256</td><td>2.2384</td><td>1.1205</td><td>3.359</td><td>11.6034</td><td>11.6034</td></tr></tbody></table><h2>Відповіді та відтворення</h2><pre># Lab 9 — Google Cloud: відповіді та межі виконання
+
+Дата перевірки: 2026-11-08. Проєкт: `peach-510910`.
+
+## Part 0–2: рішення
+
+Вибір сервісів і компроміси: [ADR](../adr/0008-google-cloud-free.md).
+Terraform має окремий root/state, власну runtime identity та підготовлений HCP OIDC.
+`validate` не означає `apply`. Cloud Run scaffold не є готовим Firestore-бекендом.
+Firebase GET/addFirebase повторно перевірено: 403 PERMISSION_DENIED. Список доступних Firebase-проєктів порожній.
+Billing повторно перевірено: вимкнено. Платні сервіси та trial не активували.
+
+Cloud SQL зберігає SQLAlchemy, joins і міграції. Постійний режим — $9.365/міс лише compute+10 GB SSD за ставками завдання. Зупинка залишає $1.70 storage і робить API недоступним. Firestore прибирає idle compute, але потребує документної моделі, перевірки власника й переписування SQL-запитів. Доступ напряму з браузера можливий із Firebase Auth та строгими security rules; це інша архітектура, а не Cloud Run/FastAPI з завдання. Зберігати Aurora в AWS простіше, але це залишає затримку, egress і не виконує вимогу перенесення БД.
+
+Email, авторизація Cognito, weekly report та agenda parser залишаються в AWS. Новий email API key не створено: використовується наявна SES IAM identity. При майбутньому сторонньому email-провайдері ключ зберігати в Secret Manager, не у frontend або репозиторії.
+
+## Part 3: вартість
+
+[Чотири профілі](../lab9-evidence/cost-profiles.csv), [припущення](../lab9-evidence/cost-assumptions.json), генератор `python3 gcp/cost_model.py`.
+Це модель за ставками завдання, не експорт калькуляторів і не фактичний рахунок.
+1 request/s під час активності, 100 ms active CPU на запит, 512 MiB, 2 document reads/request і 5% write requests. Cloud Run рахується без перекриття CPU-інтервалів; concurrency може змінити оцінку. Вільні квоти вважаємо невикористаними іншими workloads. Для AWS право на free tier потрібно перевірити для конкретного акаунта. Aurora — ідеалізоване миттєве pause без tail; це нижня межа.
+
+| Профіль | AWS Aurora core | GCP Firestore core | GCP Cloud SQL always-on core | Дешевше в моделі |
+|---|---:|---:|---:|---|
+| Ніхто | $0.1000 | $0 | $9.3650 | Firestore; storage/compute БД |
+| Демо 20 год | $1.3000 | $0 | $9.3650 | Firestore; active Aurora compute |
+| Робочі години 176 год | $10.6600 | $0.0502 | $9.3650 | Firestore; active Aurora compute |
+| 24/7, 730 год | $44.2256 | $3.3590 | $11.6034 | Firestore; active Aurora compute |
+
+Cloud SQL проти Aurora: AWS дешевше для idle/демо; GCP дешевше для office/24h у цій моделі. Рішення змінює одна лінія — compute БД. Firestore виграє ціною переписування коду.
+
+Пастки GCP: Cloud SQL не засинає від відсутності запитів; зупинена БД зберігає storage charges. Cloud Run min instances, instance-based billing, велика тривалість/пам’ять і polling збільшують ціну. Firestore listeners, повторні list/aggregate, index reads та offset-pagination збільшують read operations. Денна квота не переноситься між днями.
+
+До калькуляторів переносити для кожного профілю: requests 0 / 72000 / 633600 / 2628000; Lambda 512 MB, 100 ms; Cloud Run 1 vCPU, 512 MiB, 100 ms; Firestore reads 2×requests і writes 0.05×requests, окремо по активних днях; Aurora 0.5 ACU × 0/20/176/730 год +1 GB storage; Cloud SQL db-f1-micro 730 год +10 GB SSD (або 0/20/176/730 год для scheduled stop). Frontend transfer/storage задавати за вимірюваннями, а не прирівнювати будь-який трафік до $0. У поточній моделі frontend, registry/secrets/logging вміщуються у вільні квоти; egress, I/O та backups поза моделлю.
+
+## Part 4: BigQuery і BI
+
+Виконаний запит:
+
+```sql
+SELECT corpus, SUM(word_count) AS total_words, COUNT(*) AS distinct_words
+FROM `bigquery-public-data.samples.shakespeare`
+GROUP BY corpus ORDER BY total_words DESC;
+```
+
+Job `peach_lab9_public_20261107_01`, location US, 42 рядки, 3 781 873 bytes processed, maximumBytesBilled=100000000. CSV/JSON і job metadata збережені у `docs/lab9-evidence/`. Таблиця має строк життя 48 годин; після цього використовувати CSV або повторити обмежений запит. Локальний графік у HTML побудований із реального CSV. Він не є виконаним Looker Studio demo.
+
+Для Looker: BigQuery connector → peach-510910 → lab9_20261107 → word_counts; dimension corpus, metric total_words, sort descending, top 10. Після expiry таблиці можна імпортувати збережений CSV у Looker як File Upload. Скриншот має показувати справжній графік Looker.
+
+## Document AI чи general LLM
+
+Document AI кращий для повторюваної обробки рахунків/форм, таблиць, координат тексту, confidence і стабільної структури. OCR дістає текст, але сам по собі не визначає домовленості та відповідальних на зустрічі. Gemini кращий для семантики agenda, узагальнення й неоднозначних формулювань; необхідні schema validation, підтвердження людиною і заборона вигаданих дат/імен. Практичний ланцюжок: OCR → validated text → LLM → JSON schema → user approval. OCR confidence не гарантує правильності LLM-висновку.
+
+Vision/Document AI не запускали: немає billing. Безкоштовний локальний OCR технічно можливий, але не підтверджує демо сервісу Google. Публічний Vision demo можна використати лише якщо він доступний без billing; результат треба зафіксувати реально. Gemini в AI Studio є окремим продуктом і не підтверджує запуск Vertex AI Studio.
+
+## Відповідність payments pipeline
+
+S3 raw → Cloud Storage; Glue ETL → Dataflow/Apache Beam; Athena SQL → BigQuery SQL; QuickSight → Looker Studio. Glue catalog/external tables/partition discovery частково замінюються керованими BigQuery tables і load jobs. BigQuery сам керує SQL compute, масштабуванням і columnar storage; це не скасовує dedup, schema contracts, partitioning/clustering, lifecycle та IAM. Dataflow керує workers, autoscaling, checkpoints і retries, але windowing, late events, idempotency й dead-letter обробку потрібно спроєктувати.
+
+Dataflow Text to BigQuery — batch import з GCS із JSON schema та JavaScript UDF у BigQuery table. Для одного маленького файлу без трансформацій безкоштовніший і простіший bounded BigQuery load job або локальна підготовка CSV. Це не заміняє виконання саме Dataflow template з умови. Dataflow job не створювали, бо потрібен billing.
+
+## Part 5: сертифікації
+
+Найближча до Parts 0–2 — Associate Cloud Engineer; до BigQuery/Dataflow/Looker — Associate Data Practitioner. Сертифікація систематизує знання, але не замінює робочий деплой. Іспит не потрібний для базової здачі лабораторної; для бонусу узгодити перелік із викладачем. Платний іспит не бронювали.
+
+## Що ще об’єктивно не виконано
+
+Немає deployed GCP core URL, застосованого HCP Terraform workspace, provider calculator exports, Looker/OCR screenshots, Vertex/Dataflow runs. Без billing немає Cloud Run; Firebase повертає 403. Доступ до браузера зараз недоступний. Локальні результати та конфігурацію не видаємо за хмарний деплой.
+
+## Очищення
+
+Cloud SQL/Run/Dataflow не створено — немає instance compute для зупинки. BigQuery table має 48h expiry, exports лишаються в репозиторії. Firestore Native Standard `(default)` реально створена без billing (`freeTier: true`), deletion protection увімкнено. Один синтетичний документ `lab9_demo/free-tier-smoke` записано і прочитано через authenticated REST; див. `firestore-smoke.json`. Персональні дані не переносили. Це не migrated FastAPI endpoint. Документ залишено для перевірки у free quota; TTL/PITR не вмикали. Наявний Peach project не видаляти. `terraform destroy` не виконувати над чужими ресурсами. Звіряти фактичний status/evidence перед наступним apply.
+
+## Офіційні джерела
+
+- https://firebase.google.com/docs/projects/billing/firebase-pricing-plans
+- https://cloud.google.com/firestore/pricing
+- https://docs.cloud.google.com/vision/docs/setup
+- https://docs.cloud.google.com/pubsub/docs/stream-messages-dataflow
+- https://cloud.google.com/run/pricing
+- https://cloud.google.com/sql/pricing
+- https://aws.amazon.com/lambda/pricing/
+- https://aws.amazon.com/rds/aurora/pricing/
+</pre></html>

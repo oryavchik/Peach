@@ -1,0 +1,26 @@
+{
+  "name": "projects/peach-510910/databases/(default)/operations/AtNj8DmIAb28SCEhr7pCHRAqMWxhcnRuZWMtc3ULIgUQAePC3vgQBtfB9bEIDAovGg",
+  "metadata": {
+    "@type": "type.googleapis.com/google.firestore.admin.v1.CreateDatabaseMetadata"
+  },
+  "done": true,
+  "response": {
+    "@type": "type.googleapis.com/google.firestore.admin.v1.Database",
+    "name": "projects/peach-510910/databases/(default)",
+    "uid": "1d42baaf-2121-48bc-bd01-8839f063d302",
+    "createTime": "2026-11-08T13:35:45.477147Z",
+    "updateTime": "2026-11-08T13:35:45.477147Z",
+    "locationId": "us-central1",
+    "type": "FIRESTORE_NATIVE",
+    "concurrencyMode": "PESSIMISTIC",
+    "versionRetentionPeriod": "3600s",
+    "earliestVersionTime": "2026-11-08T13:35:45.477147Z",
+    "appEngineIntegrationMode": "DISABLED",
+    "pointInTimeRecoveryEnablement": "POINT_IN_TIME_RECOVERY_DISABLED",
+    "deleteProtectionState": "DELETE_PROTECTION_ENABLED",
+    "databaseEdition": "STANDARD",
+    "freeTier": true,
+    "realtimeUpdatesMode": "REALTIME_UPDATES_MODE_ENABLED",
+    "etag": "IK3WmuG++JcDMJusmuG++JcD"
+  }
+}

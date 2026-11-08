@@ -1,0 +1,12 @@
+{
+  "bigquery_job_succeeded": true,
+  "results_rows": 42,
+  "bytes_processed": 3781873,
+  "cost_model_sanity_checks": 4,
+  "terraform_root_validated": true,
+  "full_lab_complete": false,
+  "firestore_free_tier": true,
+  "firestore_synthetic_write_read": true,
+  "report_generated": true,
+  "billing_still_disabled": true
+}

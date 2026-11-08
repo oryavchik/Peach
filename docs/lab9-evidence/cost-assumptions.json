@@ -1,0 +1,25 @@
+{
+  "status": "illustrative model, not provider calculator execution; not deployed costs",
+  "regions": {
+    "AWS": "us-east-1",
+    "GCP": "us-central1"
+  },
+  "month_hours": 730,
+  "request_rate_during_active_hours": 1,
+  "request_cpu_seconds": 0.1,
+  "request_memory_GiB": 0.5,
+  "Firestore_reads_per_request": 2,
+  "writes_fraction": 0.05,
+  "database_storage": "Aurora 1 GB; Firestore 0.1 GiB; Cloud SQL 10 GB SSD",
+  "Aurora_active_ACU": 0.5,
+  "free_quotas_assumed": "unused by any other project/account workload",
+  "excluded": "network egress, measured Aurora I/O, backups, logging over free tier, cold starts, pause tails, storage growth, paid auth/AI/reporting; this is not a complete bill",
+  "price_basis": "Lab9 supplied reference rates, cross-checked with official pricing pages 2026-11-07; verify provider calculators before submitting as final Part3",
+  "sources": [
+    "https://aws.amazon.com/rds/aurora/pricing/",
+    "https://aws.amazon.com/lambda/pricing/",
+    "https://cloud.google.com/run/pricing",
+    "https://cloud.google.com/firestore/pricing",
+    "https://cloud.google.com/sql/pricing"
+  ]
+}

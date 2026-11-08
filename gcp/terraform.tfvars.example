@@ -1,0 +1,5 @@
+project_id      = "peach-510910"
+hosting_site_id = "peach-lab9-510910"
+region          = "us-central1"
+enable_compute  = false
+# Do not set billing_account_id or enable_compute under current owner instructions.
