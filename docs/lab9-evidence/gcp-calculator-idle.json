@@ -1,0 +1,16 @@
+{
+  "date": "2026-11-09",
+  "url": "https://cloud.google.com/products/calculator?dl=CjhDaVEzTm1VMU9ERmhOeTAzTldJekxUUXpNRFV0WVRRMU1DMHhNVEl5TmpRME5HVXlNV01RQVE9PRAcGiRBMjMxODdFNi1BRDJCLTQwOEMtQkVGQS1GNDZENjc3MEI0NkM",
+  "profile": "nobody / idle reference",
+  "verification": "User supplied URL and screenshot; not independently opened",
+  "region": "us-central1",
+  "cloud_run_requests_per_month": 0,
+  "cloud_run_usd_displayed": 0,
+  "firestore_usd_displayed": 0,
+  "total_usd_displayed": 0,
+  "firestore_reads_input": "Positive technical minimum recommended after zero rejected; exact final value not visible in screenshot",
+  "firestore_writes_input": "Not visible in supplied screenshot",
+  "firestore_storage_gib_assumed": 0.1,
+  "caveat": "True idle model has zero operations; calculator required positive Firestore reads; displayed cost remains zero within free quota",
+  "export_received": false
+}

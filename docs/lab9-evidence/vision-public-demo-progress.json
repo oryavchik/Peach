@@ -1,0 +1,8 @@
+{
+  "date": "2026-11-09",
+  "verification": "User screenshot confirms Google Vision public demo Labels tab processed synthetic-receipt.png",
+  "google_image_analysis_executed": true,
+  "ocr_text_result_verified": false,
+  "note": "Text tab result requested; user said ok but did not supply Text screenshot or JSON. Do not claim OCR output verified.",
+  "project_scoped_api": false
+}

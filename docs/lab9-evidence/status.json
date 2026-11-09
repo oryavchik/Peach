@@ -10,7 +10,7 @@
   "hcp_workspace_created": false,
   "long_lived_keys_created": false,
   "adr_prepared": true,
-  "cost_model_four_profiles": "illustrative estimates; provider calculators not executed",
+  "cost_model_four_profiles": "All four AWS and GCP reference links supplied; Aurora idle/demo/office adjustments manual; GCP request/day presets approximate; exact four-profile Python model separate",
   "bigquery": {
     "executed": true,
     "job": "peach_lab9_public_20261107_01",
@@ -23,7 +23,7 @@
   "cloud_sql": "not created",
   "application_migrated": false,
   "looker_chart": "Completed by user; Data Studio chart verified in conversation screenshots; CSV upload of real BigQuery results",
-  "ocr": "not executed; public Vision demo suggested for manual check",
+  "ocr": "Google Vision public demo Labels screenshot verified; Text/OCR output not yet supplied; offline Apple Vision remains available",
   "dataflow_vertex": "not executed under no-billing constraint",
   "submission_commit": "Published: https://github.com/oryavchik/Peach/tree/lab9-free-substitutions",
   "lab_ready_to_submit": false,
@@ -63,5 +63,15 @@
     "table_ttl_hours": 48
   },
   "browser_finish_instructions": "docs/lab9-submit/BROWSER_FINISH.md",
-  "looker_report_url": "https://datastudio.google.com/u/0/reporting/77dec92a-ecdc-48a6-ae33-da3e0c3699e7/page/IBBDG"
+  "looker_report_url": "https://datastudio.google.com/u/0/reporting/77dec92a-ecdc-48a6-ae33-da3e0c3699e7/page/IBBDG",
+  "aws_calculator_baseline_url": "https://calculator.aws/#/estimate?id=5fa89cf982739478a4723e6616dee9e52af9b1c3",
+  "aws_calculator_busy_url": "https://calculator.aws/#/estimate?id=6a2bde26c4328f535fac54c7f870d034e59485b2",
+  "gcp_calculator_cloud_run_url": "https://cloud.google.com/products/calculator?dl=CjhDaVJrTkdJMVl6VXdZaTB4T0dZekxUUXlOMlV0T0RrNU9DMWpNemsyWkdKbU5qRmxNR0VRQVE9PRAcGiRBMjMxODdFNi1BRDJCLTQwOEMtQkVGQS1GNDZENjc3MEI0NkM",
+  "gcp_calculator_busy_core_url": "https://cloud.google.com/products/calculator?dl=CjhDaVJoWWpObVlXRTJZUzA0TXpOaExUUmtOekF0T1daaE9TMDJaVEkyWkdFNVl6ZGpNalVRQVE9PRAXGiRBRkU0OTQ5MC1DMjkyLTQ2RkQtQkNGOC1BRDI5MUUxMzk2RjA",
+  "gcp_calculator_office_url": "https://cloud.google.com/products/calculator?dl=CjhDaVExTlRkaVl6azVZUzA1TkRsaExUUmhZemN0WW1Fek5TMDBZekZtWkRGaVpEQTBPR0lRQVE9PRAcGiRBMjMxODdFNi1BRDJCLTQwOEMtQkVGQS1GNDZENjc3MEI0NkM",
+  "gcp_calculator_demo_url": "https://cloud.google.com/products/calculator?dl=CjhDaVJqWkRBeU9EUTFaQzAyWW1aaExUUTVZelV0T1dKa1pTMDBOak5sTnpJd09UazFZelFRQVE9PRAXGiRBRkU0OTQ5MC1DMjkyLTQ2RkQtQkNGOC1BRDI5MUUxMzk2RjA",
+  "gcp_calculator_idle_url": "https://cloud.google.com/products/calculator?dl=CjhDaVEzTm1VMU9ERmhOeTAzTldJekxUUXpNRFV0WVRRMU1DMHhNVEl5TmpRME5HVXlNV01RQVE9PRAcGiRBMjMxODdFNi1BRDJCLTQwOEMtQkVGQS1GNDZENjc3MEI0NkM",
+  "aws_calculator_office_url": "https://calculator.aws/#/estimate?id=d410722847689b0d5d41dd379b728b983f471593",
+  "aws_calculator_demo_url": "https://calculator.aws/#/estimate?id=e5c5452a0a0108945d39e5089680ec9bbad50e85",
+  "bigquery_console_user_job": "peach-510910:US.job_zKZp9a9QlNHr7DfgSX0jrTwjlwAS"
 }

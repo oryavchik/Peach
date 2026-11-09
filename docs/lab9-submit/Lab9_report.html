@@ -32,7 +32,34 @@
   },
   &quot;scope&quot;: &quot;Authenticated Firestore REST write/read; not a deployed Peach FastAPI endpoint&quot;,
   &quot;cleanup&quot;: &quot;One synthetic document retained for review; no paid TTL/PITR enabled&quot;
-}</pre><h2>BigQuery: свіжа перевірка 2026-11-09</h2><p>Job peach_lab9_public_20261109_01, 42 рядки; processed bytes: 3781873. Таблиця word_counts_20261109 має 48h expiry. CSV підготовлено для Looker File Upload.</p><p>Native BigQuery connector Looker потребує billing project; для no-billing використовується CSV export. Data Studio chart створено користувачем і підтверджено скриншотами в розмові; джерело — CSV із BigQuery. Browser host недоступний, Safari Computer Use timeout. Firebase API досі 403 попри наявну project Owner role; можливий неприйнятий Firebase Terms, точну причину API не повернув.</p><h2>Data Studio: виконаний графік</h2><p><a href="https://datastudio.google.com/u/0/reporting/77dec92a-ecdc-48a6-ae33-da3e0c3699e7/page/IBBDG">Peach Lab 9 — BigQuery results</a>. Top 10 corpus, SUM(total_words), descending. Джерело — CSV export справжнього BigQuery result. Підтверджено скриншотами користувача в розмові; доступ викладача за посиланням ще потрібно перевірити. Файл скриншота до репозиторію не доданий.</p><h2>Робочий безкоштовний core: реальна перевірка</h2><pre>{
+}</pre><h2>BigQuery: свіжа перевірка 2026-11-09</h2><p>Job peach_lab9_public_20261109_01, 42 рядки; processed bytes: 3781873. Таблиця word_counts_20261109 має 48h expiry. CSV підготовлено для Looker File Upload.</p><p>Native BigQuery connector Looker потребує billing project; для no-billing використовується CSV export. Data Studio chart створено користувачем і підтверджено скриншотами в розмові; джерело — CSV із BigQuery. Browser host недоступний, Safari Computer Use timeout. Firebase API досі 403 попри наявну project Owner role; можливий неприйнятий Firebase Terms, точну причину API не повернув.</p><h2>Data Studio: виконаний графік</h2><p><a href="https://datastudio.google.com/u/0/reporting/77dec92a-ecdc-48a6-ae33-da3e0c3699e7/page/IBBDG">Peach Lab 9 — BigQuery results</a>. Top 10 corpus, SUM(total_words), descending. Джерело — CSV export справжнього BigQuery result. Підтверджено скриншотами користувача в розмові; доступ викладача за посиланням ще потрібно перевірити. Файл скриншота до репозиторію не доданий.</p><h2>Фінальна таблиця калькуляторів</h2><pre># Part 3 — фінальний стан калькуляторів
+
+Посилання та підсумки підтверджено скриншотами/повідомленнями користувача. Agent не відкривав share estimates самостійно. CSV exports ще не додані до репозиторію. Оцінки не є рахунками або запущеними ресурсами.
+
+| Профіль | AWS calculator, $/міс | AWS після ручної корекції пауз, $/міс | GCP calculator reference, $/міс |
+|---|---:|---:|---:|
+| Ніхто | 43.90 (Aurora без пауз, Lambda 0) | 0.10 | 0.00 |
+| Демо | 43.90 (Aurora без пауз, Lambda 72000) | 1.30 | 0.25 |
+| Office hours | 43.90 (Aurora без пауз, Lambda 633600) | 10.66 | 1.33 |
+| Busy 24/7 | 44.23 | 44.23 (округлено) | 7.63 |
+
+AWS storage: 1 GB, $0.10/month; compute 0.5 ACU × $0.12 × active hours 0/20/176/730. Ручні суми не є результатами pause-aware AWS calculator. Додаткові I/O, pause tails, backups, egress та інші exclusions поза точною моделлю. В Aurora calculator I/O задано умовним мінімумом, оскільки форма відхиляла нуль; відповідна дрібна вартість округлюється.
+
+GCP reference має Cloud Run 0/100000/500000/2500000 requests замість точних 0/72000/633600/2628000. CPU/memory lines у наданому summary відповідають gross charges; requests line узгоджується з відніманням 2M free requests. Це висновок за breakdown, не перевірена внутрішня реалізація calculator. Firestore daily inputs застосовані протягом calculator month, а не 10/22 active days. Idle Firestore має позитивний технічний мінімум reads замість справжнього нуля; вартість залишається $0 у free quota.
+
+Точна модель за ставками завдання: GCP Firestore core 0 / 0 / 0.0502 / 3.359 USD. Її не підмінено calculator references. Різниця через presets, активні дні та free-quota treatment, а не доказ помилкового cloud invoice.
+
+- [AWS idle Lambda / Aurora always-on reference](https://calculator.aws/#/estimate?id=5fa89cf982739478a4723e6616dee9e52af9b1c3)
+- [AWS demos reference](https://calculator.aws/#/estimate?id=e5c5452a0a0108945d39e5089680ec9bbad50e85)
+- [AWS office reference](https://calculator.aws/#/estimate?id=d410722847689b0d5d41dd379b728b983f471593)
+- [AWS busy](https://calculator.aws/#/estimate?id=6a2bde26c4328f535fac54c7f870d034e59485b2)
+- [GCP idle reference](https://cloud.google.com/products/calculator?dl=CjhDaVEzTm1VMU9ERmhOeTAzTldJekxUUXpNRFV0WVRRMU1DMHhNVEl5TmpRME5HVXlNV01RQVE9PRAcGiRBMjMxODdFNi1BRDJCLTQwOEMtQkVGQS1GNDZENjc3MEI0NkM)
+- [GCP demos approximation](https://cloud.google.com/products/calculator?dl=CjhDaVJqWkRBeU9EUTFaQzAyWW1aaExUUTVZelV0T1dKa1pTMDBOak5sTnpJd09UazFZelFRQVE9PRAXGiRBRkU0OTQ5MC1DMjkyLTQ2RkQtQkNGOC1BRDI5MUUxMzk2RjA)
+- [GCP office approximation](https://cloud.google.com/products/calculator?dl=CjhDaVExTlRkaVl6azVZUzA1TkRsaExUUmhZemN0WW1Fek5TMDBZekZtWkRGaVpEQTBPR0lRQVE9PRAcGiRBMjMxODdFNi1BRDJCLTQwOEMtQkVGQS1GNDZENjc3MEI0NkM)
+- [GCP busy approximation](https://cloud.google.com/products/calculator?dl=CjhDaVJoWWpObVlXRTJZUzA0TXpOaExUUmtOekF0T1daaE9TMDJaVEkyWkdFNVl6ZGpNalVRQVE9PRAXGiRBRkU0OTQ5MC1DMjkyLTQ2RkQtQkNGOC1BRDI5MUUxMzk2RjA)
+
+Порівняння точного навантаження та висновки про дорожчу лінію наведені в ANSWERS.md. Прийнятність calculator approximations і заміни GCP deployment визначає викладач.
+</pre><h2>AWS Calculator: базова оцінка</h2><p><a href="https://calculator.aws/#/estimate?id=5fa89cf982739478a4723e6616dee9e52af9b1c3">Відкрити estimate</a>. $43.90/month: Aurora 0.5 ACU always-on + 1 GB storage; Lambda 0 requests. Це базовий always-on reference; ручні поправки та інші профілі наведені у фінальній таблиці.</p><h2>AWS Calculator: busy 24/7</h2><p><a href="https://calculator.aws/#/estimate?id=6a2bde26c4328f535fac54c7f870d034e59485b2">Відкрити estimate</a>. Lambda $0.33 + Aurora $43.90 = $44.23/month. Підтверджено скриншотом користувача; Підсумок усіх профілів і обмеження наведені у фінальній таблиці.</p><h2>GCP Calculator: Cloud Run reference</h2><p><a href="https://cloud.google.com/products/calculator?dl=CjhDaVJrTkdJMVl6VXdZaTB4T0dZekxUUXlOMlV0T0RrNU9DMWpNemsyWkdKbU5qRmxNR0VRQVE9PRAcGiRBMjMxODdFNi1BRDJCLTQwOEMtQkVGQS1GNDZENjc3MEI0NkM">Відкрити estimate</a>. $6.51/month: CPU $6.00, memory $0.31, requests $0.20. 2.5M requests, а не 2.628M точної моделі. База даних ще не включена; free-quota-adjusted model наведена окремо.</p><h2>GCP Calculator: busy core reference</h2><p><a href="https://cloud.google.com/products/calculator?dl=CjhDaVJoWWpObVlXRTJZUzA0TXpOaExUUmtOekF0T1daaE9TMDJaVEkyWkdFNVl6ZGpNalVRQVE9PRAXGiRBRkU0OTQ5MC1DMjkyLTQ2RkQtQkNGOC1BRDI5MUUxMzk2RjA">Відкрити estimate</a>. Cloud Run $6.51 + Firestore $1.12 = $7.63/month. Cloud Run request preset і врахування free tier відрізняються від точної моделі. Усі GCP reference links збережено.</p><h2>GCP Calculator: office hours approximation</h2><p><a href="https://cloud.google.com/products/calculator?dl=CjhDaVExTlRkaVl6azVZUzA1TkRsaExUUmhZemN0WW1Fek5TMDBZekZtWkRGaVpEQTBPR0lRQVE9PRAcGiRBMjMxODdFNi1BRDJCLTQwOEMtQkVGQS1GNDZENjc3MEI0NkM">Відкрити estimate</a>. Cloud Run $1.26 + Firestore $0.07 = $1.33/month. Cloud Run 500000 requests замість точних 633600; Firestore daily rate за весь місяць, а не 22 активні дні.</p><h2>GCP Calculator: class demos approximation</h2><p><a href="https://cloud.google.com/products/calculator?dl=CjhDaVJqWkRBeU9EUTFaQzAyWW1aaExUUTVZelV0T1dKa1pTMDBOak5sTnpJd09UazFZelFRQVE9PRAXGiRBRkU0OTQ5MC1DMjkyLTQ2RkQtQkNGOC1BRDI5MUUxMzk2RjA">Відкрити estimate</a>. Cloud Run $0.25 + Firestore $0.00 = $0.25/month. Cloud Run 100000 requests замість точних 72000; точна модель та calculator free-quota treatment наведені окремо.</p><h2>GCP Calculator: idle reference</h2><p><a href="https://cloud.google.com/products/calculator?dl=CjhDaVEzTm1VMU9ERmhOeTAzTldJekxUUXpNRFV0WVRRMU1DMHhNVEl5TmpRME5HVXlNV01RQVE9PRAcGiRBMjMxODdFNi1BRDJCLTQwOEMtQkVGQS1GNDZENjc3MEI0NkM">Відкрити estimate</a>. Cloud Run $0.00 + Firestore $0.00 = $0.00/month. Firestore positive technical minimum замість нульових операцій; фінальні operation inputs не видно на скриншоті. Чотири GCP reference links збережено, із задокументованими наближеннями.</p><h2>AWS Calculator: office / Aurora always-on reference</h2><p><a href="https://calculator.aws/#/estimate?id=d410722847689b0d5d41dd379b728b983f471593">Відкрити estimate</a>. Lambda $0.00 + Aurora always-on $43.90. Ручна корекція Aurora до 176h: $10.66 core без додаткових I/O; це не total із calculator.</p><h2>Робочий безкоштовний core: реальна перевірка</h2><pre>{
   &quot;date&quot;: &quot;2026-11-08&quot;,
   &quot;url&quot;: &quot;https://peach-agenda-free.peach-free-cloud-demo.workers.dev&quot;,
   &quot;substitute&quot;: &quot;Cloudflare Workers Static Assets + Workers + D1&quot;,
@@ -304,6 +331,60 @@ Firebase знову 403; project Owner role підтверджено. Непри
 Звіт: https://datastudio.google.com/u/0/reporting/77dec92a-ecdc-48a6-ae33-da3e0c3699e7/page/IBBDG
 
 На наданих скриншотах підтверджено top-10 corpus за SUM(total_words), descending, без Others. Джерело — CSV File Upload файлу bigquery-results-20261109.csv зі справжнього BigQuery result. Назва: Peach Lab 9 — BigQuery results. Це реальний графік у Data Studio, а не локальна заміна. Native BigQuery connector не використовувався. Посилання збережено без перевірки sharing permissions; користувачеві потрібно перевірити доступ викладача. Скриншот у чаті наявний, окремий image file у repository ще не додано.
+
+## AWS Pricing Calculator — базову оцінку виконано користувачем
+
+https://calculator.aws/#/estimate?id=5fa89cf982739478a4723e6616dee9e52af9b1c3
+
+Підтверджено скриншотами: us-east-1, Aurora Standard ServerlessV2 0.5 ACU × 730h × $0.12 = $43.80 compute, 1 GB storage = $0.10, RDS Proxy вимкнено. Lambda поки 0 requests і $0. Total $43.90/month. Це always-on reference Aurora плюс idle Lambda, а не повний 24/7 або paused-профіль. Поля I/O вимагали додатного цілого значення; використано умовний 1/hour, не виміряне навантаження. Решта профілів і GCP calculator ще не завершені; export file поки не отримано.
+
+## AWS Calculator — busy 24/7
+
+https://calculator.aws/#/estimate?id=6a2bde26c4328f535fac54c7f870d034e59485b2
+
+Підтверджено скриншотом користувача: Lambda $0.33/month + Aurora $43.90/month = $44.23/month, annual $530.76. Lambda 2628000 requests/month, x86, 100ms, 512MB, Include Free Tier. Aurora Standard ServerlessV2 0.5 ACU, 730h, 1GB storage, без RDS Proxy. Сума збігається з моделлю після округлення. Це core Lambda+Aurora; решта exclusions/free-quota assumptions залишаються чинними. CSV export поки не отримано. Інші профілі та GCP calculator ще не завершені.
+
+## GCP Calculator — Cloud Run reference
+
+https://cloud.google.com/products/calculator?dl=CjhDaVJrTkdJMVl6VXdZaTB4T0dZekxUUXlOMlV0T0RrNU9DMWpNemsyWkdKbU5qRmxNR0VRQVE9PRAcGiRBMjMxODdFNi1BRDJCLTQwOEMtQkVGQS1GNDZENjc3MEI0NkM
+
+User screenshot: $6.51/month, $78.15/year. CPU $6.00, memory $0.31, requests $0.20. us-central1, request-based, steady, 1 vCPU, 512 MiB, 100ms, concurrency 1, min instances 0, 1 resource, network egress excluded. Dropdown provides 2.5M requests rather than exact model 2.628M. CPU/memory lines match gross usage charges; request line is consistent with 2M free requests (inference from displayed breakdown). This is not full GCP core cost: database not included. Exact-model/free-quota-adjusted numbers remain separate. Export file not received yet.
+
+## GCP Calculator — busy core reference
+
+https://cloud.google.com/products/calculator?dl=CjhDaVJoWWpObVlXRTJZUzA0TXpOaExUUmtOekF0T1daaE9TMDJaVEkyWkdFNVl6ZGpNalVRQVE9PRAXGiRBRkU0OTQ5MC1DMjkyLTQ2RkQtQkNGOC1BRDI5MUUxMzk2RjA
+
+User screenshot: Cloud Run $6.51 + Firestore $1.12 = $7.63/month. Firestore us-central1, 172800 reads/day, 4320 writes/day, 0 deletes, 0.1 GiB storage. Cloud Run uses 2.5M request preset versus exact model 2.628M and partial free-quota treatment as described above. Three lower-traffic calculator profiles remain pending.
+
+## GCP Calculator — office hours approximation
+
+https://cloud.google.com/products/calculator?dl=CjhDaVExTlRkaVl6azVZUzA1TkRsaExUUmhZemN0WW1Fek5TMDBZekZtWkRGaVpEQTBPR0lRQVE9PRAcGiRBMjMxODdFNi1BRDJCLTQwOEMtQkVGQS1GNDZENjc3MEI0NkM
+
+User screenshot: Cloud Run $1.26 + Firestore $0.07 = $1.33/month. Cloud Run request preset 500000 vs exact model 633600. Firestore 57600 reads/day, 1440 writes/day, 0.1 GiB; calculator applies daily rate across full month rather than 22 active days. Cloud Run CPU/memory free quota treatment remains different from exact model. This reference is not an exact 176h/22-day estimate.
+
+## GCP Calculator — class demos approximation
+
+https://cloud.google.com/products/calculator?dl=CjhDaVJqWkRBeU9EUTFaQzAyWW1aaExUUTVZelV0T1dKa1pTMDBOak5sTnpJd09UazFZelFRQVE9PRAXGiRBRkU0OTQ5MC1DMjkyLTQ2RkQtQkNGOC1BRDI5MUUxMzk2RjA
+
+User screenshot: Cloud Run $0.25 + Firestore $0.00 = $0.25/month. Cloud Run 100000 requests/month preset rather than exact 72000. Firestore us-central1, 14400 reads/day, 360 writes/day, 0 deletes, 0.1 GiB; daily inputs apply across full calculator month rather than 10 active days, still within daily free quotas. Cloud Run CPU/memory free-quota treatment differs from exact model. Export file not received.
+
+## GCP Calculator — idle reference
+
+https://cloud.google.com/products/calculator?dl=CjhDaVEzTm1VMU9ERmhOeTAzTldJekxUUXpNRFV0WVRRMU1DMHhNVEl5TmpRME5HVXlNV01RQVE9PRAcGiRBMjMxODdFNi1BRDJCLTQwOEMtQkVGQS1GNDZENjc3MEI0NkM
+
+User screenshot: Cloud Run 0 requests, $0.00; Firestore $0.00; total $0.00/month. Firestore rejected zero reads; positive technical minimum was recommended, but exact final read/write inputs are not visible in the summary screenshot. True idle model has zero operations. Storage assumption stays 0.1 GiB. All four GCP calculator references now have supplied links; busy/office/demo are approximations as documented, not exact equivalents of model workload.
+
+## AWS Calculator — office / Aurora always-on reference
+
+https://calculator.aws/#/estimate?id=d410722847689b0d5d41dd379b728b983f471593
+
+User screenshot: Lambda office-hours $0.00, Aurora always-on $43.90, total $43.90/month. Lambda configured for 633600 requests, x86, 512MB, 100ms, Include Free Tier. Aurora calculator uses 0.5 ACU for 730h. Manual pause adjustment: 0.5 × $0.12 × 176h + $0.10 storage = $10.66 excluding additional I/O, pause tails, backups and network. This manual figure is not the displayed provider calculator total. Export not received.
+
+## AWS Calculator — demos / Aurora always-on reference
+
+https://calculator.aws/#/estimate?id=e5c5452a0a0108945d39e5089680ec9bbad50e85
+
+Lambda demos $0.00 + Aurora 730h $43.90. Ручна корекція Aurora до 20h: $1.20 compute + $0.10 storage = $1.30 excluding additional I/O. Усі вісім reference links збережені; фінальна узгоджена таблиця — COST_FINAL.md. Попередні згадки про pending калькулятори нижче/вище є історією перевірок. Calculator approximations не є точними профілями.
 </pre><h2>Підготовлено для завершення через браузер</h2><pre># Пункти, що потребують браузера
 
 Перевірено 2026-11-09: browser access host unavailable; виклик Safari через Computer Use завершився timeout. Без браузера неможливо чесно створити скриншоти калькуляторів, BigQuery, Looker та OCR-demo. Нижче — підготовлені дані, а не виконані browser demos.

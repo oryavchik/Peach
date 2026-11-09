@@ -144,3 +144,57 @@ Firebase знову 403; project Owner role підтверджено. Непри
 Звіт: https://datastudio.google.com/u/0/reporting/77dec92a-ecdc-48a6-ae33-da3e0c3699e7/page/IBBDG
 
 На наданих скриншотах підтверджено top-10 corpus за SUM(total_words), descending, без Others. Джерело — CSV File Upload файлу bigquery-results-20261109.csv зі справжнього BigQuery result. Назва: Peach Lab 9 — BigQuery results. Це реальний графік у Data Studio, а не локальна заміна. Native BigQuery connector не використовувався. Посилання збережено без перевірки sharing permissions; користувачеві потрібно перевірити доступ викладача. Скриншот у чаті наявний, окремий image file у repository ще не додано.
+
+## AWS Pricing Calculator — базову оцінку виконано користувачем
+
+https://calculator.aws/#/estimate?id=5fa89cf982739478a4723e6616dee9e52af9b1c3
+
+Підтверджено скриншотами: us-east-1, Aurora Standard ServerlessV2 0.5 ACU × 730h × $0.12 = $43.80 compute, 1 GB storage = $0.10, RDS Proxy вимкнено. Lambda поки 0 requests і $0. Total $43.90/month. Це always-on reference Aurora плюс idle Lambda, а не повний 24/7 або paused-профіль. Поля I/O вимагали додатного цілого значення; використано умовний 1/hour, не виміряне навантаження. Решта профілів і GCP calculator ще не завершені; export file поки не отримано.
+
+## AWS Calculator — busy 24/7
+
+https://calculator.aws/#/estimate?id=6a2bde26c4328f535fac54c7f870d034e59485b2
+
+Підтверджено скриншотом користувача: Lambda $0.33/month + Aurora $43.90/month = $44.23/month, annual $530.76. Lambda 2628000 requests/month, x86, 100ms, 512MB, Include Free Tier. Aurora Standard ServerlessV2 0.5 ACU, 730h, 1GB storage, без RDS Proxy. Сума збігається з моделлю після округлення. Це core Lambda+Aurora; решта exclusions/free-quota assumptions залишаються чинними. CSV export поки не отримано. Інші профілі та GCP calculator ще не завершені.
+
+## GCP Calculator — Cloud Run reference
+
+https://cloud.google.com/products/calculator?dl=CjhDaVJrTkdJMVl6VXdZaTB4T0dZekxUUXlOMlV0T0RrNU9DMWpNemsyWkdKbU5qRmxNR0VRQVE9PRAcGiRBMjMxODdFNi1BRDJCLTQwOEMtQkVGQS1GNDZENjc3MEI0NkM
+
+User screenshot: $6.51/month, $78.15/year. CPU $6.00, memory $0.31, requests $0.20. us-central1, request-based, steady, 1 vCPU, 512 MiB, 100ms, concurrency 1, min instances 0, 1 resource, network egress excluded. Dropdown provides 2.5M requests rather than exact model 2.628M. CPU/memory lines match gross usage charges; request line is consistent with 2M free requests (inference from displayed breakdown). This is not full GCP core cost: database not included. Exact-model/free-quota-adjusted numbers remain separate. Export file not received yet.
+
+## GCP Calculator — busy core reference
+
+https://cloud.google.com/products/calculator?dl=CjhDaVJoWWpObVlXRTJZUzA0TXpOaExUUmtOekF0T1daaE9TMDJaVEkyWkdFNVl6ZGpNalVRQVE9PRAXGiRBRkU0OTQ5MC1DMjkyLTQ2RkQtQkNGOC1BRDI5MUUxMzk2RjA
+
+User screenshot: Cloud Run $6.51 + Firestore $1.12 = $7.63/month. Firestore us-central1, 172800 reads/day, 4320 writes/day, 0 deletes, 0.1 GiB storage. Cloud Run uses 2.5M request preset versus exact model 2.628M and partial free-quota treatment as described above. Three lower-traffic calculator profiles remain pending.
+
+## GCP Calculator — office hours approximation
+
+https://cloud.google.com/products/calculator?dl=CjhDaVExTlRkaVl6azVZUzA1TkRsaExUUmhZemN0WW1Fek5TMDBZekZtWkRGaVpEQTBPR0lRQVE9PRAcGiRBMjMxODdFNi1BRDJCLTQwOEMtQkVGQS1GNDZENjc3MEI0NkM
+
+User screenshot: Cloud Run $1.26 + Firestore $0.07 = $1.33/month. Cloud Run request preset 500000 vs exact model 633600. Firestore 57600 reads/day, 1440 writes/day, 0.1 GiB; calculator applies daily rate across full month rather than 22 active days. Cloud Run CPU/memory free quota treatment remains different from exact model. This reference is not an exact 176h/22-day estimate.
+
+## GCP Calculator — class demos approximation
+
+https://cloud.google.com/products/calculator?dl=CjhDaVJqWkRBeU9EUTFaQzAyWW1aaExUUTVZelV0T1dKa1pTMDBOak5sTnpJd09UazFZelFRQVE9PRAXGiRBRkU0OTQ5MC1DMjkyLTQ2RkQtQkNGOC1BRDI5MUUxMzk2RjA
+
+User screenshot: Cloud Run $0.25 + Firestore $0.00 = $0.25/month. Cloud Run 100000 requests/month preset rather than exact 72000. Firestore us-central1, 14400 reads/day, 360 writes/day, 0 deletes, 0.1 GiB; daily inputs apply across full calculator month rather than 10 active days, still within daily free quotas. Cloud Run CPU/memory free-quota treatment differs from exact model. Export file not received.
+
+## GCP Calculator — idle reference
+
+https://cloud.google.com/products/calculator?dl=CjhDaVEzTm1VMU9ERmhOeTAzTldJekxUUXpNRFV0WVRRMU1DMHhNVEl5TmpRME5HVXlNV01RQVE9PRAcGiRBMjMxODdFNi1BRDJCLTQwOEMtQkVGQS1GNDZENjc3MEI0NkM
+
+User screenshot: Cloud Run 0 requests, $0.00; Firestore $0.00; total $0.00/month. Firestore rejected zero reads; positive technical minimum was recommended, but exact final read/write inputs are not visible in the summary screenshot. True idle model has zero operations. Storage assumption stays 0.1 GiB. All four GCP calculator references now have supplied links; busy/office/demo are approximations as documented, not exact equivalents of model workload.
+
+## AWS Calculator — office / Aurora always-on reference
+
+https://calculator.aws/#/estimate?id=d410722847689b0d5d41dd379b728b983f471593
+
+User screenshot: Lambda office-hours $0.00, Aurora always-on $43.90, total $43.90/month. Lambda configured for 633600 requests, x86, 512MB, 100ms, Include Free Tier. Aurora calculator uses 0.5 ACU for 730h. Manual pause adjustment: 0.5 × $0.12 × 176h + $0.10 storage = $10.66 excluding additional I/O, pause tails, backups and network. This manual figure is not the displayed provider calculator total. Export not received.
+
+## AWS Calculator — demos / Aurora always-on reference
+
+https://calculator.aws/#/estimate?id=e5c5452a0a0108945d39e5089680ec9bbad50e85
+
+Lambda demos $0.00 + Aurora 730h $43.90. Ручна корекція Aurora до 20h: $1.20 compute + $0.10 storage = $1.30 excluding additional I/O. Усі вісім reference links збережені; фінальна узгоджена таблиця — COST_FINAL.md. Попередні згадки про pending калькулятори нижче/вище є історією перевірок. Calculator approximations не є точними профілями.

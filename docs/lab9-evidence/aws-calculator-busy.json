@@ -1,0 +1,22 @@
+{
+  "date": "2026-11-09",
+  "url": "https://calculator.aws/#/estimate?id=6a2bde26c4328f535fac54c7f870d034e59485b2",
+  "profile": "busy 24/7",
+  "verification": "User supplied calculator URL and summary screenshot; not independently opened",
+  "region": "us-east-1",
+  "requests_per_month": 2628000,
+  "lambda_duration_ms": 100,
+  "lambda_memory_mb": 512,
+  "lambda_architecture": "x86",
+  "lambda_include_free_tier": true,
+  "lambda_monthly_usd_displayed": 0.33,
+  "aurora_acu": 0.5,
+  "aurora_active_hours": 730,
+  "aurora_storage_gb": 1,
+  "rds_proxy": false,
+  "aurora_monthly_usd_displayed": 43.9,
+  "total_monthly_usd_displayed": 44.23,
+  "annual_usd_displayed": 530.76,
+  "export_received": false,
+  "scope": "Lambda and Aurora only; other service free-tier assumptions/exclusions remain as documented"
+}

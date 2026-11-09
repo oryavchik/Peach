@@ -1,0 +1,20 @@
+{
+  "date": "2026-11-09",
+  "url": "https://calculator.aws/#/estimate?id=5fa89cf982739478a4723e6616dee9e52af9b1c3",
+  "verification": "User supplied calculator URL and screenshots; estimate not independently opened",
+  "region": "us-east-1",
+  "scope": "Aurora always-on reference plus zero-request Lambda; not full busy profile",
+  "aurora_version": "ServerlessV2",
+  "acu": 0.5,
+  "hours": 730,
+  "compute_usd": 43.8,
+  "storage_gb": 1,
+  "storage_usd": 0.1,
+  "rds_proxy": false,
+  "lambda_requests": 0,
+  "lambda_usd": 0,
+  "monthly_total_usd": 43.9,
+  "io_input_note": "Form required positive integers; guided input 1/hour baseline and peak, peak duration 1 hour; tiny assumed I/O, not measured",
+  "export_received": false,
+  "four_profiles_completed_in_calculator": false
+}

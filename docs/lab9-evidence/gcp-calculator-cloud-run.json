@@ -1,0 +1,28 @@
+{
+  "date": "2026-11-09",
+  "url": "https://cloud.google.com/products/calculator?dl=CjhDaVJrTkdJMVl6VXdZaTB4T0dZekxUUXlOMlV0T0RrNU9DMWpNemsyWkdKbU5qRmxNR0VRQVE9PRAcGiRBMjMxODdFNi1BRDJCLTQwOEMtQkVGQS1GNDZENjc3MEI0NkM",
+  "verification": "User-provided cost summary screenshot and URL; not independently opened",
+  "service": "Cloud Run only",
+  "region": "us-central1",
+  "requests_per_month": 2500000,
+  "exact_model_requests": 2628000,
+  "vcpu": 1,
+  "memory_mib": 512,
+  "duration_ms": 100,
+  "concurrency": 1,
+  "min_instances": 0,
+  "resources": 1,
+  "traffic_shape": "steady",
+  "billing": "request-based",
+  "egress_bytes_excluded": 0,
+  "monthly_usd_displayed": 6.51,
+  "annual_usd_displayed": 78.15,
+  "breakdown_usd_displayed": {
+    "cpu": 6.0,
+    "memory": 0.31,
+    "requests": 0.2
+  },
+  "free_tier_interpretation": "Displayed CPU and memory equal gross usage charges; request line consistent with 2M free requests. Inferred from screenshot breakdown, not explicit calculator settings.",
+  "database_included": false,
+  "export_received": false
+}

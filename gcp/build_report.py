@@ -48,6 +48,41 @@ def main():
     if looker_path.exists():
         looker = json.loads(looker_path.read_text())
         body += '<h2>Data Studio: виконаний графік</h2><p><a href="' + html.escape(looker['url'], quote=True) + '">Peach Lab 9 — BigQuery results</a>. Top 10 corpus, SUM(total_words), descending. Джерело — CSV export справжнього BigQuery result. Підтверджено скриншотами користувача в розмові; доступ викладача за посиланням ще потрібно перевірити. Файл скриншота до репозиторію не доданий.</p>'
+    cost_final = OUT / 'COST_FINAL.md'
+    if cost_final.exists():
+        body += '<h2>Фінальна таблиця калькуляторів</h2><pre>' + html.escape(cost_final.read_text()) + '</pre>'
+    aws_path = E / 'aws-calculator-baseline.json'
+    if aws_path.exists():
+        aws = json.loads(aws_path.read_text())
+        body += '<h2>AWS Calculator: базова оцінка</h2><p><a href="' + html.escape(aws['url'], quote=True) + '">Відкрити estimate</a>. $43.90/month: Aurora 0.5 ACU always-on + 1 GB storage; Lambda 0 requests. Це базовий always-on reference; ручні поправки та інші профілі наведені у фінальній таблиці.</p>'
+    busy_path = E / 'aws-calculator-busy.json'
+    if busy_path.exists():
+        busy = json.loads(busy_path.read_text())
+        body += '<h2>AWS Calculator: busy 24/7</h2><p><a href="' + html.escape(busy['url'], quote=True) + '">Відкрити estimate</a>. Lambda $0.33 + Aurora $43.90 = $44.23/month. Підтверджено скриншотом користувача; Підсумок усіх профілів і обмеження наведені у фінальній таблиці.</p>'
+    cloud_run_path = E / 'gcp-calculator-cloud-run.json'
+    if cloud_run_path.exists():
+        cloud_run = json.loads(cloud_run_path.read_text())
+        body += '<h2>GCP Calculator: Cloud Run reference</h2><p><a href="' + html.escape(cloud_run['url'], quote=True) + '">Відкрити estimate</a>. $6.51/month: CPU $6.00, memory $0.31, requests $0.20. 2.5M requests, а не 2.628M точної моделі. База даних ще не включена; free-quota-adjusted model наведена окремо.</p>'
+    core_path = E / 'gcp-calculator-busy-core.json'
+    if core_path.exists():
+        core = json.loads(core_path.read_text())
+        body += '<h2>GCP Calculator: busy core reference</h2><p><a href="' + html.escape(core['url'], quote=True) + '">Відкрити estimate</a>. Cloud Run $6.51 + Firestore $1.12 = $7.63/month. Cloud Run request preset і врахування free tier відрізняються від точної моделі. Усі GCP reference links збережено.</p>'
+    office_path = E / 'gcp-calculator-office.json'
+    if office_path.exists():
+        office = json.loads(office_path.read_text())
+        body += '<h2>GCP Calculator: office hours approximation</h2><p><a href="' + html.escape(office['url'], quote=True) + '">Відкрити estimate</a>. Cloud Run $1.26 + Firestore $0.07 = $1.33/month. Cloud Run 500000 requests замість точних 633600; Firestore daily rate за весь місяць, а не 22 активні дні.</p>'
+    demo_path = E / 'gcp-calculator-demo.json'
+    if demo_path.exists():
+        demo = json.loads(demo_path.read_text())
+        body += '<h2>GCP Calculator: class demos approximation</h2><p><a href="' + html.escape(demo['url'], quote=True) + '">Відкрити estimate</a>. Cloud Run $0.25 + Firestore $0.00 = $0.25/month. Cloud Run 100000 requests замість точних 72000; точна модель та calculator free-quota treatment наведені окремо.</p>'
+    idle_path = E / 'gcp-calculator-idle.json'
+    if idle_path.exists():
+        idle = json.loads(idle_path.read_text())
+        body += '<h2>GCP Calculator: idle reference</h2><p><a href="' + html.escape(idle['url'], quote=True) + '">Відкрити estimate</a>. Cloud Run $0.00 + Firestore $0.00 = $0.00/month. Firestore positive technical minimum замість нульових операцій; фінальні operation inputs не видно на скриншоті. Чотири GCP reference links збережено, із задокументованими наближеннями.</p>'
+    aws_office_path = E / 'aws-calculator-office.json'
+    if aws_office_path.exists():
+        aws_office = json.loads(aws_office_path.read_text())
+        body += '<h2>AWS Calculator: office / Aurora always-on reference</h2><p><a href="' + html.escape(aws_office['url'], quote=True) + '">Відкрити estimate</a>. Lambda $0.00 + Aurora always-on $43.90. Ручна корекція Aurora до 176h: $10.66 core без додаткових I/O; це не total із calculator.</p>'
     for filename, title in [
         ('cloudflare-core-check.json', 'Робочий безкоштовний core: реальна перевірка'),
         ('local-ocr.json', 'Заміна Google OCR: Apple Vision, локально'),

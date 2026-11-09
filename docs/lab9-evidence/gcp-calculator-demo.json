@@ -1,0 +1,22 @@
+{
+  "date": "2026-11-09",
+  "url": "https://cloud.google.com/products/calculator?dl=CjhDaVJqWkRBeU9EUTFaQzAyWW1aaExUUTVZelV0T1dKa1pTMDBOak5sTnpJd09UazFZelFRQVE9PRAXGiRBRkU0OTQ5MC1DMjkyLTQ2RkQtQkNGOC1BRDI5MUUxMzk2RjA",
+  "profile": "class demos approximation",
+  "verification": "User supplied calculator URL and screenshot; not independently opened",
+  "cloud_run_requests_per_month": 100000,
+  "exact_model_requests": 72000,
+  "cloud_run_usd_displayed": 0.25,
+  "firestore_reads_per_day": 14400,
+  "firestore_writes_per_day": 360,
+  "firestore_deletes_per_day": 0,
+  "firestore_storage_gib": 0.1,
+  "firestore_usd_displayed": 0,
+  "total_usd_displayed": 0.25,
+  "exact_model_active_days": 10,
+  "caveats": [
+    "Cloud Run request preset 100000 rather than exact 72000",
+    "Daily Firestore inputs apply across calculator month rather than 10 active days",
+    "Cloud Run CPU/memory free quota treatment differs from exact model"
+  ],
+  "export_received": false
+}

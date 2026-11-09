@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-09",
+  "url": "https://calculator.aws/#/estimate?id=d410722847689b0d5d41dd379b728b983f471593",
+  "profile": "office hours; Aurora always-on calculator reference",
+  "verification": "User screenshot and supplied URL; not independently opened",
+  "region": "us-east-1",
+  "lambda_requests_per_month": 633600,
+  "lambda_usd_displayed": 0,
+  "aurora_usd_displayed": 43.9,
+  "total_usd_displayed": 43.9,
+  "aurora_acu": 0.5,
+  "calculator_aurora_hours": 730,
+  "model_active_hours": 176,
+  "manual_compute_usd": 10.56,
+  "manual_storage_usd": 0.1,
+  "manual_core_usd_excluding_io": 10.66,
+  "caveat": "Calculator Aurora uses 730h; 176h pause adjustment is manual, not provider calculator output",
+  "export_received": false
+}

@@ -1,0 +1,17 @@
+{
+  "date": "2026-11-09",
+  "url": "https://calculator.aws/#/estimate?id=e5c5452a0a0108945d39e5089680ec9bbad50e85",
+  "profile": "class demos; Aurora always-on calculator reference",
+  "verification": "User summary screenshot and supplied URL; not independently opened",
+  "lambda_requests_per_month": 72000,
+  "lambda_usd_displayed": 0,
+  "aurora_usd_displayed": 43.9,
+  "total_usd_displayed": 43.9,
+  "calculator_aurora_hours": 730,
+  "model_active_hours": 20,
+  "manual_compute_usd": 1.2,
+  "manual_storage_usd": 0.1,
+  "manual_core_usd_excluding_io": 1.3,
+  "caveat": "Calculator uses always-on Aurora; correction to 20 active hours is manual",
+  "export_received": false
+}

@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-09",
+  "url": "https://cloud.google.com/products/calculator?dl=CjhDaVJoWWpObVlXRTJZUzA0TXpOaExUUmtOekF0T1daaE9TMDJaVEkyWkdFNVl6ZGpNalVRQVE9PRAXGiRBRkU0OTQ5MC1DMjkyLTQ2RkQtQkNGOC1BRDI5MUUxMzk2RjA",
+  "verification": "User supplied URL and screenshot; not independently opened",
+  "profile": "busy 24/7 reference",
+  "cloud_run_requests": 2500000,
+  "exact_model_requests": 2628000,
+  "cloud_run_usd_displayed": 6.51,
+  "firestore_usd_displayed": 1.12,
+  "total_usd_displayed": 7.63,
+  "firestore_region": "us-central1",
+  "firestore_reads_per_day": 172800,
+  "firestore_writes_per_day": 4320,
+  "firestore_deletes_per_day": 0,
+  "firestore_storage_gib": 0.1,
+  "caveats": "Cloud Run rounded request preset and partial free-quota treatment; compare separately with exact model",
+  "export_received": false
+}
