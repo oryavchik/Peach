@@ -34,7 +34,7 @@ def main():
     body = '''<h1>Lab 9 — Google Cloud / Peach: безкоштовні заміни</h1><p>Оновлено 9 листопада 2026. Без GCP billing і trial.</p>
 <p>Код опубліковано: <a href="https://github.com/oryavchik/Peach/tree/lab9-free-substitutions">GitHub Lab 9</a>. <a href="https://github.com/oryavchik/Peach/commit/41fa5a17">Terraform + ADR commit</a>; <a href="https://github.com/oryavchik/Peach/commit/0dea3843">безкоштовні заміни commit</a>.</p>
 <p><strong>Робочий альтернативний застосунок:</strong> <a href="https://peach-agenda-free.peach-free-cloud-demo.workers.dev/">Peach на Cloudflare</a>. Static Assets + Workers + D1 замінюють Firebase Hosting + Cloud Run + Cloud SQL. Це відхилення від умови, а не GCP core deployment. Google BigQuery та Firestore виконані окремо.</p>
-<p><strong>Частково виконано.</strong> Немає розгорнутого Cloud Run/FastAPI, Firebase Hosting, Looker/OCR screenshots, Vertex/Dataflow runs або provider calculator exports. Цей документ не заявляє повного виконання лабораторної.</p>
+<p><strong>Частково виконано.</strong> Немає розгорнутого Cloud Run/FastAPI, Firebase Hosting, Google OCR screenshots, Vertex/Dataflow runs або provider calculator exports. Цей документ не заявляє повного виконання лабораторної.</p>
 <p>Terraform та ADR підготовлені. BigQuery запит реально виконаний. Firestore створена як free tier. Firebase повертає 403. Доступ до керування браузером відсутній.</p>
 <h2>BigQuery: реальні результати</h2><p>Job peach_lab9_public_20261107_01, US; 42 рядки; 3 781 873 bytes processed. Графік нижче локальний, із збереженого CSV; це не скриншот Looker Studio.</p>'''
     body += '<pre>' + html.escape(job['configuration']['query']['query']) + '</pre>' + chart + table(results) + sections
@@ -43,7 +43,11 @@ def main():
         fresh_job = json.loads(fresh_job_path.read_text())
         assert fresh_job['status']['state'] == 'DONE' and not fresh_job['status'].get('errorResult')
         body += '<h2>BigQuery: свіжа перевірка 2026-11-09</h2><p>Job peach_lab9_public_20261109_01, 42 рядки; processed bytes: ' + html.escape(str(fresh_job['statistics']['query']['totalBytesProcessed'])) + '. Таблиця word_counts_20261109 має 48h expiry. CSV підготовлено для Looker File Upload.</p>'
-        body += '<p>Native BigQuery connector Looker потребує billing project; для no-billing використовується CSV export. Looker chart ще не створено. Browser host недоступний, Safari Computer Use timeout. Firebase API досі 403 попри наявну project Owner role; можливий неприйнятий Firebase Terms, точну причину API не повернув.</p>'
+        body += '<p>Native BigQuery connector Looker потребує billing project; для no-billing використовується CSV export. Data Studio chart створено користувачем і підтверджено скриншотами в розмові; джерело — CSV із BigQuery. Browser host недоступний, Safari Computer Use timeout. Firebase API досі 403 попри наявну project Owner role; можливий неприйнятий Firebase Terms, точну причину API не повернув.</p>'
+    looker_path = E / 'looker-report.json'
+    if looker_path.exists():
+        looker = json.loads(looker_path.read_text())
+        body += '<h2>Data Studio: виконаний графік</h2><p><a href="' + html.escape(looker['url'], quote=True) + '">Peach Lab 9 — BigQuery results</a>. Top 10 corpus, SUM(total_words), descending. Джерело — CSV export справжнього BigQuery result. Підтверджено скриншотами користувача в розмові; доступ викладача за посиланням ще потрібно перевірити. Файл скриншота до репозиторію не доданий.</p>'
     for filename, title in [
         ('cloudflare-core-check.json', 'Робочий безкоштовний core: реальна перевірка'),
         ('local-ocr.json', 'Заміна Google OCR: Apple Vision, локально'),

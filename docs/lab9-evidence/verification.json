@@ -14,5 +14,8 @@
   "alternative_etl_real_bigquery_load_rows": 42,
   "alternative_agenda_http_200": true,
   "alternative_agenda_semantic_timezone_correct": false,
-  "cloudflare_unit_tests_passed": 8
+  "cloudflare_unit_tests_passed": 8,
+  "looker_chart_verified_from_user_screenshot": true,
+  "looker_report_url": "https://datastudio.google.com/u/0/reporting/77dec92a-ecdc-48a6-ae33-da3e0c3699e7/page/IBBDG",
+  "looker_sharing_access_verified": false
 }

@@ -1,0 +1,17 @@
+{
+  "date": "2026-11-09",
+  "url": "https://datastudio.google.com/u/0/reporting/77dec92a-ecdc-48a6-ae33-da3e0c3699e7/page/IBBDG",
+  "title": "Peach Lab 9 — BigQuery results",
+  "created_by": "user in browser with guided steps",
+  "verification": "User-provided screenshots show completed Data Studio report and chart; user supplied report URL",
+  "source_type": "CSV File Upload",
+  "source_file": "bigquery-results-20261109.csv",
+  "dimension": "corpus",
+  "metric": "SUM(total_words)",
+  "sort": "descending",
+  "top_n": 10,
+  "group_others": false,
+  "live_bigquery_connector": false,
+  "sharing_permissions_verified": false,
+  "screenshot_file_in_repository": false
+}

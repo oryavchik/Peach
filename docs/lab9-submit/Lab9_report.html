@@ -1,7 +1,7 @@
 <!doctype html><html lang="uk"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Lab 9 — Google Cloud / Peach</title><style>body{font:16px/1.6 system-ui;color:#173047;max-width:1150px;margin:40px auto;padding:0 24px}table{border-collapse:collapse;font-size:12px;display:block;overflow:auto}td,th{padding:8px;border:1px solid #ccd9df;text-align:left}th{background:#e8f1f5}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f1f5f7;padding:20px}svg{width:100%;height:auto}h2{margin-top:40px}</style><h1>Lab 9 — Google Cloud / Peach: безкоштовні заміни</h1><p>Оновлено 9 листопада 2026. Без GCP billing і trial.</p>
 <p>Код опубліковано: <a href="https://github.com/oryavchik/Peach/tree/lab9-free-substitutions">GitHub Lab 9</a>. <a href="https://github.com/oryavchik/Peach/commit/41fa5a17">Terraform + ADR commit</a>; <a href="https://github.com/oryavchik/Peach/commit/0dea3843">безкоштовні заміни commit</a>.</p>
 <p><strong>Робочий альтернативний застосунок:</strong> <a href="https://peach-agenda-free.peach-free-cloud-demo.workers.dev/">Peach на Cloudflare</a>. Static Assets + Workers + D1 замінюють Firebase Hosting + Cloud Run + Cloud SQL. Це відхилення від умови, а не GCP core deployment. Google BigQuery та Firestore виконані окремо.</p>
-<p><strong>Частково виконано.</strong> Немає розгорнутого Cloud Run/FastAPI, Firebase Hosting, Looker/OCR screenshots, Vertex/Dataflow runs або provider calculator exports. Цей документ не заявляє повного виконання лабораторної.</p>
+<p><strong>Частково виконано.</strong> Немає розгорнутого Cloud Run/FastAPI, Firebase Hosting, Google OCR screenshots, Vertex/Dataflow runs або provider calculator exports. Цей документ не заявляє повного виконання лабораторної.</p>
 <p>Terraform та ADR підготовлені. BigQuery запит реально виконаний. Firestore створена як free tier. Firebase повертає 403. Доступ до керування браузером відсутній.</p>
 <h2>BigQuery: реальні результати</h2><p>Job peach_lab9_public_20261107_01, US; 42 рядки; 3 781 873 bytes processed. Графік нижче локальний, із збереженого CSV; це не скриншот Looker Studio.</p><pre>SELECT corpus, SUM(word_count) AS total_words, COUNT(*) AS distinct_words FROM `bigquery-public-data.samples.shakespeare` GROUP BY corpus ORDER BY total_words DESC</pre><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 440" role="img" aria-label="Top ten Shakespeare corpora by total words"><text x="0" y="38" font-size="14">hamlet</text><rect x="155" y="20" width="580.0" height="28" fill="#287b8e"/><text x="745.0" y="38" font-size="13">32446</text><text x="0" y="79" font-size="14">kingrichardiii</text><rect x="155" y="61" width="569.6677556555508" height="28" fill="#287b8e"/><text x="734.6677556555508" y="79" font-size="13">31868</text><text x="0" y="120" font-size="14">coriolanus</text><rect x="155" y="102" width="527.9633853171423" height="28" fill="#287b8e"/><text x="692.9633853171423" y="120" font-size="13">29535</text><text x="0" y="161" font-size="14">cymbeline</text><rect x="155" y="143" width="522.5291253159095" height="28" fill="#287b8e"/><text x="687.5291253159095" y="161" font-size="13">29231</text><text x="0" y="202" font-size="14">2kinghenryiv</text><rect x="155" y="184" width="504.83202860136845" height="28" fill="#287b8e"/><text x="669.8320286013684" y="202" font-size="13">28241</text><text x="0" y="243" font-size="14">othello</text><rect x="155" y="225" width="501.88251248227823" height="28" fill="#287b8e"/><text x="666.8825124822782" y="243" font-size="13">28076</text><text x="0" y="284" font-size="14">kinglear</text><rect x="155" y="266" width="500.54182333723725" height="28" fill="#287b8e"/><text x="665.5418233372372" y="284" font-size="13">28001</text><text x="0" y="325" font-size="14">kinghenryv</text><rect x="155" y="307" width="498.62910682364543" height="28" fill="#287b8e"/><text x="663.6291068236454" y="325" font-size="13">27894</text><text x="0" y="366" font-size="14">troilusandcressida</text><rect x="155" y="348" width="497.6101830734143" height="28" fill="#287b8e"/><text x="662.6101830734143" y="366" font-size="13">27837</text><text x="0" y="407" font-size="14">antonyandcleopatra</text><rect x="155" y="389" width="488.1896073475929" height="28" fill="#287b8e"/><text x="653.189607347593" y="407" font-size="13">27310</text></svg><table><thead><tr><th>corpus</th><th>total_words</th><th>distinct_words</th></tr></thead><tbody><tr><td>hamlet</td><td>32446</td><td>5318</td></tr><tr><td>kingrichardiii</td><td>31868</td><td>4713</td></tr><tr><td>coriolanus</td><td>29535</td><td>4653</td></tr><tr><td>cymbeline</td><td>29231</td><td>4875</td></tr><tr><td>2kinghenryiv</td><td>28241</td><td>4605</td></tr><tr><td>othello</td><td>28076</td><td>4284</td></tr><tr><td>kinglear</td><td>28001</td><td>4784</td></tr><tr><td>kinghenryv</td><td>27894</td><td>5104</td></tr><tr><td>troilusandcressida</td><td>27837</td><td>4795</td></tr><tr><td>antonyandcleopatra</td><td>27310</td><td>4582</td></tr><tr><td>2kinghenryvi</td><td>27165</td><td>4683</td></tr><tr><td>1kinghenryiv</td><td>26401</td><td>4317</td></tr><tr><td>3kinghenryvi</td><td>26288</td><td>4076</td></tr><tr><td>kinghenryviii</td><td>26265</td><td>4236</td></tr><tr><td>romeoandjuliet</td><td>26192</td><td>4230</td></tr><tr><td>winterstale</td><td>26181</td><td>4404</td></tr><tr><td>allswellthatendswell</td><td>24622</td><td>3949</td></tr><tr><td>kingrichardii</td><td>24150</td><td>4200</td></tr><tr><td>merrywivesofwindsor</td><td>24033</td><td>3653</td></tr><tr><td>measureforemeasure</td><td>23303</td><td>3786</td></tr><tr><td>1kinghenryvi</td><td>23272</td><td>4441</td></tr><tr><td>loveslabourslost</td><td>23189</td><td>4236</td></tr><tr><td>asyoulikeit</td><td>23087</td><td>3676</td></tr><tr><td>muchadoaboutnothing</td><td>22760</td><td>3369</td></tr><tr><td>merchantofvenice</td><td>22448</td><td>3677</td></tr><tr><td>tamingoftheshrew</td><td>22358</td><td>3699</td></tr><tr><td>kingjohn</td><td>21983</td><td>4024</td></tr><tr><td>titusandronicus</td><td>21911</td><td>3869</td></tr><tr><td>twelfthnight</td><td>21633</td><td>3534</td></tr><tr><td>juliuscaesar</td><td>21052</td><td>3361</td></tr><tr><td>periclesprinceoftyre</td><td>19846</td><td>3754</td></tr><tr><td>timonofathens</td><td>19841</td><td>3795</td></tr><tr><td>twogentlemenofverona</td><td>18493</td><td>3122</td></tr><tr><td>macbeth</td><td>18439</td><td>3833</td></tr><tr><td>sonnets</td><td>17805</td><td>3677</td></tr><tr><td>tempest</td><td>17593</td><td>3636</td></tr><tr><td>midsummersnightsdream</td><td>17348</td><td>3406</td></tr><tr><td>comedyoferrors</td><td>16361</td><td>2870</td></tr><tr><td>rapeoflucrece</td><td>15221</td><td>3960</td></tr><tr><td>venusandadonis</td><td>10035</td><td>2926</td></tr><tr><td>various</td><td>3545</td><td>1349</td></tr><tr><td>loverscomplaint</td><td>2586</td><td>1195</td></tr></tbody></table><h2>Firestore REST smoke test</h2><pre>{
   &quot;date&quot;: &quot;2026-11-08&quot;,
@@ -32,7 +32,7 @@
   },
   &quot;scope&quot;: &quot;Authenticated Firestore REST write/read; not a deployed Peach FastAPI endpoint&quot;,
   &quot;cleanup&quot;: &quot;One synthetic document retained for review; no paid TTL/PITR enabled&quot;
-}</pre><h2>BigQuery: свіжа перевірка 2026-11-09</h2><p>Job peach_lab9_public_20261109_01, 42 рядки; processed bytes: 3781873. Таблиця word_counts_20261109 має 48h expiry. CSV підготовлено для Looker File Upload.</p><p>Native BigQuery connector Looker потребує billing project; для no-billing використовується CSV export. Looker chart ще не створено. Browser host недоступний, Safari Computer Use timeout. Firebase API досі 403 попри наявну project Owner role; можливий неприйнятий Firebase Terms, точну причину API не повернув.</p><h2>Робочий безкоштовний core: реальна перевірка</h2><pre>{
+}</pre><h2>BigQuery: свіжа перевірка 2026-11-09</h2><p>Job peach_lab9_public_20261109_01, 42 рядки; processed bytes: 3781873. Таблиця word_counts_20261109 має 48h expiry. CSV підготовлено для Looker File Upload.</p><p>Native BigQuery connector Looker потребує billing project; для no-billing використовується CSV export. Data Studio chart створено користувачем і підтверджено скриншотами в розмові; джерело — CSV із BigQuery. Browser host недоступний, Safari Computer Use timeout. Firebase API досі 403 попри наявну project Owner role; можливий неприйнятий Firebase Terms, точну причину API не повернув.</p><h2>Data Studio: виконаний графік</h2><p><a href="https://datastudio.google.com/u/0/reporting/77dec92a-ecdc-48a6-ae33-da3e0c3699e7/page/IBBDG">Peach Lab 9 — BigQuery results</a>. Top 10 corpus, SUM(total_words), descending. Джерело — CSV export справжнього BigQuery result. Підтверджено скриншотами користувача в розмові; доступ викладача за посиланням ще потрібно перевірити. Файл скриншота до репозиторію не доданий.</p><h2>Робочий безкоштовний core: реальна перевірка</h2><pre>{
   &quot;date&quot;: &quot;2026-11-08&quot;,
   &quot;url&quot;: &quot;https://peach-agenda-free.peach-free-cloud-demo.workers.dev&quot;,
   &quot;substitute&quot;: &quot;Cloudflare Workers Static Assets + Workers + D1&quot;,
@@ -225,7 +225,7 @@ Dataflow Text to BigQuery — batch import з GCS із JSON schema та JavaScri
 
 ## Що ще об’єктивно не виконано
 
-Немає deployed GCP core URL, застосованого HCP Terraform workspace, provider calculator exports, Looker/OCR screenshots, Vertex/Dataflow runs. Без billing немає Cloud Run; Firebase повертає 403. Доступ до браузера зараз недоступний. Локальні результати та конфігурацію не видаємо за хмарний деплой.
+Немає deployed GCP core URL, застосованого HCP Terraform workspace, provider calculator exports, Google OCR screenshots, Vertex/Dataflow runs. Без billing немає Cloud Run; Firebase повертає 403. Доступ до браузера зараз недоступний. Локальні результати та конфігурацію не видаємо за хмарний деплой.
 
 ## Очищення
 
@@ -252,7 +252,7 @@ Cloud SQL/Run/Dataflow не створено — немає instance compute д�
 | Cloud Run FastAPI | Cloudflare Workers, JavaScript API сумісне з інтерфейсом Peach | Не Docker/FastAPI; інше runtime та CPU/request limits |
 | Cloud SQL | Cloudflare D1, наявні SQL migrations та owner-scoped prepared statements | SQLite, не PostgreSQL; історичні AWS-дані не переносили |
 | GCP database demo | Firestore free-tier REST write/read | Реальний GCP; окремий smoke test, не база Cloudflare-застосунку |
-| Looker Studio chart | Локальний SVG/HTML графік над справжнім BigQuery CSV | Графік виконує візуальне порівняння, але не демонструє Looker connector/dashboard |
+| Looker Studio chart | Реальний Data Studio report над CSV із BigQuery, створений користувачем | Native BigQuery connector замінено CSV File Upload; графік підтверджено скриншотом |
 | Vision/Document AI OCR | Apple Vision VNRecognizeTextRequest на синтетичному чеку | Локальний OCR без мережі, не Google OCR; не показує Form Parser |
 | Dataflow Text → BigQuery | Python CSV → typed JSONL → справжній BigQuery batch load | Немає Beam workers, GCS input, autoscaling чи managed streaming |
 | Vertex AI agenda prompt | Наявний Worker → OpenRouter :free model | Не Gemini/Vertex; результат конкретного запуску та статус у free-agenda-demo.json |
@@ -283,7 +283,7 @@ Firestore не приєднували до Worker через довготрив�
 
 ### Межі цієї здачі
 
-Функціональні заміни не перетворюють Cloudflare на GCP. GCP Terraform apply/HCP workspace, Cloud Run, Firebase Hosting, Vertex, Dataflow та Looker/Google OCR screenshots не виконані. Таблиця вище прямо документує всі відхилення. Для буквального виконання вимог потрібні інші дозволи/доступи або погодження замін викладачем.
+Функціональні заміни не перетворюють Cloudflare на GCP. GCP Terraform apply/HCP workspace, Cloud Run, Firebase Hosting, Vertex, Dataflow та Google OCR screenshots не виконані. Таблиця вище прямо документує всі відхилення. Для буквального виконання вимог потрібні інші дозволи/доступи або погодження замін викладачем.
 
 ### Якість безкоштовної agenda-моделі
 
@@ -297,7 +297,13 @@ BigQuery public query повторно успішно виконано: job peac
 
 Виправлення попередньої поради: native BigQuery connector у Looker Studio вимагає billing project за офіційною документацією. Без billing використовувати File Upload з CSV результату або Google Sheets. Джерело: https://docs.cloud.google.com/data-studio/connect-to-google-bigquery .
 
-Firebase знову 403; project Owner role підтверджено. Неприйняті Firebase Terms — можлива причина, а не доведений діагноз. Браузер повторно недоступний, тому calculator exports, screenshots, Looker та public OCR не виконані. Підготовлено BROWSER_FINISH.md із даними для завершення.
+Firebase знову 403; project Owner role підтверджено. Неприйняті Firebase Terms — можлива причина, а не доведений діагноз. Браузер повторно недоступний, тому calculator exports і public OCR не виконані. Data Studio chart користувач пізніше створив вручну (див. нижче). Підготовлено BROWSER_FINISH.md із даними для завершення.
+
+## Data Studio — виконано користувачем
+
+Звіт: https://datastudio.google.com/u/0/reporting/77dec92a-ecdc-48a6-ae33-da3e0c3699e7/page/IBBDG
+
+На наданих скриншотах підтверджено top-10 corpus за SUM(total_words), descending, без Others. Джерело — CSV File Upload файлу bigquery-results-20261109.csv зі справжнього BigQuery result. Назва: Peach Lab 9 — BigQuery results. Це реальний графік у Data Studio, а не локальна заміна. Native BigQuery connector не використовувався. Посилання збережено без перевірки sharing permissions; користувачеві потрібно перевірити доступ викладача. Скриншот у чаті наявний, окремий image file у repository ще не додано.
 </pre><h2>Підготовлено для завершення через браузер</h2><pre># Пункти, що потребують браузера
 
 Перевірено 2026-11-09: browser access host unavailable; виклик Safari через Computer Use завершився timeout. Без браузера неможливо чесно створити скриншоти калькуляторів, BigQuery, Looker та OCR-demo. Нижче — підготовлені дані, а не виконані browser demos.
@@ -311,9 +317,11 @@ Console: https://console.cloud.google.com/bigquery?project=peach-510910
 Запит і статистика: `docs/lab9-evidence/bigquery-job-20261109.json`.
 Зробити screenshot SQL + результату + bytes processed. Це має бути справжній Console screenshot, а не HTML-макет.
 
-## 2. Looker Studio без billing
+## 2. Looker Studio — графік уже створено
 
-https://lookerstudio.google.com/
+Виконано користувачем, підтверджено скриншотом. Звіт: https://datastudio.google.com/u/0/reporting/77dec92a-ecdc-48a6-ae33-da3e0c3699e7/page/IBBDG
+
+Подальші кроки нижче збережено для відтворення.
 
 Важливе уточнення: офіційна документація native BigQuery connector вимагає billing project. Тому для no-billing варіанта використати File Upload → CSV зі справжнього BigQuery result:
 `docs/lab9-evidence/bigquery-results-20261109.csv`.

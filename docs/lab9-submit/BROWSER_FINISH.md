@@ -11,9 +11,11 @@ Console: https://console.cloud.google.com/bigquery?project=peach-510910
 Запит і статистика: `docs/lab9-evidence/bigquery-job-20261109.json`.
 Зробити screenshot SQL + результату + bytes processed. Це має бути справжній Console screenshot, а не HTML-макет.
 
-## 2. Looker Studio без billing
+## 2. Looker Studio — графік уже створено
 
-https://lookerstudio.google.com/
+Виконано користувачем, підтверджено скриншотом. Звіт: https://datastudio.google.com/u/0/reporting/77dec92a-ecdc-48a6-ae33-da3e0c3699e7/page/IBBDG
+
+Подальші кроки нижче збережено для відтворення.
 
 Важливе уточнення: офіційна документація native BigQuery connector вимагає billing project. Тому для no-billing варіанта використати File Upload → CSV зі справжнього BigQuery result:
 `docs/lab9-evidence/bigquery-results-20261109.csv`.

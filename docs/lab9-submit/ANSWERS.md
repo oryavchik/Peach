@@ -65,7 +65,7 @@ Dataflow Text to BigQuery — batch import з GCS із JSON schema та JavaScri
 
 ## Що ще об’єктивно не виконано
 
-Немає deployed GCP core URL, застосованого HCP Terraform workspace, provider calculator exports, Looker/OCR screenshots, Vertex/Dataflow runs. Без billing немає Cloud Run; Firebase повертає 403. Доступ до браузера зараз недоступний. Локальні результати та конфігурацію не видаємо за хмарний деплой.
+Немає deployed GCP core URL, застосованого HCP Terraform workspace, provider calculator exports, Google OCR screenshots, Vertex/Dataflow runs. Без billing немає Cloud Run; Firebase повертає 403. Доступ до браузера зараз недоступний. Локальні результати та конфігурацію не видаємо за хмарний деплой.
 
 ## Очищення
 
@@ -92,7 +92,7 @@ Cloud SQL/Run/Dataflow не створено — немає instance compute д�
 | Cloud Run FastAPI | Cloudflare Workers, JavaScript API сумісне з інтерфейсом Peach | Не Docker/FastAPI; інше runtime та CPU/request limits |
 | Cloud SQL | Cloudflare D1, наявні SQL migrations та owner-scoped prepared statements | SQLite, не PostgreSQL; історичні AWS-дані не переносили |
 | GCP database demo | Firestore free-tier REST write/read | Реальний GCP; окремий smoke test, не база Cloudflare-застосунку |
-| Looker Studio chart | Локальний SVG/HTML графік над справжнім BigQuery CSV | Графік виконує візуальне порівняння, але не демонструє Looker connector/dashboard |
+| Looker Studio chart | Реальний Data Studio report над CSV із BigQuery, створений користувачем | Native BigQuery connector замінено CSV File Upload; графік підтверджено скриншотом |
 | Vision/Document AI OCR | Apple Vision VNRecognizeTextRequest на синтетичному чеку | Локальний OCR без мережі, не Google OCR; не показує Form Parser |
 | Dataflow Text → BigQuery | Python CSV → typed JSONL → справжній BigQuery batch load | Немає Beam workers, GCS input, autoscaling чи managed streaming |
 | Vertex AI agenda prompt | Наявний Worker → OpenRouter :free model | Не Gemini/Vertex; результат конкретного запуску та статус у free-agenda-demo.json |
@@ -123,7 +123,7 @@ Firestore не приєднували до Worker через довготрив�
 
 ### Межі цієї здачі
 
-Функціональні заміни не перетворюють Cloudflare на GCP. GCP Terraform apply/HCP workspace, Cloud Run, Firebase Hosting, Vertex, Dataflow та Looker/Google OCR screenshots не виконані. Таблиця вище прямо документує всі відхилення. Для буквального виконання вимог потрібні інші дозволи/доступи або погодження замін викладачем.
+Функціональні заміни не перетворюють Cloudflare на GCP. GCP Terraform apply/HCP workspace, Cloud Run, Firebase Hosting, Vertex, Dataflow та Google OCR screenshots не виконані. Таблиця вище прямо документує всі відхилення. Для буквального виконання вимог потрібні інші дозволи/доступи або погодження замін викладачем.
 
 ### Якість безкоштовної agenda-моделі
 
@@ -137,4 +137,10 @@ BigQuery public query повторно успішно виконано: job peac
 
 Виправлення попередньої поради: native BigQuery connector у Looker Studio вимагає billing project за офіційною документацією. Без billing використовувати File Upload з CSV результату або Google Sheets. Джерело: https://docs.cloud.google.com/data-studio/connect-to-google-bigquery .
 
-Firebase знову 403; project Owner role підтверджено. Неприйняті Firebase Terms — можлива причина, а не доведений діагноз. Браузер повторно недоступний, тому calculator exports, screenshots, Looker та public OCR не виконані. Підготовлено BROWSER_FINISH.md із даними для завершення.
+Firebase знову 403; project Owner role підтверджено. Неприйняті Firebase Terms — можлива причина, а не доведений діагноз. Браузер повторно недоступний, тому calculator exports і public OCR не виконані. Data Studio chart користувач пізніше створив вручну (див. нижче). Підготовлено BROWSER_FINISH.md із даними для завершення.
+
+## Data Studio — виконано користувачем
+
+Звіт: https://datastudio.google.com/u/0/reporting/77dec92a-ecdc-48a6-ae33-da3e0c3699e7/page/IBBDG
+
+На наданих скриншотах підтверджено top-10 corpus за SUM(total_words), descending, без Others. Джерело — CSV File Upload файлу bigquery-results-20261109.csv зі справжнього BigQuery result. Назва: Peach Lab 9 — BigQuery results. Це реальний графік у Data Studio, а не локальна заміна. Native BigQuery connector не використовувався. Посилання збережено без перевірки sharing permissions; користувачеві потрібно перевірити доступ викладача. Скриншот у чаті наявний, окремий image file у repository ще не додано.
