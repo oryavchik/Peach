@@ -1,0 +1,247 @@
+{
+  "configuration": {
+    "jobType": "QUERY",
+    "query": {
+      "destinationTable": {
+        "datasetId": "lab9_20261107",
+        "projectId": "peach-510910",
+        "tableId": "word_counts_20261109"
+      },
+      "maximumBytesBilled": "10485760",
+      "priority": "INTERACTIVE",
+      "query": "SELECT corpus, SUM(word_count) AS total_words, COUNT(*) AS distinct_words FROM `bigquery-public-data.samples.shakespeare` GROUP BY corpus ORDER BY total_words DESC",
+      "useLegacySql": false
+    }
+  },
+  "etag": "kI5il/qHtVOkuXkhfxiaSg==",
+  "id": "peach-510910:US.peach_lab9_public_20261109_01",
+  "jobCreationReason": {
+    "code": "REQUESTED"
+  },
+  "jobReference": {
+    "jobId": "peach_lab9_public_20261109_01",
+    "location": "US",
+    "projectId": "peach-510910"
+  },
+  "kind": "bigquery#job",
+  "principal_subject": "user:0689415525maria@gmail.com",
+  "selfLink": "https://bigquery.googleapis.com/bigquery/v2/projects/peach-510910/jobs/peach_lab9_public_20261109_01?location=US",
+  "statistics": {
+    "creationTime": "1794216295911",
+    "endTime": "1794216300577",
+    "finalExecutionDurationMs": "3591",
+    "query": {
+      "billingTier": 1,
+      "cacheHit": false,
+      "estimatedBytesProcessed": "3781873",
+      "metadataCacheStatistics": {
+        "tableMetadataCacheUsage": [
+          {
+            "staleness": "0s",
+            "tableReference": {
+              "datasetId": "samples",
+              "projectId": "bigquery-public-data",
+              "tableId": "shakespeare"
+            }
+          }
+        ]
+      },
+      "performanceInsights": {
+        "avgPreviousExecutionMs": "326"
+      },
+      "queryInfo": {
+        "optimizationDetails": {
+          "optimizations": [
+            {
+              "enhanced_vectorization": "applied"
+            },
+            {
+              "short_query_optimization": "applied"
+            }
+          ]
+        }
+      },
+      "queryPlan": [
+        {
+          "completedParallelInputs": "1",
+          "computeMode": "BIGQUERY",
+          "computeMsAvg": "25",
+          "computeMsMax": "25",
+          "computeRatioAvg": 0.3424657534246575,
+          "computeRatioMax": 0.3424657534246575,
+          "endMs": "1794216296391",
+          "id": "0",
+          "name": "S00: Input",
+          "parallelInputs": "1",
+          "readMsAvg": "10",
+          "readMsMax": "10",
+          "readRatioAvg": 0.136986301369863,
+          "readRatioMax": 0.136986301369863,
+          "recordsRead": "164656",
+          "recordsWritten": "42",
+          "shuffleOutputBytes": "1517",
+          "shuffleOutputBytesSpilled": "0",
+          "slotMs": "27",
+          "startMs": "1794216296365",
+          "status": "COMPLETE",
+          "steps": [
+            {
+              "kind": "READ",
+              "substeps": [
+                "$1:word_count, $2:corpus",
+                "FROM bigquery-public-data.samples.shakespeare"
+              ]
+            },
+            {
+              "kind": "AGGREGATE",
+              "substeps": [
+                "GROUP BY $40 := $30",
+                "$10 := SUM($20)",
+                "$11 := SUM_OF_COUNTS($21)"
+              ]
+            },
+            {
+              "kind": "AGGREGATE",
+              "substeps": [
+                "GROUP BY $30 := $2",
+                "$20 := SUM($1)",
+                "$21 := COUNT_STAR()"
+              ]
+            },
+            {
+              "kind": "WRITE",
+              "substeps": [
+                "$40, $10, $11",
+                "TO __stage00_output"
+              ]
+            }
+          ],
+          "waitMsAvg": "1",
+          "waitMsMax": "1",
+          "waitRatioAvg": 0.0136986301369863,
+          "waitRatioMax": 0.0136986301369863,
+          "writeMsAvg": "4",
+          "writeMsMax": "4",
+          "writeRatioAvg": 0.0547945205479452,
+          "writeRatioMax": 0.0547945205479452
+        },
+        {
+          "completedParallelInputs": "1",
+          "computeMode": "BIGQUERY",
+          "computeMsAvg": "19",
+          "computeMsMax": "19",
+          "computeRatioAvg": 0.2602739726027397,
+          "computeRatioMax": 0.2602739726027397,
+          "endMs": "1794216296647",
+          "id": "1",
+          "inputStages": [
+            "0"
+          ],
+          "name": "S01: Output",
+          "parallelInputs": "1",
+          "readMsAvg": "0",
+          "readMsMax": "0",
+          "readRatioAvg": 0,
+          "readRatioMax": 0,
+          "recordsRead": "42",
+          "recordsWritten": "42",
+          "shuffleOutputBytes": "1307",
+          "shuffleOutputBytesSpilled": "0",
+          "slotMs": "259",
+          "startMs": "1794216296466",
+          "status": "COMPLETE",
+          "steps": [
+            {
+              "kind": "READ",
+              "substeps": [
+                "$40, $10, $11",
+                "FROM __stage00_output"
+              ]
+            },
+            {
+              "kind": "EXPORT",
+              "substeps": [
+                "$50:corpus, $51:total_words, $52:distinct_words",
+                "TO lab9_20261107.word_counts_20261109"
+              ]
+            },
+            {
+              "kind": "SORT",
+              "substeps": [
+                "$10 DESC"
+              ]
+            },
+            {
+              "kind": "WRITE",
+              "substeps": [
+                "$50, $51, $52",
+                "TO __stage01_output"
+              ]
+            }
+          ],
+          "waitMsAvg": "73",
+          "waitMsMax": "73",
+          "waitRatioAvg": 1,
+          "waitRatioMax": 1,
+          "writeMsAvg": "1",
+          "writeMsMax": "1",
+          "writeRatioAvg": 0.0136986301369863,
+          "writeRatioMax": 0.0136986301369863
+        }
+      ],
+      "referencedTables": [
+        {
+          "datasetId": "samples",
+          "projectId": "bigquery-public-data",
+          "tableId": "shakespeare"
+        }
+      ],
+      "statementType": "SELECT",
+      "timeline": [
+        {
+          "activeUnits": "0",
+          "completedUnits": "2",
+          "elapsedMs": "735",
+          "pendingUnits": "0",
+          "totalSlotMs": "287"
+        },
+        {
+          "activeUnits": "0",
+          "completedUnits": "2",
+          "elapsedMs": "1735",
+          "estimatedRunnableUnits": "0",
+          "pendingUnits": "0",
+          "totalSlotMs": "287"
+        },
+        {
+          "activeUnits": "0",
+          "completedUnits": "2",
+          "elapsedMs": "2735",
+          "estimatedRunnableUnits": "0",
+          "pendingUnits": "0",
+          "totalSlotMs": "287"
+        },
+        {
+          "activeUnits": "0",
+          "completedUnits": "2",
+          "elapsedMs": "3735",
+          "estimatedRunnableUnits": "0",
+          "pendingUnits": "0",
+          "totalSlotMs": "287"
+        }
+      ],
+      "totalBytesBilled": "10485760",
+      "totalBytesProcessed": "3781873",
+      "totalPartitionsProcessed": "0",
+      "totalSlotMs": "287",
+      "transferredBytes": "0"
+    },
+    "startTime": "1794216296265",
+    "totalBytesProcessed": "3781873",
+    "totalSlotMs": "287"
+  },
+  "status": {
+    "state": "DONE"
+  },
+  "user_email": "0689415525maria@gmail.com"
+}

@@ -31,12 +31,19 @@ def main():
     smoke_path = E / 'firestore-smoke.json'
     smoke = json.loads(smoke_path.read_text()) if smoke_path.exists() else {'write_read_equal': False}
     sections = '<h2>Firestore REST smoke test</h2><pre>' + html.escape(json.dumps(smoke, ensure_ascii=False, indent=2)) + '</pre>'
-    body = '''<h1>Lab 9 — Google Cloud / Peach: безкоштовні заміни</h1><p>Перевірено 8 листопада 2026. Без GCP billing і trial.</p>
+    body = '''<h1>Lab 9 — Google Cloud / Peach: безкоштовні заміни</h1><p>Оновлено 9 листопада 2026. Без GCP billing і trial.</p>
+<p>Код опубліковано: <a href="https://github.com/oryavchik/Peach/tree/lab9-free-substitutions">GitHub Lab 9</a>. <a href="https://github.com/oryavchik/Peach/commit/41fa5a17">Terraform + ADR commit</a>; <a href="https://github.com/oryavchik/Peach/commit/0dea3843">безкоштовні заміни commit</a>.</p>
 <p><strong>Робочий альтернативний застосунок:</strong> <a href="https://peach-agenda-free.peach-free-cloud-demo.workers.dev/">Peach на Cloudflare</a>. Static Assets + Workers + D1 замінюють Firebase Hosting + Cloud Run + Cloud SQL. Це відхилення від умови, а не GCP core deployment. Google BigQuery та Firestore виконані окремо.</p>
 <p><strong>Частково виконано.</strong> Немає розгорнутого Cloud Run/FastAPI, Firebase Hosting, Looker/OCR screenshots, Vertex/Dataflow runs або provider calculator exports. Цей документ не заявляє повного виконання лабораторної.</p>
 <p>Terraform та ADR підготовлені. BigQuery запит реально виконаний. Firestore створена як free tier. Firebase повертає 403. Доступ до керування браузером відсутній.</p>
 <h2>BigQuery: реальні результати</h2><p>Job peach_lab9_public_20261107_01, US; 42 рядки; 3 781 873 bytes processed. Графік нижче локальний, із збереженого CSV; це не скриншот Looker Studio.</p>'''
     body += '<pre>' + html.escape(job['configuration']['query']['query']) + '</pre>' + chart + table(results) + sections
+    fresh_job_path = E / 'bigquery-job-20261109.json'
+    if fresh_job_path.exists():
+        fresh_job = json.loads(fresh_job_path.read_text())
+        assert fresh_job['status']['state'] == 'DONE' and not fresh_job['status'].get('errorResult')
+        body += '<h2>BigQuery: свіжа перевірка 2026-11-09</h2><p>Job peach_lab9_public_20261109_01, 42 рядки; processed bytes: ' + html.escape(str(fresh_job['statistics']['query']['totalBytesProcessed'])) + '. Таблиця word_counts_20261109 має 48h expiry. CSV підготовлено для Looker File Upload.</p>'
+        body += '<p>Native BigQuery connector Looker потребує billing project; для no-billing використовується CSV export. Looker chart ще не створено. Browser host недоступний, Safari Computer Use timeout. Firebase API досі 403 попри наявну project Owner role; можливий неприйнятий Firebase Terms, точну причину API не повернув.</p>'
     for filename, title in [
         ('cloudflare-core-check.json', 'Робочий безкоштовний core: реальна перевірка'),
         ('local-ocr.json', 'Заміна Google OCR: Apple Vision, локально'),
@@ -56,6 +63,9 @@ def main():
     body += '<h2>Чотири профілі вартості, USD</h2><p>Модель за ставками завдання; нижня межа, не фактичний рахунок і не результат provider calculators. Детальні припущення та відповіді наведені нижче.</p>' + table(costs)
     answers = (OUT / 'ANSWERS.md').read_text()
     body += '<h2>Відповіді та відтворення</h2><pre>' + html.escape(answers) + '</pre>'
+    browser_steps = OUT / 'BROWSER_FINISH.md'
+    if browser_steps.exists():
+        body += '<h2>Підготовлено для завершення через браузер</h2><pre>' + html.escape(browser_steps.read_text()) + '</pre>'
     document = '<!doctype html><html lang="uk"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Lab 9 — Google Cloud / Peach</title><style>body{font:16px/1.6 system-ui;color:#173047;max-width:1150px;margin:40px auto;padding:0 24px}table{border-collapse:collapse;font-size:12px;display:block;overflow:auto}td,th{padding:8px;border:1px solid #ccd9df;text-align:left}th{background:#e8f1f5}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f1f5f7;padding:20px}svg{width:100%;height:auto}h2{margin-top:40px}</style>' + body + '</html>'
     (OUT / 'Lab9_report.html').write_text(document)
     print('Report generated; 42 BigQuery rows verified; Firestore write/read:', smoke['write_read_equal'])

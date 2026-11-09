@@ -137,3 +137,16 @@ bq --project_id=peach-510910 --location=US load \
 
 For a repeat run, use a new table name (load appends by default), or wait for
 expiry. Set 48h expiration for each new table and keep billing disabled.
+
+## Published and refreshed 2026-11-09
+
+Submission branch: https://github.com/oryavchik/Peach/tree/lab9-free-substitutions .
+The public BigQuery query was rerun successfully as
+`peach_lab9_public_20261109_01`, 42 rows / 3,781,873 processed bytes.
+Table: `lab9_20261107.word_counts_20261109`, 48h expiry.
+Fresh CSV and job/table metadata are in `docs/lab9-evidence/`.
+For Looker use CSV File Upload: the native BigQuery connector requires a
+billing project, so the older direct-connector suggestion does not fit this
+no-billing run. Browser access was retried and remains unavailable; no new
+calculator/Looker/OCR screenshots are claimed. Prepared browser steps and
+calculator workload inputs: `docs/lab9-submit/BROWSER_FINISH.md`.

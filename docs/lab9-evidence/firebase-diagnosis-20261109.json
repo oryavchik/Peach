@@ -1,0 +1,10 @@
+{
+  "date": "2026-11-09",
+  "project": "peach-510910",
+  "current_user_project_roles": [
+    "roles/owner"
+  ],
+  "owner_role_present": true,
+  "firebase_403_possible_cause": "Firebase Terms acceptance may be required; exact cause not returned by API",
+  "source": "https://firebase.google.com/docs/projects/use-firebase-with-existing-cloud-project"
+}

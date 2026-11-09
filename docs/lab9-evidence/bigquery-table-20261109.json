@@ -1,0 +1,41 @@
+{
+  "creationTime": "1794216300492",
+  "etag": "LnzGdrdKVjSMwtiqx4hiGg==",
+  "expirationTime": "1794389100492",
+  "id": "peach-510910:lab9_20261107.word_counts_20261109",
+  "kind": "bigquery#table",
+  "lastModifiedTime": "1794216300492",
+  "location": "US",
+  "numActiveLogicalBytes": "1307",
+  "numBytes": "1307",
+  "numLongTermBytes": "0",
+  "numLongTermLogicalBytes": "0",
+  "numRows": "42",
+  "numTotalLogicalBytes": "1307",
+  "schema": {
+    "fields": [
+      {
+        "mode": "NULLABLE",
+        "name": "corpus",
+        "type": "STRING"
+      },
+      {
+        "mode": "NULLABLE",
+        "name": "total_words",
+        "type": "INTEGER"
+      },
+      {
+        "mode": "NULLABLE",
+        "name": "distinct_words",
+        "type": "INTEGER"
+      }
+    ]
+  },
+  "selfLink": "https://bigquery.googleapis.com/bigquery/v2/projects/peach-510910/datasets/lab9_20261107/tables/word_counts_20261109",
+  "tableReference": {
+    "datasetId": "lab9_20261107",
+    "projectId": "peach-510910",
+    "tableId": "word_counts_20261109"
+  },
+  "type": "TABLE"
+}

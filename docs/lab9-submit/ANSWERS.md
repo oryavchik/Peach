@@ -128,3 +128,13 @@ Firestore не приєднували до Worker через довготрив�
 ### Якість безкоштовної agenda-моделі
 
 Свіжий запит повернув HTTP 200 та cost_usd=0, але `10:00 Kyiv time` для 19 жовтня 2026 модель перетворила на `10:00+00:00`. За zoneinfo Europe/Kyiv правильний offset цієї дати +03:00 (07:00 UTC). Отже структурна валідація JSON успішна, семантика часу — ні. Це демонструє потребу перевірки людиною; відповідь не зберігали до зустрічі. Не заявляємо повної точності чи еквівалентної якості Vertex/Gemini.
+
+## Оновлення 2026-11-09
+
+Код опубліковано: https://github.com/oryavchik/Peach/tree/lab9-free-substitutions . Terraform/ADR commit: https://github.com/oryavchik/Peach/commit/41fa5a17 .
+
+BigQuery public query повторно успішно виконано: job peach_lab9_public_20261109_01, 42 рядки, 3 781 873 bytes processed. Таблиця word_counts_20261109 expires 2026-11-11T11:25:00.492000+02:00. Свіжий CSV збережено.
+
+Виправлення попередньої поради: native BigQuery connector у Looker Studio вимагає billing project за офіційною документацією. Без billing використовувати File Upload з CSV результату або Google Sheets. Джерело: https://docs.cloud.google.com/data-studio/connect-to-google-bigquery .
+
+Firebase знову 403; project Owner role підтверджено. Неприйняті Firebase Terms — можлива причина, а не доведений діагноз. Браузер повторно недоступний, тому calculator exports, screenshots, Looker та public OCR не виконані. Підготовлено BROWSER_FINISH.md із даними для завершення.
